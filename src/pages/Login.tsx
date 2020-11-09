@@ -42,6 +42,7 @@ const RightCard = styled.div`
 export default () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
+  const [wrong] = useState(false);
 
   return (
     <Container>
@@ -49,12 +50,14 @@ export default () => {
         <LeftCard>L&FM</LeftCard>
         <RightCard>
           <Input
+            error={wrong}
             value={id}
             onChange={(e) => setId(e.target.value)}
             width="long"
             placeholder="디미고 아이디"
           />
           <Input
+            error={wrong}
             value={pw}
             onChange={(e) => setPw(e.target.value)}
             width="long"

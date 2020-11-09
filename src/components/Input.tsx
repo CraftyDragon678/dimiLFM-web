@@ -6,6 +6,7 @@ type TInputSize = 'short' | 'medium' | 'long' | number;
 
 interface IInput {
   width?: TInputSize;
+  error?: boolean;
 }
 
 const getWidth = (size?: TInputSize) => (
@@ -31,4 +32,5 @@ export default styled.input<IInput>`
   ${inputStyle}
 
   width: ${({ width }) => getWidth(width)};
+  border-color: ${({ error }) => error && variables.error};
 `;
