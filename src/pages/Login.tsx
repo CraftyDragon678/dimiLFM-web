@@ -55,6 +55,7 @@ export default () => {
             onChange={(e) => setId(e.target.value)}
             width="long"
             placeholder="디미고 아이디"
+            required
           />
           <Input
             error={wrong}
@@ -63,6 +64,7 @@ export default () => {
             width="long"
             placeholder="비밀번호"
             type="password"
+            required
           />
           <Button size="long">로그인</Button>
         </RightCard>
