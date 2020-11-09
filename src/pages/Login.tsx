@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import api from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
 
@@ -44,6 +45,15 @@ export default () => {
   const [pw, setPw] = useState("");
   const [wrong] = useState(false);
 
+  const login = async () => {
+    const { data, status } = await api.post("/auth/login", { id, password: pw });
+    if (status !== 200) {
+      console.error(data.message);
+      return;
+    }
+    console.log(data);
+  };
+
   return (
     <Container>
       <Card>
@@ -64,9 +74,10 @@ export default () => {
             width="long"
             placeholder="비밀번호"
             type="password"
+            onKeyPress={(e) => e.key === 'Enter' && login()}
             required
           />
-          <Button size="long">로그인</Button>
+          <Button size="long" onClick={login}>로그인</Button>
         </RightCard>
       </Card>
     </Container>
