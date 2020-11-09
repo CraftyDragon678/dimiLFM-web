@@ -34,6 +34,10 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-use-before-define': 'off',
     'no-nested-ternary': 'off',
+    "import/no-extraneous-dependencies": [
+      'error',
+      { devDependencies: ['**/*.stories.tsx'] },
+    ],
   },
   settings: {
     'import/resolver': {
