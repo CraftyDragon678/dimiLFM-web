@@ -1,21 +1,31 @@
-import React from 'react'
 import css from '@emotion/css';
-import variables from "../scss/_variables.scss";
+import styled from '@emotion/styled';
+import variables from '../styles/variables';
 
-const style = {
-  btn: css`
-    height: 35px;
-    padding: 0 20px;
-    border: 0;
-    background: ${variables.yellow};
-  `,
+type TButtonSize = 'short' | 'medium' | 'long' | number;
+
+interface IButton {
+  size?: TButtonSize;
 }
 
-export const Button: React.FC = ({ children }) => {
-  console.log(style.btn);
-  return (
-    <button css={style.btn}>
-      {children}
-    </button>
-  )
-}
+const getWidth = (size?: TButtonSize) => (
+  !size || size === "medium" ? "100px"
+    : size === "long" ? "140px"
+      : size === "short" ? "70px"
+        : `${size}px`
+);
+
+const buttonStyle = css`
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  background-color: ${variables.blue};
+  color: white;
+`;
+
+export default styled.button<IButton>`
+  ${buttonStyle}
+
+  width: ${({ size }) => getWidth(size)};
+`;

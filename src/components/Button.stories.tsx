@@ -1,6 +1,5 @@
 import React from "react";
-import { text } from "@storybook/addon-knobs";
-import { action } from "@storybook/addon-actions";
+import { text, select } from "@storybook/addon-knobs";
 import Button from "./Button";
 
 export default {
@@ -8,15 +7,8 @@ export default {
   component: Button,
 };
 
-export const Text = () => {
+export const Simple = () => {
   const content = text("content", "button!");
-  return <Button>{content}</Button>;
+  const size = select("size", ["short", "medium", "long"], "medium");
+  return <Button size={size}>{content}</Button>;
 };
-
-export const Emoji = () => (
-  <Button onClick={action("clicked")}>
-    <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
-    </span>
-  </Button>
-);
