@@ -20,6 +20,7 @@ const buttonStyle = css`
   border: none;
   border-radius: 4px;
   padding: 0;
+  font-size: 18px;
   background-color: ${variables.blue};
   color: white;
 `;
