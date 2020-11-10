@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import api from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -43,15 +44,18 @@ const RightCard = styled.div`
 export default () => {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [wrong] = useState(false);
+  const [wrong, setWrong] = useState(false);
+  const history = useHistory();
 
   const login = async () => {
-    const { data, status } = await api.post("/auth/login", { id, password: pw });
+    setWrong(false);
+    const { status } = await api.post("/auth/login", { id, password: pw });
+    setPw("");
     if (status !== 200) {
-      console.error(data.message);
+      setWrong(true);
       return;
     }
-    console.log(data);
+    history.push("/");
   };
 
   return (
@@ -77,6 +81,7 @@ export default () => {
             onKeyPress={(e) => e.key === 'Enter' && login()}
             required
           />
+          { wrong && <div>가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>}
           <Button size="long" onClick={login}>로그인</Button>
         </RightCard>
       </Card>
