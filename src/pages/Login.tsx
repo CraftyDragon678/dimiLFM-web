@@ -17,16 +17,17 @@ const Card = styled.div`
   border-radius: 25px;
   background-color: white;
   display: flex;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
 `;
 
 const LeftCard = styled.div`
-  flex: 0 0 400px;
+  flex: 0 0 300px;
   border-radius: 25px 0 0px 25px;
   background: linear-gradient(to bottom, #ffceee 0%, #76a2e9 70%, #738de9 100%);
   display: grid;
   place-items: center;
   color: white;
-  font-size: 100px;
+  font-size: 80px;
   font-style: italic;
 `;
 
