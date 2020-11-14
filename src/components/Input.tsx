@@ -22,10 +22,9 @@ const inputStyle = css`
   border-radius: 8px;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: ${variables.gray};
   box-sizing: border-box;
   ::placeholder {
-    color: ${variables.darkgray};
+    color: ${variables.gray};
   }
 `;
 
