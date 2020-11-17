@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import api from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import variables from '../styles/variables';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -23,7 +24,7 @@ const Card = styled.div`
 const LeftCard = styled.div`
   flex: 0 0 300px;
   border-radius: 25px 0 0px 25px;
-  background: linear-gradient(to bottom, #ffceee 0%, #76a2e9 70%, #738de9 100%);
+  background: ${variables.gradient('to bottom')};
   display: grid;
   place-items: center;
   color: white;

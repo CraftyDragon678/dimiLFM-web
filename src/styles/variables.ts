@@ -8,4 +8,5 @@ export default {
   error: "#ff3939",
   logoColor: "#7392E9",
   pink: "#ffceee",
+  gradient: (direction: string) => `linear-gradient(${direction}, #eec8ed 0%, #aaabeb 50%, #7393e9 100%)`,
 };
