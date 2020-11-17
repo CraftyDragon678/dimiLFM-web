@@ -52,7 +52,7 @@ export default () => {
     setWrong(false);
     const { status } = await api.post("/auth/login", { id, password: pw });
     setPw("");
-    if (status !== 200) {
+    if (status !== 204) {
       setWrong(true);
       return;
     }
