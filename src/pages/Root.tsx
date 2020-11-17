@@ -8,6 +8,7 @@ import Options from '../components/Options';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
+import { Link } from 'react-router-dom';
 
 const Header = styled.div`
   height: 100px;
@@ -40,14 +41,24 @@ const Icon = styled.img`
 `;
 
 const WriteBoardWrapper = styled.div`
-  width: 200px;
+  position: absolute;
+  right: 100px;
+  bottom: 130px;
+  width: 180px;
   padding: 16px;
   background-color: white;
+  font-size: 20px;
 
   border: 1px solid ${variables.lightGray};
   border-radius: 8px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
   display: grid;
+  grid-row-gap: 12px;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 export default () => {
@@ -55,9 +66,9 @@ export default () => {
 
   const WriteBoard = () => (
     <WriteBoardWrapper>
-      <div>분실물 찾아가세요</div>
-      <div>분실물 찾아주세요</div>
-      <div>판매합니다</div>
+      <Link to="/write/find">분실물 찾아가세요</Link>
+      <Link to="/write/lost">분실물 찾아주세요</Link>
+      <Link to="/write/market">판매합니다</Link>
     </WriteBoardWrapper>
   );
 
