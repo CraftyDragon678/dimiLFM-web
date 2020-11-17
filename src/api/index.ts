@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from '../router/history';
 
 const api = axios.create({
   baseURL: "https://cragon.kro.kr:8080",
@@ -14,7 +15,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (error) => {
-    if (error.response.status === 401) return error.response;
+    if (error.response.status === 401) {
+      if (history.location.pathname !== '/login') {
+        history.push('/login');
+      }
+      return error.response;
+    }
     return error;
   },
 );
