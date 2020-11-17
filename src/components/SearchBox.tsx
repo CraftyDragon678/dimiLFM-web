@@ -23,6 +23,12 @@ const Input = styled.input`
   align-items: center;
   justify-content: center;
 
+  outline: none;
+
+  :focus {
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, .2);
+  }
+
   ::placeholder {
     text-align: center;
     color: ${variables.gray};
