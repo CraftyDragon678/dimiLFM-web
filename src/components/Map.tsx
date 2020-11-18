@@ -26,7 +26,7 @@ const Svg = styled.svg<MapProps>`
   }
 `;
 
-const genMap = (map: MapData, enable: boolean) => (
+const genMap = (map: MapData) => ({ enable }: MapProps) => (
   <Svg version="1.1" width={map.data.width} height={map.data.height} enable={enable}>
     {Object.entries(map.map).map((e) => (
       {...e[1], props: {...e[1].props, id: e[0]}}
@@ -35,7 +35,7 @@ const genMap = (map: MapData, enable: boolean) => (
 );
 
 export const Bon = () => {
-  const SecondFloor: React.FC<MapProps> = ({ enable }) => genMap(secondFloor, enable);
+  const SecondFloor: React.FC<MapProps> = genMap(secondFloor);
   
   return (
     <div>
