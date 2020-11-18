@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import variables from '../styles/variables';
 import Gallery from '../components/Gallery';
-import ToggleButton from '../components/ToggleButton';
 import Options from '../components/Options';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
