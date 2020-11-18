@@ -1,15 +1,5 @@
 import React from 'react';
-
-export interface MapData {
-  data: {
-    prefix: string;
-    width: number;
-    height: number;
-  },
-  map: {
-    [key: string]: JSX.Element,
-  },
-};
+import { MapData } from '.';
 
 export const secondFloor: MapData = {
   data: {

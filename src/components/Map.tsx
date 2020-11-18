@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import ReactTooltip from 'react-tooltip';
-import css from '@emotion/css';
-import { MapData, secondFloor } from '../data/map/bon';
+import { MapData } from '../data/map';
+import { secondFloor } from '../data/map/bon';
 
 interface MapProps {
   enable: boolean;
