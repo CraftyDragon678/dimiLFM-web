@@ -8,6 +8,7 @@ import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
 import { Link } from 'react-router-dom';
+import { Bon as Map } from '../components/Map';
 
 const FloatWrapper = styled.div`
   position: fixed;
@@ -67,6 +68,7 @@ export default () => {
         </Fab>
       </FloatWrapper>
       <Gallery />
+      <Map />
     </div>
   );
 };
