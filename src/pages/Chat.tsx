@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../api';
 
 export default () => {
   const ws = useRef<WebSocket>();
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState<string[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -14,6 +16,10 @@ export default () => {
       ws.current = new WebSocket(
         `wss://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/socket?oid=${data.oid}&token=${encodeURIComponent(data.token)}`
       );
+
+      ws.current.addEventListener('message', (ev) => {
+        setMessages((prev) => [...prev, ev.data]);
+      })
     })();
 
     return () => {
@@ -22,13 +28,23 @@ export default () => {
   }, []);
 
   const sendMessage = () => {
-    ws.current?.send("I'm like tt");
+    if (message) {
+      ws.current?.send(message);
+      setMessage('');
+    }
   }
 
   return (
     <div>
-      <input onKeyUp={(e) => e.key === 'Enter'}></input>
+      <input onKeyUp={(e) => e.key === 'Enter' && sendMessage()} value={message} onChange={(e) => setMessage(e.target.value)} />
       <button onClick={sendMessage} />
+
+      <div>
+        <div>messages:</div>
+        {messages.map((e) => (
+          <div>{e}</div>
+        ))}
+      </div>
     </div>
   );
 };
