@@ -11,6 +11,8 @@ const Header = styled.div`
   justify-content: center;
 
   background-color: white;
+  position: sticky;
+  top: 0;
 `;
 
 const Logo = styled.div`
