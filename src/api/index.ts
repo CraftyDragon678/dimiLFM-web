@@ -2,7 +2,7 @@ import axios from 'axios';
 import history from '../router/history';
 
 const api = axios.create({
-  baseURL: "https://172.19.3.24:8080",
+  baseURL: `https://${process.env.API_HOST}:${process.env.API_PORT}`,
   withCredentials: true,
 });
 

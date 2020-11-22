@@ -11,7 +11,7 @@ export default () => {
         return;
       }
 
-      ws.current = new WebSocket('wss://cragon.kro.kr:8080/socket');
+      ws.current = new WebSocket(`wss://${process.env.API_HOST}:${process.env.API_PORT}/socket`);
     })();
   }, []);
 
