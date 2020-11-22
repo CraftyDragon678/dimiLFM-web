@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import variables from '../styles/variables';
 import Gallery from '../components/Gallery';
-import Options from '../components/Options';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
@@ -60,14 +59,15 @@ export default () => {
 
   return (
     <div>
-      {/* <Options /> */}
       <FloatWrapper>
         {showWriteBoard && <WriteBoard />}
         <Fab onClick={() => setShowWriteBoard(!showWriteBoard)}>
           <Icon src={newSvg} />
         </Fab>
         <Fab>
-          <Icon src={chatSvg} />
+          <Link to="/chat">
+            <Icon src={chatSvg} />
+          </Link>
         </Fab>
       </FloatWrapper>
       <BodyContainer>
