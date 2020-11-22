@@ -8,7 +8,7 @@ export default () => {
 
   useEffect(() => {
     (async () => {
-      const { status, data } = await api.get('/auth/chat');
+      const { status, data } = await api.get('/auth/socket');
       if (status === 401) {
         return;
       }
