@@ -42,10 +42,6 @@ const WriteBoardWrapper = styled.div`
   }
 `;
 
-const BodyContainer = styled.div`
-  margin: 0 450px;
-`;
-
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
 
@@ -70,9 +66,7 @@ export default () => {
           </Link>
         </Fab>
       </FloatWrapper>
-      <BodyContainer>
-        <Gallery />
-      </BodyContainer>
+      <Gallery />
       <Map />
     </div>
   );
