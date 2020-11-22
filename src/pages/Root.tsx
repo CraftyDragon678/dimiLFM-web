@@ -43,6 +43,10 @@ const WriteBoardWrapper = styled.div`
   }
 `;
 
+const BodyContainer = styled.div`
+  margin: 0 450px;
+`;
+
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
 
@@ -56,7 +60,7 @@ export default () => {
 
   return (
     <div>
-      <Options />
+      {/* <Options /> */}
       <FloatWrapper>
         {showWriteBoard && <WriteBoard />}
         <Fab onClick={() => setShowWriteBoard(!showWriteBoard)}>
@@ -66,7 +70,9 @@ export default () => {
           <Icon src={chatSvg} />
         </Fab>
       </FloatWrapper>
-      <Gallery />
+      <BodyContainer>
+        <Gallery />
+      </BodyContainer>
       <Map />
     </div>
   );
