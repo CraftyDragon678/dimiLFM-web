@@ -8,6 +8,11 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: #eb3e2f;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
 `;
 
 const BigText = styled.div`
