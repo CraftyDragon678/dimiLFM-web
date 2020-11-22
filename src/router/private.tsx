@@ -5,7 +5,7 @@ import { Root, Chat, NotFound, WriteFound } from "../pages";
 import Header from "../components/Header";
 
 const BodyContainer = styled.div`
-  margin: 0 450px;
+  margin: 16px 450px;
 `;
 
 const Private = () => (
