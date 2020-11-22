@@ -47,7 +47,7 @@ export default () => {
 
   const WriteBoard = () => (
     <WriteBoardWrapper>
-      <Link to="/write/find">분실물 찾아가세요</Link>
+      <Link to="/write/found">분실물 찾아가세요</Link>
       <Link to="/write/lost">분실물 찾아주세요</Link>
       <Link to="/write/market">판매합니다</Link>
     </WriteBoardWrapper>
