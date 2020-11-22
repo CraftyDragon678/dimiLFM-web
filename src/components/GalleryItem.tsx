@@ -9,7 +9,6 @@ interface IGalleryItem {
 }
 
 const Container = styled.div`
-  width: 300px;
   height: 400px;
 `;
 

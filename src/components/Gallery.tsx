@@ -5,13 +5,16 @@ import GalleryItem from './GalleryItem';
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  background-color: white;
+  padding: 16px 0;
 `;
 
 export default () => (
   <Grid>
     {[...Array(20)].map(() => (
       <GalleryItem
-        image="https://via.placeholder.com/150"
+        image="https://via.placeholder.com/200"
         title="집가고싶다"
         author="리보솜"
       />
