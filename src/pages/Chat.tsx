@@ -15,6 +15,10 @@ export default () => {
         `wss://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/socket?oid=${data.oid}&token=${encodeURIComponent(data.token)}`
       );
     })();
+
+    return () => {
+      ws.current?.close();
+    }
   }, []);
 
   const sendMessage = () => {
