@@ -6,6 +6,8 @@ import Header from "../components/Header";
 
 const BodyContainer = styled.div`
   margin: 16px 450px;
+  flex: 1;
+  display: flex;
 `;
 
 const Private = () => (
