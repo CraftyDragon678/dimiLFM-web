@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import variables from '../styles/variables';
 import SearchBox from '../components/SearchBox';
 
@@ -24,7 +25,7 @@ const Logo = styled.div`
 
 export default () => (
   <Header>
-    <Logo>L&FM</Logo>
+    <Link to="/"><Logo>L&FM</Logo></Link>
     <SearchBox />
   </Header>
 );
