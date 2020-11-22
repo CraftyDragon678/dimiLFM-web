@@ -2,7 +2,7 @@ import axios from 'axios';
 import history from '../router/history';
 
 const api = axios.create({
-  baseURL: "https://cragon.kro.kr:8080",
+  baseURL: "https://172.19.3.24:8080",
   withCredentials: true,
 });
 
