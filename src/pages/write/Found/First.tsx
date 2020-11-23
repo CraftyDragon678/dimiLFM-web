@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import DatetimeRangePicker from '../../../components/DatetimeRangePicker';
 import { SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
+import { Bon as Map } from '../../../components/Map';
 
 export interface FirstProps {
   foundDate: Date;
@@ -10,7 +11,7 @@ export interface FirstProps {
 }
 
 const Divider = styled.div`
-  height: 50px;
+  height: 30px;
 `;
 
 const First: React.FC<WriteProps<FirstProps>> = ({ verify, data }) => (
@@ -19,6 +20,7 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data }) => (
     <DatetimeRangePicker />
     <Divider />
     <SubTitle>발견 장소</SubTitle>
+    <Map />
   </>
 );
 
