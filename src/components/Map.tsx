@@ -28,8 +28,15 @@ const Svg = styled.svg<MapProps>`
 
 const genMap = (map: MapData) => ({ enable }: MapProps) => (
   <Svg version="1.1" width={map.data.width} height={map.data.height} enable={enable}>
-    {Object.entries(map.map).map((e) => (
-      { ...e[1], props: { ...e[1].props, id: `${map.data.prefix}-${e[0]}` }, key: e[0] }
+    {Object.entries(map.map).map(([name, Element]) => (
+      {
+        ...Element,
+        props: {
+          ...Element.props,
+          id: `${map.data.prefix}-${name}`,
+        },
+        key: name,
+      }
     ))}
   </Svg>
 );
