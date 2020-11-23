@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import GalleryItem from './GalleryItem';
 
 const Grid = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   place-items: center;

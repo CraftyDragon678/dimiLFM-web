@@ -53,7 +53,7 @@ export default () => {
   );
 
   return (
-    <div>
+    <>
       <FloatWrapper>
         {showWriteBoard && <WriteBoard />}
         <Fab onClick={() => setShowWriteBoard(!showWriteBoard)}>
@@ -66,6 +66,6 @@ export default () => {
         </Fab>
       </FloatWrapper>
       <Gallery />
-    </div>
+    </>
   );
 };
