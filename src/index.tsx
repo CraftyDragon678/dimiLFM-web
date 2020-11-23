@@ -5,6 +5,7 @@ import App from './App';
 
 import './styles/reset.css';
 import './styles/index.css';
+import './styles/Calendar.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
