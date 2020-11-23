@@ -16,6 +16,8 @@ const Container = styled.div`
   left: 0;
   top: 0;
   width: 100vw;
+
+  z-index: 20;
 `;
 
 const BigText = styled.div`
