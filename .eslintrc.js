@@ -16,7 +16,10 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+  ],
   rules: {
     'import/extensions': [
       'error',
@@ -42,6 +45,7 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: ['.ts', '.tsx'],
+        paths: ['.'],
       },
     },
   },
