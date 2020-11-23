@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { boolean } from '@storybook/addon-knobs';
 import React from 'react';
 import variables from '../styles/variables';
 
