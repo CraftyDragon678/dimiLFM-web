@@ -39,7 +39,9 @@ const ToggleButton: React.FC<IToggleButton> = ({ onToggle }) => {
       enable={enabled}
       onClick={() => {
         setEnabled(!enabled);
-        onToggle && onToggle(!enabled);
+        if (onToggle) {
+          onToggle(!enabled);
+        }
       }}
     >
       <Circle enable={enabled} />

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface MapData {
   data: {
     prefix: string;
@@ -5,6 +7,6 @@ export interface MapData {
     height: number;
   },
   map: {
-    [key: string]: JSX.Element,
+    [key: string]: React.ReactElement,
   },
 }
