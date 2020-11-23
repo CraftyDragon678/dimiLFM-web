@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapData } from '.';
 
-export const firstFloor: MapData = {
+const firstFloor: MapData = {
   data: {
     prefix: 'bon1',
     width: 491.7,
@@ -35,11 +35,10 @@ export const firstFloor: MapData = {
     // "other0": <path d="M183.5,166.3l-17.1,17.1l0,0v49.8c15.5-5.7,29.4-14.7,40.8-26.2c11.5-11.4,20.5-25.3,26.2-40.8L183.5,166.3z" data-ignore />,
     other1: <path d="M491.7,35.5c0-19.6-15.9-35.5-35.5-35.5h-33.5v70h0.3h33.2v0.9C475.8,70.9,491.7,55,491.7,35.5z" data-ignore />,
     other2: <path d="M70,423v-0.3H0v33.5c0,19.6,15.9,35.5,35.5,35.5c19.6,0,35.5-15.9,35.5-35.5H70V423z" data-ignore />,
-    other3: <ellipse transform="matrix(0.3827 -0.9239 0.9239 0.3827 -38.8814 195.47)" cx="126.8" cy="126.8" rx="35.5" data-ignore />,
   },
 };
 
-export const secondFloor: MapData = {
+const secondFloor: MapData = {
   data: {
     prefix: 'bon2',
     width: 491.7,
@@ -76,3 +75,8 @@ export const secondFloor: MapData = {
     other3: <ellipse transform="matrix(0.3827 -0.9239 0.9239 0.3827 -38.8814 195.47)" cx="126.8" cy="126.8" rx="35.5" data-ignore />,
   },
 };
+
+export default [
+  firstFloor,
+  secondFloor,
+];
