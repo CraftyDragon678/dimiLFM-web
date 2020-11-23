@@ -9,9 +9,9 @@ interface IButton {
 }
 
 const getWidth = (size?: TButtonSize) => (
-  !size || size === "medium" ? "140px"
-    : size === "long" ? "260px"
-      : size === "short" ? "70px"
+  !size || size === 'medium' ? '140px'
+    : size === 'long' ? '260px'
+      : size === 'short' ? '70px'
         : `${size}px`
 );
 

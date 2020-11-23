@@ -14,17 +14,17 @@ export default () => {
       }
 
       ws.current = new WebSocket(
-        `wss://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/socket?oid=${data.oid}&token=${encodeURIComponent(data.token)}`
+        `wss://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/socket?oid=${data.oid}&token=${encodeURIComponent(data.token)}`,
       );
 
       ws.current.addEventListener('message', (ev) => {
         setMessages((prev) => [...prev, ev.data]);
-      })
+      });
     })();
 
     return () => {
       ws.current?.close();
-    }
+    };
   }, []);
 
   const sendMessage = () => {
@@ -32,7 +32,7 @@ export default () => {
       ws.current?.send(message);
       setMessage('');
     }
-  }
+  };
 
   return (
     <div>

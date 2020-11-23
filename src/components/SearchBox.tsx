@@ -42,7 +42,7 @@ const SearchButton = styled.img`
 `;
 
 export default () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
   return (
     <Container>

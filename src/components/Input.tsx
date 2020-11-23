@@ -10,9 +10,9 @@ interface IInput {
 }
 
 const getWidth = (size?: TInputSize) => (
-  !size || size === "medium" ? "140px"
-    : size === "long" ? "260px"
-      : size === "short" ? "70px"
+  !size || size === 'medium' ? '140px'
+    : size === 'long' ? '260px'
+      : size === 'short' ? '70px'
         : `${size}px`
 );
 

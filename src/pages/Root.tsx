@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import variables from '../styles/variables';
 import Gallery from '../components/Gallery';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
-import { Link } from 'react-router-dom';
 import { Bon as Map } from '../components/Map';
 
 const FloatWrapper = styled.div`

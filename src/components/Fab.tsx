@@ -17,12 +17,10 @@ interface IFab {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const Fab: React.FC<IFab> = ({ children, onClick }) => {
-  return (
-    <Button onClick={(e) => onClick && onClick(e)}>
-      {children}
-    </Button>
-  );
-};
+const Fab: React.FC<IFab> = ({ children, onClick }) => (
+  <Button onClick={(e) => onClick && onClick(e)}>
+    {children}
+  </Button>
+);
 
 export default Fab;

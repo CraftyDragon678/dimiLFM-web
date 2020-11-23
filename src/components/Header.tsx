@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import variables from '../styles/variables';
-import SearchBox from '../components/SearchBox';
+import SearchBox from './SearchBox';
 import logo from '../assets/logo.svg';
 
 const Header = styled.div`

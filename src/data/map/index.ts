@@ -7,4 +7,4 @@ export interface MapData {
   map: {
     [key: string]: JSX.Element,
   },
-};
+}

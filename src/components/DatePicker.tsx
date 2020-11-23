@@ -43,9 +43,9 @@ const CalendarDate = styled.div<{today: boolean, currentMonth: boolean}>`
   line-height: 28px;
   text-align: center;
 
-  border: ${({ today }) => today && "2px solid red"};
-  border-radius: ${({ today }) => today && "100%"};
-  color: ${({ currentMonth }) => currentMonth ? "black" : variables.lightGray};
+  border: ${({ today }) => today && '2px solid red'};
+  border-radius: ${({ today }) => today && '100%'};
+  color: ${({ currentMonth }) => (currentMonth ? 'black' : variables.lightGray)};
 `;
 
 const ChangeButton = styled.button`
@@ -63,8 +63,8 @@ const DatePicker: React.FC = () => {
         <Title>2020년 11월</Title>
         <Divider />
         <CalendarDates>
-          {"일월화수목금토".split("").map((day) => (<CalendarDay key={day}>{day}</CalendarDay>))}
-          {[...Array(42)].map((_, date) => (<CalendarDate today={false} currentMonth={date<31}>{date+1}</CalendarDate>))}
+          {'일월화수목금토'.split('').map((day) => (<CalendarDay key={day}>{day}</CalendarDay>))}
+          {[...Array(42)].map((_, date) => (<CalendarDate today={false} currentMonth={date < 31}>{date + 1}</CalendarDate>))}
         </CalendarDates>
       </Calendar>
       <ChangeButton>&#xE001;</ChangeButton>

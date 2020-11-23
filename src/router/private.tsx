@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
 import styled from '@emotion/styled';
-import { Route, Switch } from "react-router";
-import { Root, Chat, NotFound, WriteFound } from "../pages";
-import Header from "../components/Header";
+import { Route, Switch } from 'react-router';
+import {
+  Root, Chat, NotFound, WriteFound,
+} from '../pages';
+import Header from '../components/Header';
 
 const BodyContainer = styled.div`
   margin: 16px 450px;
@@ -11,7 +13,7 @@ const BodyContainer = styled.div`
 `;
 
 const Private = () => (
-  <> 
+  <>
     <Header />
     <BodyContainer>
       <Switch>

@@ -44,20 +44,20 @@ const RightCard = styled.div`
 `;
 
 export default () => {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
   const [wrong, setWrong] = useState(false);
   const history = useHistory();
 
   const login = async () => {
     setWrong(false);
-    const { status } = await api.post("/auth/login", { id, password: pw });
-    setPw("");
+    const { status } = await api.post('/auth/login', { id, password: pw });
+    setPw('');
     if (status !== 204) {
       setWrong(true);
       return;
     }
-    history.push("/");
+    history.push('/');
   };
 
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 import Router from './router';
 
-import "./styles/reset.css";
-import "./styles/index.css";
+import './styles/reset.css';
+import './styles/index.css';
 import styled from '@emotion/styled';
 
 const Wrapper = styled.div`

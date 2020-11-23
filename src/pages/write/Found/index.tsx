@@ -43,11 +43,11 @@ export default () => {
       first: {
         foundDate: new Date(),
         foundLocation: 'my home...',
-      }
-    }
+      },
+    },
   });
   const [valid, setValid] = useState(false);
-  
+
   return (
     <Wrapper>
       <Upper>분실물 찾아가세요</Upper>
