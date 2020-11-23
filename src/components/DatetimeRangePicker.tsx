@@ -4,6 +4,7 @@ import ReactCalendar from 'react-calendar';
 import dayjs from 'dayjs';
 import css from '@emotion/css';
 import variables from '../styles/variables';
+import time from '../data/time';
 
 const Wrapper = styled.div`
   margin: 16px;
@@ -49,6 +50,7 @@ export default () => {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [range, setRange] = useState<Date | Date[]>(new Date());
   const [shift, setShift] = useState(false);
+  const [timeIndex, setTimeindex] = useState(0);
 
   useEffect(() => {
     const shiftHandler = (direction: 'down' | 'up') => () => {
@@ -86,14 +88,11 @@ export default () => {
         )}
       </div>
       <div>
-        <TimeButton>test</TimeButton>
-        <Select>
-          <option>A</option>
-          <option>A</option>
-          <option>A</option>
-          <option>A</option>
-          <option>A</option>
-          <option>A</option>
+        <TimeButton>{time[timeIndex]}</TimeButton>
+        <Select onChange={(e) => setTimeindex(+e.target.value)}>
+          {time.map((e, idx) => (
+            <option key={e} value={idx}>{e}</option>
+          ))}
         </Select>
       </div>
     </Wrapper>
