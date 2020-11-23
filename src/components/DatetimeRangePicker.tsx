@@ -41,8 +41,8 @@ const TimeButton = styled.label`
 const Select = styled.select`
   width: 300px;
   height: 30px;
-  position: relative;
-  top: -30px;
+  position: absolute;
+  transform: translateY(-30px);
   opacity: 0;
 `;
 
@@ -87,14 +87,16 @@ export default () => {
           />
         )}
       </div>
-      <div>
-        <TimeButton>{time[timeIndex]}</TimeButton>
-        <Select onChange={(e) => setTimeindex(+e.target.value)}>
-          {time.map((e, idx) => (
-            <option key={e} value={idx}>{e}</option>
-          ))}
-        </Select>
-      </div>
+      {Array.isArray(range) || (
+        <div>
+          <TimeButton>{time[timeIndex]}</TimeButton>
+          <Select onChange={(e) => setTimeindex(+e.target.value)}>
+            {time.map((e, idx) => (
+              <option key={e} value={idx}>{e}</option>
+            ))}
+          </Select>
+        </div>
+      )}
     </Wrapper>
   );
 };
