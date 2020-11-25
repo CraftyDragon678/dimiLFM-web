@@ -10,7 +10,7 @@ const Button = styled.button`
   border-radius: 40px;
   cursor: pointer;
 
-  background: ${variables.gradient('to bottom')};
+  background: ${variables.logoColor};
 `;
 
 interface IFab {
