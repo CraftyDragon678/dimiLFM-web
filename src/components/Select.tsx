@@ -2,6 +2,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 import variables from '../styles/variables';
 
+const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Label = styled.label`
   width: 300px;
   height: 30px;
@@ -18,7 +24,6 @@ const SelectElement = styled.select`
   width: 300px;
   height: 30px;
   position: absolute;
-  transform: translateY(-30px);
   opacity: 0;
 `;
 
@@ -30,14 +35,14 @@ interface SelectProps {
 
 const Select: React.FC<SelectProps> = ({ options, index, onChange }) => {
   return (
-    <div>
+    <Container>
       <Label>{options[index]}</Label>
-      <SelectElement onChange={(e) => onChange(+e.target.value)}>
+      <SelectElement value={index} onChange={(e) => onChange(+e.target.value)}>
         {options.map((e, idx) => (
           <option key={e} value={idx}>{e}</option>
         ))}
       </SelectElement>
-    </div>
+    </Container>
   );
 };
 
