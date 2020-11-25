@@ -5,6 +5,7 @@ import { MapData } from '../data/map';
 import bonData from '../data/map/bon';
 import variables from '../styles/variables';
 import Button from './Button';
+import Select from './Select';
 
 interface MapProps {
   enable: boolean;
@@ -13,7 +14,8 @@ interface MapProps {
 const Svg = styled.svg<MapProps>`
   transition: .5s transform ease, .5s opacity ease, 1s visibility ease;
   height: 400px;
-  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(250px, -100px, 0) rotate3d(3, -1, 1, 30deg)'};
+  transform: perspective(500px);
+  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(250px, -100px, 0) rotate3d(1, -1, 1, 30deg)'};
   opacity: ${({ enable }) => enable || 0};
   visibility: ${({ enable }) => enable || 'hidden'};
   position: absolute;
@@ -51,7 +53,8 @@ const genMap = (map: MapData) => ({ enable }: MapProps) => (
 const genMaps = (maps: MapData[]) => maps.map((map) => genMap(map));
 
 const MapItem = styled.div`
-  display: relative;
+  display: grid;
+  grid-row-gap: 10px;
 `;
 
 const Floor = styled(Button)`
@@ -62,6 +65,7 @@ const Container = styled.div`
   width: 800px;
   height: 500px;
   margin: 16px;
+  padding: 16px;
   border: 1px solid ${variables.borderColor};
   border-radius: 16px;
 `;
@@ -72,11 +76,12 @@ const Map: React.FC<{maps: MapData[]}> = ({ maps }) => {
 
   return (
     <Container>
-      {mapsFC.map((MapFC, idx) => (
-        <MapItem key={maps[idx].data.prefix}>
-          <Floor onClick={() => setFloor(idx)}>{`${idx + 1}층`}</Floor>
-        </MapItem>
-      ))}
+      <Select options={['본관', '신관', '학봉관', '우정학사']} index={0} onChange={() => {}} />
+      <MapItem>
+        {mapsFC.map((MapFC, idx) => (
+          <Floor key={maps[idx].data.prefix} onClick={() => setFloor(idx)}>{`${idx + 1}층`}</Floor>
+        ))}
+      </MapItem>
       {mapsFC.map((MapFC, idx) => (
         <MapFC key={maps[idx].data.prefix} enable={idx === floor} />
       ))}
