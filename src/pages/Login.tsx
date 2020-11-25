@@ -5,6 +5,7 @@ import api from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import variables from '../styles/variables';
+import logo from '../assets/logo-white.svg';
 
 const Container = styled.div`
   min-height: 100vh;
@@ -22,7 +23,7 @@ const Card = styled.div`
 `;
 
 const LeftCard = styled.div`
-  flex: 0 0 300px;
+  flex: 0 0 350px;
   border-radius: 25px 0 0px 25px;
   background: ${variables.gradient('to bottom')};
   display: grid;
@@ -41,6 +42,10 @@ const RightCard = styled.div`
   ${Button} {
     margin-top: 20px;
   }
+`;
+
+const Logo = styled.img`
+  width: 250px;
 `;
 
 export default () => {
@@ -63,7 +68,7 @@ export default () => {
   return (
     <Container>
       <Card>
-        <LeftCard>L&FM</LeftCard>
+        <LeftCard><Logo src={logo} /></LeftCard>
         <RightCard>
           <Input
             error={wrong}
