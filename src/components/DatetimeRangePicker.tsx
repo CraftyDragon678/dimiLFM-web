@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import ReactCalendar from 'react-calendar';
 import dayjs from 'dayjs';
-import css from '@emotion/css';
 import variables from '../styles/variables';
 import time from '../data/time';
+import Select from './Select';
 
 const Wrapper = styled.div`
   margin: 16px;
@@ -12,7 +12,8 @@ const Wrapper = styled.div`
   grid-template-columns: 350px 200px;
 `;
 
-const buttonStyle = css`
+const DateButton = styled.div`
+  width: 300px;
   height: 30px;
   border: 1px solid ${variables.borderColor};
   padding: 8px;
@@ -23,27 +24,9 @@ const buttonStyle = css`
   text-align: center;
 `;
 
-const DateButton = styled.div`
-  width: 300px;
-  ${buttonStyle}
-`;
-
 const Calendar = styled(ReactCalendar)`
   position: absolute;
   margin-top: 16px;
-`;
-
-const TimeButton = styled.label`
-  width: 300px;
-  ${buttonStyle}
-`;
-
-const Select = styled.select`
-  width: 300px;
-  height: 30px;
-  position: absolute;
-  transform: translateY(-30px);
-  opacity: 0;
 `;
 
 export default () => {
@@ -88,14 +71,7 @@ export default () => {
         )}
       </div>
       {Array.isArray(range) || (
-        <div>
-          <TimeButton>{time[timeIndex]}</TimeButton>
-          <Select onChange={(e) => setTimeindex(+e.target.value)}>
-            {time.map((e, idx) => (
-              <option key={e} value={idx}>{e}</option>
-            ))}
-          </Select>
-        </div>
+        <Select options={time} index={timeIndex} onChange={(idx) => setTimeindex(idx) }/>
       )}
     </Wrapper>
   );
