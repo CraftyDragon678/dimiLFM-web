@@ -53,6 +53,7 @@ const genMap = (map: MapData) => ({ enable }: MapProps) => (
 const genMaps = (maps: MapData[]) => maps.map((map) => genMap(map));
 
 const MapItem = styled.div`
+  margin-top: 30px;
   display: grid;
   grid-row-gap: 10px;
 `;
