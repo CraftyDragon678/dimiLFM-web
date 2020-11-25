@@ -33,23 +33,20 @@ const Svg = styled.svg<MapProps>`
   }
 `;
 
-const genMap = (map: MapData) => ({ enable }: MapProps) => {
-  console.log('teststsetsetse')
-  return (
-    <Svg version="1.1" viewBox={`0 0 ${map.data.width} ${map.data.height}`} enable={enable}>
-      {Object.entries(map.map).map(([name, Element]) => (
-        {
-          ...Element,
-          props: {
-            ...Element.props,
-            id: `${map.data.prefix}-${name}`,
-          },
-          key: name,
-        }
-      ))}
-    </Svg>
-  )
-};
+const genMap = (map: MapData) => ({ enable }: MapProps) => (
+  <Svg version="1.1" viewBox={`0 0 ${map.data.width} ${map.data.height}`} enable={enable}>
+    {Object.entries(map.map).map(([name, Element]) => (
+      {
+        ...Element,
+        props: {
+          ...Element.props,
+          id: `${map.data.prefix}-${name}`,
+        },
+        key: name,
+      }
+    ))}
+  </Svg>
+);
 
 const genMaps = (maps: MapData[]) => maps.map((map) => genMap(map));
 
@@ -86,6 +83,6 @@ const Map: React.FC<{maps: MapData[]}> = ({ maps }) => {
       <ReactTooltip effect="solid" />
     </Container>
   );
-}
+};
 
 export default () => <Map maps={bonData} />;
