@@ -6,7 +6,7 @@ export default {
   borderColor: '#707070',
   background: '#f0f2f5',
   error: '#ff3939',
-  logoColor: '#7392E9',
+  logoColor: '#5258CB',
   pink: '#ffceee',
-  gradient: (direction: string) => `linear-gradient(${direction}, #eec8ed 0%, #aaabeb 50%, #7393e9 100%)`,
+  gradient: (direction: string) => `linear-gradient(${direction}, #4e54c8 0%, #8f94fb 100%)`,
 };
