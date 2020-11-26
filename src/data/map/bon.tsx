@@ -4,6 +4,7 @@ import { MapData } from '.';
 const firstFloor: MapData = {
   data: {
     prefix: 'bon1',
+    floor: 1,
     width: 491.7,
     height: 491.7,
   },
@@ -37,6 +38,7 @@ const firstFloor: MapData = {
 const secondFloor: MapData = {
   data: {
     prefix: 'bon2',
+    floor: 2,
     width: 491.7,
     height: 491.7,
   },
@@ -74,6 +76,7 @@ const secondFloor: MapData = {
 const thirdFloor: MapData = {
   data: {
     prefix: 'bon3',
+    floor: 3,
     width: 491.7,
     height: 491.7,
   },

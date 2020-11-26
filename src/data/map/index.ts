@@ -4,6 +4,7 @@ import bon from './bon';
 export interface MapData {
   data: {
     prefix: string;
+    floor: number;
     width: number;
     height: number;
   },
