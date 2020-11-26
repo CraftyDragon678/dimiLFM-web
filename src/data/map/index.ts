@@ -1,4 +1,5 @@
 import React from 'react';
+import bon from './bon';
 
 export interface MapData {
   data: {
@@ -10,3 +11,7 @@ export interface MapData {
     [key: string]: React.ReactElement,
   },
 }
+
+export default [
+  bon,
+];
