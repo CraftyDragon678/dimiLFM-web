@@ -7,11 +7,13 @@ import variables from '../styles/variables';
 import Button from './Button';
 import Select from './Select';
 
-interface MapProps {
+interface MapDataProps {
   enable: boolean;
+  onClick: (id: string) => void;
+  selected: string[];
 }
 
-const Svg = styled.svg<MapProps>`
+const Svg = styled.svg<{enable: boolean}>`
   transition: .5s transform ease, .5s opacity ease, 1s visibility ease;
   height: 400px;
   transform: perspective(500px);
@@ -33,9 +35,13 @@ const Svg = styled.svg<MapProps>`
       fill: red;
     }
   }
+
+  .selected {
+    fill: ${variables.magenta};
+  }
 `;
 
-const genMap = (map: MapData) => ({ enable }: MapProps) => (
+const genMap = (map: MapData) => ({ enable, onClick, selected }: MapDataProps) => (
   <Svg version="1.1" viewBox={`0 0 ${map.data.width} ${map.data.height}`} enable={enable}>
     {Object.entries(map.map).map(([name, Element]) => (
       {
@@ -43,6 +49,8 @@ const genMap = (map: MapData) => ({ enable }: MapProps) => (
         props: {
           ...Element.props,
           id: `${map.data.prefix}-${name}`,
+          onClick: (e: React.MouseEvent<SVGElement>) => e.currentTarget.getAttribute('data-ignore') || onClick(e.currentTarget.id),
+          className: selected.includes(name) ? 'selected' : '',
         },
         key: name,
       }
@@ -71,24 +79,48 @@ const Container = styled.div`
   border-radius: 16px;
 `;
 
-const Map: React.FC<{maps: MapData[]}> = ({ maps }) => {
+interface MapProps {
+  onClick: (ids: string[]) => void;
+  selected: string[] | string;
+}
+
+const Map: React.FC<MapProps> = ({ onClick, selected }) => {
+  const maps = bonData;
   const [floor, setFloor] = useState(-1);
-  const mapsFC: React.FC<MapProps>[] = useMemo(() => genMaps(maps), [maps]);
+  const mapsFC: React.FC<MapDataProps>[] = useMemo(() => genMaps(maps), [maps]);
 
   return (
     <Container>
       <Select options={['본관', '신관', '학봉관', '우정학사']} index={0} onChange={() => {}} />
       <MapItem>
-        {mapsFC.map((MapFC, idx) => (
+        {mapsFC.map((_, idx) => (
           <Floor key={maps[idx].data.prefix} onClick={() => setFloor(idx)}>{`${idx + 1}층`}</Floor>
         ))}
       </MapItem>
       {mapsFC.map((MapFC, idx) => (
-        <MapFC key={maps[idx].data.prefix} enable={idx === floor} />
+        <MapFC
+          key={maps[idx].data.prefix}
+          enable={idx === floor}
+          onClick={(v) => (
+            Array.isArray(selected)
+              ? selected.includes(v)
+                ? onClick(selected.filter((e) => e !== v))
+                : onClick([...selected, v])
+              : onClick([v])
+          )}
+          selected={
+            Array.isArray(selected)
+              ? selected
+                .filter((e) => e.startsWith(maps[idx].data.prefix))
+                .map((e) => e.split('-').slice(1).join('-'))
+              : [selected.split('-').slice(1).join('-')]
+          }
+        />
       ))}
       <ReactTooltip effect="solid" />
     </Container>
   );
 };
 
-export default () => <Map maps={bonData} />;
+// export default () => <Map maps={bonData} />;
+export default Map;
