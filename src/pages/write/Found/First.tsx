@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import DatetimeRangePicker from '../../../components/DatetimeRangePicker';
 import { SubTitle } from '../../../components/Text';
@@ -14,14 +14,17 @@ const Divider = styled.div`
   height: 30px;
 `;
 
-const First: React.FC<WriteProps<FirstProps>> = ({ verify, data }) => (
-  <>
-    <SubTitle>발견 일시</SubTitle>
-    <DatetimeRangePicker />
-    <Divider />
-    <SubTitle>발견 장소</SubTitle>
-    <Map />
-  </>
-);
+const First: React.FC<WriteProps<FirstProps>> = ({ verify, data }) => {
+  const [selectedRoom, setSelectedRoom] = useState<string>();
+  return (
+    <>
+      <SubTitle>발견 일시</SubTitle>
+      <DatetimeRangePicker />
+      <Divider />
+      <SubTitle>발견 장소</SubTitle>
+      <Map onClick={(ids) => setSelectedRoom(ids[0])} selected={selectedRoom || ''} />
+    </>
+  );
+};
 
 export default First;
