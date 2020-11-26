@@ -116,8 +116,10 @@ const thirdFloor: MapData = {
   },
 };
 
-export default [
+const bon: MapData[] = [
   firstFloor,
   secondFloor,
   thirdFloor,
 ];
+
+export default bon;

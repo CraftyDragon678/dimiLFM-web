@@ -12,6 +12,8 @@ export interface MapData {
   },
 }
 
-export default [
+const map: MapData[][] = [
   bon,
 ];
+
+export default map;
