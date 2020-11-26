@@ -48,7 +48,7 @@ const genMap = (map: MapData) => ({ enable, onClick, selected }: MapDataProps) =
         ...Element,
         props: {
           ...Element.props,
-          id: `${map.data.prefix}-${name}`,
+          id: `${map.data.prefix}/${name}`,
           onClick: (e: React.MouseEvent<SVGElement>) => e.currentTarget.getAttribute('data-ignore') || onClick(e.currentTarget.id),
           className: selected.includes(name) ? 'selected' : '',
         },
@@ -112,8 +112,8 @@ const Map: React.FC<MapProps> = ({ onClick, selected }) => {
             Array.isArray(selected)
               ? selected
                 .filter((e) => e.startsWith(maps[idx].data.prefix))
-                .map((e) => e.split('-').slice(1).join('-'))
-              : [selected.split('-').slice(1).join('-')]
+                .map((e) => e.split('/')[1])
+              : [selected.split('/')[1]]
           }
         />
       ))}
