@@ -24,7 +24,10 @@ const RoomName = styled.span`
 const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) => (
   <>
     <SubTitle>발견 일시</SubTitle>
-    <DatetimeRangePicker />
+    <DatetimeRangePicker
+      value={data.foundDate}
+      onChange={(newrange) => dataHandler({ ...data, foundDate: newrange })}
+    />
     <Divider />
     <SubTitle>
       발견 장소
