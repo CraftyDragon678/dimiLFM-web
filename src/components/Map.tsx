@@ -66,8 +66,8 @@ const MapItem = styled.div`
   grid-row-gap: 10px;
 `;
 
-const Floor = styled(Button)`
-
+const Floor = styled(Button)<{selected: boolean}>`
+  background-color: ${({ selected }) => selected && variables.logoColor};
 `;
 
 const Container = styled.div`
@@ -94,7 +94,13 @@ const Map: React.FC<MapProps> = ({ onClick, selected }) => {
       <Select options={['본관', '신관', '학봉관', '우정학사']} index={0} onChange={() => {}} />
       <MapItem>
         {mapsFC.map((_, idx) => (
-          <Floor key={maps[idx].data.prefix} onClick={() => setFloor(idx)}>{`${idx + 1}층`}</Floor>
+          <Floor
+            key={maps[idx].data.prefix}
+            onClick={() => setFloor(idx)}
+            selected={floor === idx}
+          >
+            {`${idx + 1}층`}
+          </Floor>
         ))}
       </MapItem>
       {mapsFC.map((MapFC, idx) => (
