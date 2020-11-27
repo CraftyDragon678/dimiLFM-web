@@ -29,11 +29,14 @@ const Calendar = styled(ReactCalendar)`
   margin-top: 16px;
 `;
 
-export default () => {
+interface DatetimeRangePickerProps {
+  value: Date[];
+  onChange: (range: Date[]) => void;
+}
+
+const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChange }) => {
   const [openCalendar, setOpenCalendar] = useState(false);
-  const [range, setRange] = useState<Date | Date[]>(new Date());
   const [shift, setShift] = useState(false);
-  const [timeIndex, setTimeindex] = useState(0);
 
   useEffect(() => {
     const shiftHandler = (direction: 'down' | 'up') => () => {
@@ -47,32 +50,61 @@ export default () => {
     };
   }, []);
 
-  const dateRange = useMemo(() => {
-    if (Array.isArray(range)) {
-      return `${dayjs(range[0]).format('YYYY-MM-DD')} ~ ${dayjs(range[1]).format('YYYY-MM-DD')}`;
-    }
-    return dayjs(range).format('YYYY-MM-DD');
-  }, [range]);
+  const [isOneDay, isWeekend, timeIndex] = useMemo(() => {
+    const oneday = (
+      new Date(value[0]).setHours(0, 0, 0, 0) === new Date(value[1]).setHours(0, 0, 0, 0)
+    );
+    if (!oneday) return [oneday, false, -1];
+
+    const weekend = value[0].getDate() === 0 || value[0].getDate() === 6;
+    const idx = (weekend ? time.weekend : time.weekday)
+      .findIndex((e) => (
+        new Date(e.from).setFullYear(0, 0, 0) <= value[0].getTime()
+          && value[1].getTime() <= new Date(e.from).setFullYear(0, 0, 0)
+      ));
+
+    return [oneday, weekend, idx];
+  }, [value]);
 
   return (
     <Wrapper>
       <div>
-        <DateButton onClick={() => setOpenCalendar(!openCalendar)}>{dateRange}</DateButton>
+        <DateButton onClick={() => setOpenCalendar(!openCalendar)}>
+          {`${dayjs(value[0]).format('YYYY-MM-DD')} ~ ${dayjs(value[1]).format('YYYY-MM-DD')}`}
+        </DateButton>
         {openCalendar && (
           <Calendar
             selectRange={shift}
-            value={range}
+            value={value}
             onChange={(date) => {
-              setRange(date);
+              if (Array.isArray(date)) {
+                onChange(date);
+              } else {
+                onChange([date, date]);
+              }
               setOpenCalendar(false);
             }}
             calendarType="US"
           />
         )}
       </div>
-      {Array.isArray(range) || (
-        <Select options={time} index={timeIndex} onChange={(idx) => setTimeindex(idx) }/>
+      {isOneDay && (
+        <Select
+          options={
+            (isWeekend ? time.weekend : time.weekday)
+              .map((e) => `${dayjs(e.from).format('HH:mm')}-${dayjs(e.to).format('HH:mm')} (${e.tag})`)
+          }
+          index={timeIndex}
+          onChange={(idx) => {
+            const selected = (isWeekend ? time.weekend : time.weekday)[idx];
+            value[0].setHours(selected.from.getHours(), selected.from.getMinutes(), 0);
+            value[1].setHours(selected.to.getHours(), selected.to.getMinutes(), 0);
+            onChange(value);
+          }}
+        />
       )}
     </Wrapper>
   );
 };
+
+export default DatetimeRangePicker;
