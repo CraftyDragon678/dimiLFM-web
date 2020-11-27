@@ -82,6 +82,7 @@ const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChan
               if (Array.isArray(date)) {
                 onChange(date);
               } else {
+                date.setHours(7, 0, 0, 0);
                 onChange([date, date]);
               }
               setOpenCalendar(false);
