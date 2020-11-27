@@ -70,7 +70,9 @@ const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChan
     <Wrapper>
       <div>
         <DateButton onClick={() => setOpenCalendar(!openCalendar)}>
-          {`${dayjs(value[0]).format('YYYY-MM-DD')} ~ ${dayjs(value[1]).format('YYYY-MM-DD')}`}
+          {isOneDay
+            ? dayjs(value[0]).format('YYYY-MM-DD')
+            : `${dayjs(value[0]).format('YYYY-MM-DD')} ~ ${dayjs(value[1]).format('YYYY-MM-DD')}`}
         </DateButton>
         {openCalendar && (
           <Calendar
