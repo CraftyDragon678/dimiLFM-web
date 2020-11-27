@@ -55,7 +55,7 @@ export default () => {
           <First
             verify={(isValid) => setValid(isValid)}
             data={data.first}
-            dataHandler={(d) => setData({ ...data, first: d })}
+            dataHandler={(newdata) => setData({ ...data, first: newdata })}
           />
         </ContentWrapper>
       </Content>
