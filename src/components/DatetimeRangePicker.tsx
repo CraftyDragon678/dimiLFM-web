@@ -58,28 +58,10 @@ const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChan
 
     const weekend = value[0].getDay() === 0 || value[0].getDay() === 6;
     const idx = (weekend ? time.weekend : time.weekday)
-      .findIndex((e) => {
-        // console.log(
-        //   e.from.getTime() <= new Date(value[0]).setFullYear(1970, 0, 1),
-        //   new Date(value[1]).setFullYear(1970, 0, 1) <= e.to.getTime(),
-        // );
-        // console.log(
-        //   new Date(value[0]).setFullYear(1970, 0, 1),
-        //   new Date(value[1]).setFullYear(1970, 0, 1),
-        // );
-        // console.log(
-        //   e.from.getTime(),
-        //   e.to.getTime(),
-        // );
-        const from = new Date(value[0]);
-        const delta = from.getTime() - from.setFullYear(1970, 0, 1);
-        const to = new Date(value[1].getTime() - delta);
-        // console.log(from, delta, to);
-        return (
-          e.from.getTime() <= from.getTime()
-            && to.getTime() <= e.to.getTime()
-        );
-      });
+      .findIndex((e) => (
+        e.from.getTime() <= new Date(value[0]).setFullYear(1970, 0, 1)
+          && new Date(value[1]).setFullYear(1970, 0, 1) <= e.to.getTime()
+      ));
 
     return [oneday, weekend, idx];
   }, [value]);
@@ -119,10 +101,10 @@ const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChan
           onChange={(idx) => {
             const selected = (isWeekend ? time.weekend : time.weekday)[idx];
             const from = new Date(value[0]);
-            const delta = from.getTime() - from.setHours(selected.from.getHours(), selected.from.getMinutes(), 0, 0);
-            const to = new Date(from.getTime() + selected.to.getTime() - selected.from.getTime());
-            console.log(from, delta, to);
-            // to.setHours(selected.to.getHours(), selected.to.getMinutes(), 0, 0);
+            from.setHours(selected.from.getHours(), selected.from.getMinutes(), 0, 0);
+            const to = new Date(value[1]);
+            to.setHours(selected.to.getHours(), selected.to.getMinutes(), 0, 0);
+
             onChange([from, to]);
           }}
         />
