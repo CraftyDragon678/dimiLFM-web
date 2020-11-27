@@ -5,16 +5,18 @@ import variables from '../styles/variables';
 interface ArrowProps {
   left?: boolean;
   disable?: boolean;
+  onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
 }
 
 const Svg = styled.svg<{enable: boolean}>`
   fill: transparent;
   stroke: ${({ enable }) => (enable ? variables.logoColor : variables.lightGray)};
   stroke-width: 2px;
+  cursor: pointer;
 `;
 
-const Arrow: React.FC<ArrowProps> = ({ left, disable }) => (
-  <Svg version="1.1" width="27.3px" height="15.5px" enable={!disable}>
+const Arrow: React.FC<ArrowProps> = ({ left, disable, onClick }) => (
+  <Svg version="1.1" width="27.3px" height="15.5px" enable={!disable} onClick={onClick}>
     {left ? (
       <>
         <polyline points="26.3,7.8 1,7.8 7.8,1" />
