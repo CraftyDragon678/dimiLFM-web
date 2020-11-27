@@ -119,7 +119,9 @@ const Map: React.FC<MapProps> = ({ onClick, selected }) => {
               ? selected
                 .filter((e) => e.startsWith(maps[idx].data.prefix))
                 .map((e) => e.split('/')[1])
-              : [selected.split('/')[1]]
+              : [selected]
+                .filter((e) => e.startsWith(maps[idx].data.prefix))
+                .map((e) => e.split('/')[1])
           }
         />
       ))}
