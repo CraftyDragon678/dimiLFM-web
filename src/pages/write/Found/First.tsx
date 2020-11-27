@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { getName } from 'src/utils/map';
+import { getName } from 'src/data/map';
 import DatetimeRangePicker from '../../../components/DatetimeRangePicker';
 import { SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
