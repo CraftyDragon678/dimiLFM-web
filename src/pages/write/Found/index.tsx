@@ -19,7 +19,6 @@ const Upper = styled(Box)`
 
 const Content = styled(Box)`
   margin-top: 16px;
-  flex: 1;
 `;
 
 const ContentArrow = styled.div`
@@ -32,18 +31,14 @@ const ContentWrapper = styled.div`
 `;
 
 interface WriteFoundData {
-  data: {
-    first: FirstProps;
-  }
+  first: FirstProps;
 }
 
 export default () => {
   const [data, setData] = useState<WriteFoundData>({
-    data: {
-      first: {
-        foundDate: new Date(),
-        foundLocation: 'my home...',
-      },
+    first: {
+      foundDate: [new Date(), new Date()],
+      foundLocation: undefined,
     },
   });
   const [valid, setValid] = useState(false);
@@ -54,13 +49,13 @@ export default () => {
       <Content shadow>
         <ContentArrow>
           <Arrow left disable />
-          <Arrow disable />
+          <Arrow disable={!valid} />
         </ContentArrow>
         <ContentWrapper>
           <First
             verify={(isValid) => setValid(isValid)}
-            data={data.data.first}
-            dataHandler={() => {}}
+            data={data.first}
+            dataHandler={(d) => setData({ ...data, first: d })}
           />
         </ContentWrapper>
       </Content>
