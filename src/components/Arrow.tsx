@@ -12,7 +12,7 @@ const Svg = styled.svg<{enable: boolean}>`
   fill: transparent;
   stroke: ${({ enable }) => (enable ? variables.logoColor : variables.lightGray)};
   stroke-width: 2px;
-  cursor: pointer;
+  cursor: ${({ enable }) => enable && 'pointer'};
 `;
 
 const Arrow: React.FC<ArrowProps> = ({ left, disable, onClick }) => (
