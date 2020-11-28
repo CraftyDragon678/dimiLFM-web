@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { Prompt } from 'react-router';
 import { WriteFinalProps, WriteProps } from 'src/types/write';
 import Box from 'src/components/Box';
 import variables from 'src/styles/variables';
@@ -87,6 +88,10 @@ const WriteWrapper = <T, >({
 
   return (
     <Wrapper>
+      <Prompt
+        when
+        message="정말로 나가시겠습니까? 현재 입력한 사항은 저장되지 않습니다."
+      />
       <Upper>
         <Title>{title}</Title>
         <WriteIndicator index={stage} stage={stageLabels} />
