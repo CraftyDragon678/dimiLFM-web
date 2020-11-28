@@ -31,6 +31,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
           }),
         }}
         ref={editorEl}
+        initialEditType="wysiwyg"
       />
     </>
   );
