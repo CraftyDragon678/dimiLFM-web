@@ -6,8 +6,8 @@ import { Description, SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
 
 export interface FirstProps {
-  beforePrice?: bigint;
-  afterPrice?: bigint;
+  beforePrice?: number;
+  afterPrice?: number;
   stars: number;
 }
 
@@ -52,8 +52,8 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
         <PriceInput
           value={`₩${data.beforePrice || ''}`}
           onChange={(e) => {
-            if (Number.isNaN(+e.target.value.slice(1))) return;
-            const n = BigInt(e.target.value.slice(1));
+            const n = +e.target.value.slice(1);
+            if (!Number.isSafeInteger(n)) return;
             dataHandler({ ...data, beforePrice: n });
             verify(!!data.afterPrice && !!data.stars);
           }}
@@ -65,8 +65,8 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
         <PriceInput
           value={`₩${data.afterPrice || ''}`}
           onChange={(e) => {
-            if (Number.isNaN(+e.target.value.slice(1))) return;
-            const n = BigInt(e.target.value.slice(1));
+            const n = +e.target.value.slice(1);
+            if (!Number.isSafeInteger(n)) return;
             dataHandler({ ...data, afterPrice: n });
             verify(!!data.beforePrice && !!data.stars);
           }}

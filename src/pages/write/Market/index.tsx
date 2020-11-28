@@ -22,7 +22,7 @@ export default () => (
         {data.first.beforePrice && data.first.afterPrice && (
           <Description>
             {`₩${data.first.beforePrice}->₩${data.first.afterPrice} (${
-              ((data.first.beforePrice - data.first.afterPrice) * BigInt(100))
+              ((data.first.beforePrice - data.first.afterPrice) * 100)
                 / data.first.beforePrice
             }%)`}
           </Description>
