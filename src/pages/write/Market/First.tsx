@@ -79,7 +79,7 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
       제품 상태
     </SubTitle>
     <Description>
-      현재 제품의 상태에 대해  5점 만점으로 평가해주세요
+      현재 제품의 상태에 대해 5점 만점으로 평가해주세요
       <br />
       상세사항은 2단계에서 작성해주세요
     </Description>
