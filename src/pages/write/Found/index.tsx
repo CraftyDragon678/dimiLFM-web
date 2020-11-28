@@ -59,5 +59,6 @@ export default () => (
       },
     } as WriteFoundData}
     stageLabels={['발견 설정', '내용 작성', '희망 장소', '완료']}
+    boardName="found"
   />
 );

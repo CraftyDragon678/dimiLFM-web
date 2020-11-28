@@ -16,6 +16,7 @@ interface WriteWrapperProps<T> {
   initialData: T;
   stageLabels: string[];
   title: React.ReactElement;
+  boardName: string;
 }
 
 const Wrapper = styled.div`
@@ -56,7 +57,7 @@ const ContentWrapper = styled.div`
 `;
 
 const WriteWrapper = <T, >({
-  stages, final, initialData, stageLabels, title,
+  stages, final, initialData, stageLabels, title, boardName,
 }: WriteWrapperProps<T>): React.ReactElement<WriteWrapperProps<T>> => {
   const stageKeys = Object.keys(stages) as Array<keyof T>;
   const [data, setData] = useState<T>(initialData);
@@ -88,7 +89,7 @@ const WriteWrapper = <T, >({
   const Final = final;
 
   const postArticle = async () => {
-    const { status, statusText } = await api.post('/board/found/',
+    const { status, statusText } = await api.post(`/board/${boardName}/`,
       (Object.values(data) as T[keyof T][]).reduce((prev, curr) => ({ ...prev, ...curr })));
     if (status !== 204) console.error(statusText);
   };

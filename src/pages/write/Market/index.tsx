@@ -43,5 +43,6 @@ export default () => (
       },
     } as WriteFoundData}
     stageLabels={['판매 설정', '내용 작성', '완료']}
+    boardName="market"
   />
 );

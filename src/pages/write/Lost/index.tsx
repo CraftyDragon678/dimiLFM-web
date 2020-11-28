@@ -49,5 +49,6 @@ export default () => (
       },
     } as WriteFoundData}
     stageLabels={['분실 설정', '내용 작성', '완료']}
+    boardName="lost"
   />
 );
