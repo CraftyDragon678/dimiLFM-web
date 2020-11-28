@@ -84,7 +84,7 @@ const weekday: TimeTable[] = [
   },
   {
     from: t(23, 0),
-    to: t(7, 0),
+    to: t(23, 59),
     tag: '기숙사',
   },
 ];
@@ -122,7 +122,7 @@ const weekend: TimeTable[] = [
   },
   {
     from: t(22, 30),
-    to: t(7, 0),
+    to: t(23, 59),
     tag: '기숙사',
   },
 ];
