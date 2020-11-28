@@ -6,6 +6,7 @@ interface ArrowProps {
   left?: boolean;
   disable?: boolean;
   onClick?: (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => void;
+  check?: boolean;
 }
 
 const Svg = styled.svg<{enable: boolean}>`
@@ -15,9 +16,13 @@ const Svg = styled.svg<{enable: boolean}>`
   cursor: ${({ enable }) => enable && 'pointer'};
 `;
 
-const Arrow: React.FC<ArrowProps> = ({ left, disable, onClick }) => (
+const Arrow: React.FC<ArrowProps> = ({
+  left, disable, onClick, check,
+}) => (
   <Svg version="1.1" width="27.3px" height="15.5px" enable={!disable} onClick={(e) => disable || (onClick && onClick(e))}>
-    {left ? (
+    {check ? (
+      <polyline points="20.6,0.7 7.5,13.7 0.7,7 "/>
+    ) : left ? (
       <>
         <polyline points="26.3,7.8 1,7.8 7.8,1" />
         <line x1="1" y1="7.8" x2="7.8" y2="14.5" />
