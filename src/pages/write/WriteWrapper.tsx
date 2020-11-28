@@ -7,6 +7,7 @@ import variables from 'src/styles/variables';
 import WriteIndicator from 'src/components/WriteIndicator';
 import Arrow from 'src/components/Arrow';
 import api from 'src/api';
+import history from 'src/router/history';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -89,15 +90,20 @@ const WriteWrapper = <T, >({
   const Final = final;
 
   const postArticle = async () => {
-    const { status, statusText } = await api.post(`/board/${boardName}/`,
+    setIndexedValid(stageKeys.length)(false);
+    const { data: res, status } = await api.post(`/board/${boardName}/`,
       (Object.values(data) as T[keyof T][]).reduce((prev, curr) => ({ ...prev, ...curr })));
-    if (status !== 204) console.error(statusText);
+    if (status === 200) {
+      history.push(`/board/${boardName}/${res._id}`);
+      return;
+    }
+    setIndexedValid(stageKeys.length)(true);
   };
 
   return (
     <Wrapper>
       <Prompt
-        when
+        when={valid[stageKeys.length]}
         message="정말로 나가시겠습니까? 현재 입력한 사항은 저장되지 않습니다."
       />
       <Upper>
