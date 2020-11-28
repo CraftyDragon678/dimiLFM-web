@@ -42,11 +42,13 @@ const DatetimeRangePicker: React.FC<DatetimeRangePickerProps> = ({ value, onChan
     const shiftHandler = (direction: 'down' | 'up') => () => {
       setShift(direction === 'down');
     };
-    document.addEventListener('keydown', shiftHandler('down'));
-    document.addEventListener('keyup', shiftHandler('up'));
+    const down = shiftHandler('down');
+    const up = shiftHandler('up');
+    document.addEventListener('keydown', down);
+    document.addEventListener('keyup', up);
     return () => {
-      document.removeEventListener('keydown', shiftHandler('down'));
-      document.removeEventListener('keyup', shiftHandler('up'));
+      document.removeEventListener('keydown', down);
+      document.removeEventListener('keyup', up);
     };
   }, []);
 
