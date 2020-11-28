@@ -29,7 +29,9 @@ export default () => (
     )}
     title={<>판매합니다</>}
     initialData={{
-      first: {},
+      first: {
+        stars: 0,
+      },
       second: {
         title: '',
         content: '',
