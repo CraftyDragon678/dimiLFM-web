@@ -28,9 +28,9 @@ export default () => (
           <br />
           {data.first.foundLocation && getName(data.first.foundLocation)}
         </Description>
-        <SubTitle>희망 장소</SubTitle>
+        <SubTitle>{data.third.radioIndex === 2 ? '희망 장소' : '물건이 있는 곳'}</SubTitle>
         <Description>
-          {data.third.wantLocation
+          {(data.third.radioIndex !== 0 && data.third.wantLocation)
             ? getName(data.third.wantLocation)
             : '발견 장소에 그대로 두었습니다.'}
         </Description>
