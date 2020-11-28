@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
 import { Editor } from '@toast-ui/react-editor';
 import React, { useRef } from 'react';
-import Input from 'src/components/Input';
+import { TitleInput } from 'src/components/Input';
 import { WriteProps } from '../../../types/write';
 
 export interface SecondProps {
@@ -9,18 +8,12 @@ export interface SecondProps {
   content: string;
 }
 
-const Title = styled(Input)`
-  height: 30px;
-  margin-bottom: 20px;
-  width: 100%;
-`;
-
 const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }) => {
   const editorEl = useRef<Editor>(null);
 
   return (
     <>
-      <Title
+      <TitleInput
         value={data.title}
         onChange={(e) => {
           dataHandler({ ...data, title: e.target.value });

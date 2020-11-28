@@ -28,9 +28,17 @@ const inputStyle = css`
   }
 `;
 
-export default styled.input<IInput>`
+const Input = styled.input<IInput>`
   ${inputStyle}
 
   width: ${({ width }) => getWidth(width)};
   border-color: ${({ error }) => error && variables.error};
 `;
+
+export const TitleInput = styled(Input)`
+  height: 30px;
+  margin-bottom: 20px;
+  width: 100%;
+`;
+
+export default Input;
