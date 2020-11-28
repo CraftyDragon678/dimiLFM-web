@@ -62,7 +62,7 @@ export default () => {
       content: '',
     },
     third: {
-      foundDate: [new Date(), new Date()],
+      radioIndex: -1,
       foundLocation: undefined,
     },
   });
