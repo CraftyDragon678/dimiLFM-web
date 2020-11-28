@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import WriteIndicator from 'src/components/WriteIndicator';
+import { Description, SubTitle } from 'src/components/Text';
+import { getRangeText } from 'src/utils/date';
+import { getName } from 'src/data/map';
+import { Viewer } from '@toast-ui/react-editor';
+import { TitleInput } from 'src/components/Input';
 import Box from '../../../components/Box';
 import variables from '../../../styles/variables';
 import First, { FirstProps } from './First';
@@ -66,8 +71,8 @@ export default () => {
       foundLocation: undefined,
     },
   });
-  const [valid, setValid] = useState([false, false]);
-  const [stage, setStage] = useState(2);
+  const [valid, setValid] = useState([false]);
+  const [stage, setStage] = useState(0);
 
   const setIndexedValid = (index: number) => (value: boolean) => {
     setValid([...valid.slice(0, index), value, ...valid.slice(index + 1)]);
@@ -94,6 +99,23 @@ export default () => {
       data={data.third}
       dataHandler={updateData('third')}
     />,
+    <>
+      <SubTitle>발견 설정</SubTitle>
+      <Description>
+        {getRangeText(data.first.foundDate)}
+        <br />
+        {data.first.foundLocation && getName(data.first.foundLocation)}
+      </Description>
+      <SubTitle>희망 장소</SubTitle>
+      <Description>
+        {data.third.foundLocation
+          ? getName(data.third.foundLocation)
+          : '발견 장소에 그대로 두었습니다.'}
+      </Description>
+      <SubTitle>작성글 미리보기</SubTitle>
+      <TitleInput defaultValue={data.second.title} disabled />
+      <Viewer initialValue={data.second.content} />
+    </>,
   ];
 
   return (
