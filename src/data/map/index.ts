@@ -18,7 +18,7 @@ const map: MapData[][] = [
 ];
 
 export const getName = (id: string): string => {
-  const floor = map.flat().find((e) => e.data.prefix === id.split('/')[0]);
+  const floor = map.reduce((prev, curr) => [...prev, ...curr]).find((e) => e.data.prefix === id.split('/')[0]);
 
   const room = Object.entries(floor?.map || {}).find(([k]) => k === id.split('/')[1])?.[1];
 
