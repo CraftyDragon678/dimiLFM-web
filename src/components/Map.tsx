@@ -17,7 +17,7 @@ const Svg = styled.svg<{enable: boolean}>`
   transition: .5s transform ease, .5s opacity ease, 1s visibility ease;
   height: 400px;
   transform: perspective(500px);
-  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(250px, -100px, 0) rotate3d(1, -1, 1, 30deg)'};
+  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(200px, -100px, 0) rotate3d(1, -1, 1, 30deg)'};
   opacity: ${({ enable }) => enable || 0};
   visibility: ${({ enable }) => enable || 'hidden'};
   position: absolute;
@@ -71,7 +71,7 @@ const Floor = styled(Button)<{selected: boolean}>`
 `;
 
 const Container = styled.div`
-  width: 800px;
+  width: 720px;
   height: 500px;
   margin: 16px;
   padding: 16px;
@@ -130,5 +130,4 @@ const Map: React.FC<MapProps> = ({ onClick, selected }) => {
   );
 };
 
-// export default () => <Map maps={bonData} />;
 export default Map;
