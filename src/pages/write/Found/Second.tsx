@@ -23,12 +23,10 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
       />
       <Editor
         events={{
-          change: () => dataHandler((prev) => {
-            return {
-              ...prev,
-              content: editorEl.current?.getInstance().getHtml() || '',
-            };
-          }),
+          change: () => dataHandler((prev) => ({
+            ...prev,
+            content: editorEl.current?.getInstance().getHtml() || '',
+          })),
         }}
         ref={editorEl}
         initialEditType="wysiwyg"
