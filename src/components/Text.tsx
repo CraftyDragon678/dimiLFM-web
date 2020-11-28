@@ -12,4 +12,5 @@ export const Description = styled.div`
   font-size: 18px;
   color: ${variables.logoColor};
   line-height: 1.5;
+  margin-bottom: 10px;
 `;
