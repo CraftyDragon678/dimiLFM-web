@@ -36,8 +36,8 @@ const Third: React.FC<WriteProps<ThirdProps>> = ({ verify, data, dataHandler }) 
       value={data.radioIndex}
       names={[
         '저한테 없습니다 - 발견 장소에 그대로 두었습니다',
-        '저한테 없습니다 - 다른 곳에 맡겼습니다 (글에 세부설명)',
-        '저한테 있습니다 (글에 세부설명)',
+        '저한테 없습니다 - 다른 곳에 맡겼습니다 (맡긴 장소를 선택해주세요)',
+        '저한테 있습니다 (만나고 싶은 장소를 선택해주세요)',
       ]}
       onChange={(idx) => {
         dataHandler({ ...data, radioIndex: idx });
