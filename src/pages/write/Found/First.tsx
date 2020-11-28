@@ -8,7 +8,7 @@ import Map from '../../../components/Map';
 
 export interface FirstProps {
   foundDate: Date[];
-  foundLocation: string | undefined;
+  foundLocation?: string;
 }
 
 const Divider = styled.div`

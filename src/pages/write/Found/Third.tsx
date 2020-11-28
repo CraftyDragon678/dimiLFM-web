@@ -8,7 +8,7 @@ import Map from '../../../components/Map';
 
 export interface ThirdProps {
   radioIndex: number;
-  foundLocation: string | undefined;
+  wantLocation?: string;
 }
 
 const RoomName = styled.span`
@@ -21,9 +21,9 @@ const Third: React.FC<WriteProps<ThirdProps>> = ({ verify, data, dataHandler }) 
   <>
     <SubTitle>
       희망 장소
-      {data.radioIndex !== 0 && data.foundLocation && (
+      {data.radioIndex !== 0 && data.wantLocation && (
         <RoomName>
-          {getName(data.foundLocation)}
+          {getName(data.wantLocation)}
         </RoomName>
       )}
     </SubTitle>
@@ -41,16 +41,16 @@ const Third: React.FC<WriteProps<ThirdProps>> = ({ verify, data, dataHandler }) 
       ]}
       onChange={(idx) => {
         dataHandler({ ...data, radioIndex: idx });
-        verify(!!data.foundLocation || idx === 0);
+        verify(!!data.wantLocation || idx === 0);
       }}
     />
     {(data.radioIndex === 1 || data.radioIndex === 2) && (
       <Map
         onClick={(ids) => {
-          dataHandler({ ...data, foundLocation: ids[0] });
+          dataHandler({ ...data, wantLocation: ids[0] });
           verify(true);
         }}
-        selected={data.foundLocation || ''}
+        selected={data.wantLocation || ''}
       />
     )}
   </>

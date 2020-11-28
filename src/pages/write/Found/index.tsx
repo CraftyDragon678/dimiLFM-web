@@ -30,8 +30,8 @@ export default () => (
         </Description>
         <SubTitle>희망 장소</SubTitle>
         <Description>
-          {data.third.foundLocation
-            ? getName(data.third.foundLocation)
+          {data.third.wantLocation
+            ? getName(data.third.wantLocation)
             : '발견 장소에 그대로 두었습니다.'}
         </Description>
         <SubTitle>작성글 미리보기</SubTitle>
@@ -49,7 +49,6 @@ export default () => (
     initialData={{
       first: {
         foundDate: [new Date(), new Date()],
-        foundLocation: undefined,
       },
       second: {
         title: '',
@@ -57,7 +56,6 @@ export default () => (
       },
       third: {
         radioIndex: -1,
-        foundLocation: undefined,
       },
     } as WriteFoundData}
     stageLabels={['발견 설정', '내용 작성', '희망 장소', '완료']}
