@@ -53,7 +53,7 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
           value={`₩${data.beforePrice || ''}`}
           onChange={(e) => {
             const n = +e.target.value.slice(1);
-            if (!Number.isSafeInteger(n)) return;
+            if (!Number.isSafeInteger(n) || n < 0) return;
             dataHandler({ ...data, beforePrice: n });
             verify(!!data.afterPrice && !!data.stars);
           }}
@@ -66,7 +66,7 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
           value={`₩${data.afterPrice || ''}`}
           onChange={(e) => {
             const n = +e.target.value.slice(1);
-            if (!Number.isSafeInteger(n)) return;
+            if (!Number.isSafeInteger(n || n < 0)) return;
             dataHandler({ ...data, afterPrice: n });
             verify(!!data.beforePrice && !!data.stars);
           }}
