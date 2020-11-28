@@ -3,3 +3,7 @@ export interface WriteProps<T> {
   data: T;
   dataHandler: (data: T | ((prev: T) => T)) => void;
 }
+
+export interface WriteFinalProps<T> {
+  data: T;
+}
