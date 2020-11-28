@@ -4,6 +4,7 @@ import WriteIndicator from 'src/components/WriteIndicator';
 import Box from '../../../components/Box';
 import variables from '../../../styles/variables';
 import First, { FirstProps } from './First';
+import Second, { SecondProps } from './Second';
 import Arrow from '../../../components/Arrow';
 
 const Wrapper = styled.div`
@@ -45,6 +46,7 @@ const ContentWrapper = styled.div`
 
 interface WriteFoundData {
   first: FirstProps;
+  second: SecondProps;
 }
 
 export default () => {
@@ -52,6 +54,10 @@ export default () => {
     first: {
       foundDate: [new Date(), new Date()],
       foundLocation: undefined,
+    },
+    second: {
+      title: '',
+      content: '',
     },
   });
   const [valid, setValid] = useState([false, false]);
@@ -61,16 +67,21 @@ export default () => {
     setValid([...valid.slice(0, index), value, ...valid.slice(index + 1)]);
   };
 
+  const updateData = <T extends keyof WriteFoundData>(key: T) => (
+    (newdata: WriteFoundData[T] | ((prev: WriteFoundData[T]) => WriteFoundData[T])) => (
+      setData((prev) => ({ ...prev, [key]: typeof newdata === 'function' ? newdata(prev[key]) : newdata }))
+    ));
+
   const stages = [
     <First
       verify={setIndexedValid(0)}
       data={data.first}
-      dataHandler={(newdata) => setData({ ...data, first: newdata })}
+      dataHandler={updateData('first')}
     />,
-    <First
+    <Second
       verify={setIndexedValid(1)}
-      data={data.first}
-      dataHandler={(newdata) => setData({ ...data, first: newdata })}
+      data={data.second}
+      dataHandler={updateData('second')}
     />,
   ];
 
