@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Route, Switch } from 'react-router';
 import {
-  Root, Chat, NotFound, WriteFound,
+  Root, Chat, NotFound, WriteFound, WriteLost,
 } from '../pages';
 import Header from '../components/Header';
 
@@ -20,6 +20,7 @@ const Private = () => (
         <Route exact path="/" component={Root} />
         <Route exact path="/chat" component={Chat} />
         <Route path="/write/found" component={WriteFound} />
+        <Route path="/write/lost" component={WriteLost} />
         <Route path="*" component={NotFound} />
       </Switch>
     </BodyContainer>
