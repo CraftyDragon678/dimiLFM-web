@@ -3,7 +3,7 @@ import { Viewer } from '@toast-ui/react-editor';
 import { Description, SubTitle } from 'src/components/Text';
 import { TitleInput } from 'src/components/Input';
 import First, { FirstProps } from './First';
-import Second, { SecondProps } from './Second';
+import Second, { SecondProps } from '../Second';
 import WriteWrapper from '../WriteWrapper';
 
 interface WriteFoundData {

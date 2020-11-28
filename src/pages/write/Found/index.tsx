@@ -5,7 +5,7 @@ import { TitleInput } from 'src/components/Input';
 import { getRangeText } from 'src/utils/date';
 import { getName } from 'src/data/map';
 import First, { FirstProps } from './First';
-import Second, { SecondProps } from './Second';
+import Second, { SecondProps } from '../Second';
 import Third, { ThirdProps } from './Third';
 import WriteWrapper from '../WriteWrapper';
 

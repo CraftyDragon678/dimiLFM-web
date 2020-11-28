@@ -1,7 +1,7 @@
 import { Editor } from '@toast-ui/react-editor';
 import React, { useRef } from 'react';
 import { TitleInput } from 'src/components/Input';
-import { WriteProps } from '../../../types/write';
+import { WriteProps } from '../../types/write';
 
 export interface SecondProps {
   title: string;
@@ -17,16 +17,19 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
         value={data.title}
         onChange={(e) => {
           dataHandler({ ...data, title: e.target.value });
-          verify(!!e.target.value);
+          verify(!!e.target.value && !!data.content);
         }}
         placeholder="제목"
       />
       <Editor
         events={{
           change: () => dataHandler((prev) => {
+            const content = editorEl.current?.getInstance().getHtml() || '';
+            verify(!!prev.title && !!content);
+
             return {
               ...prev,
-              content: editorEl.current?.getInstance().getHtml() || '',
+              content,
             };
           }),
         }}
