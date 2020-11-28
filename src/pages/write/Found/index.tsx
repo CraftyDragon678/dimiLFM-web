@@ -5,6 +5,7 @@ import Box from '../../../components/Box';
 import variables from '../../../styles/variables';
 import First, { FirstProps } from './First';
 import Second, { SecondProps } from './Second';
+import Third, { ThirdProps } from './Third';
 import Arrow from '../../../components/Arrow';
 
 const Wrapper = styled.div`
@@ -47,6 +48,7 @@ const ContentWrapper = styled.div`
 interface WriteFoundData {
   first: FirstProps;
   second: SecondProps;
+  third: ThirdProps;
 }
 
 export default () => {
@@ -59,9 +61,13 @@ export default () => {
       title: '',
       content: '',
     },
+    third: {
+      foundDate: [new Date(), new Date()],
+      foundLocation: undefined,
+    },
   });
   const [valid, setValid] = useState([false, false]);
-  const [stage, setStage] = useState(0);
+  const [stage, setStage] = useState(2);
 
   const setIndexedValid = (index: number) => (value: boolean) => {
     setValid([...valid.slice(0, index), value, ...valid.slice(index + 1)]);
@@ -82,6 +88,11 @@ export default () => {
       verify={setIndexedValid(1)}
       data={data.second}
       dataHandler={updateData('second')}
+    />,
+    <Third
+      verify={setIndexedValid(2)}
+      data={data.third}
+      dataHandler={updateData('third')}
     />,
   ];
 
