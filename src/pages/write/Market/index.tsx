@@ -19,9 +19,14 @@ export default () => (
     final={({ data }) => (
       <>
         <SubTitle>가격</SubTitle>
-        <Description>
-          test
-        </Description>
+        {data.first.beforePrice && data.first.afterPrice && (
+          <Description>
+            {`₩${data.first.beforePrice}->₩${data.first.afterPrice} (${
+              ((data.first.beforePrice - data.first.afterPrice) * BigInt(100))
+                / data.first.beforePrice
+            }%)`}
+          </Description>
+        )}
         <SubTitle>작성글 미리보기</SubTitle>
         <TitleInput defaultValue={data.second.title} disabled />
         <Viewer initialValue={data.second.content} />
