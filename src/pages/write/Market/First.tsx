@@ -6,8 +6,8 @@ import { Description, SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
 
 export interface FirstProps {
-  beforePrice?: BigInt;
-  afterPrice?: BigInt;
+  beforePrice?: bigint;
+  afterPrice?: bigint;
   stars: number;
 }
 
