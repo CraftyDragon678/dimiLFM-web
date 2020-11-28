@@ -7,6 +7,7 @@
     "@emotion/css": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@loadable/component": "^5.11.0",
+    "@toast-ui/react-editor": "^2.5.1",
     "@types/loadable__component": "^5.10.0",
     "axios": "^0.21.0",
     "customize-cra": "^1.0.0",
