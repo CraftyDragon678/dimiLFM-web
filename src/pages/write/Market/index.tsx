@@ -49,17 +49,14 @@ const ContentWrapper = styled.div`
   margin: 64px;
 `;
 
-interface WriteLostData {
+interface WriteFoundData {
   first: FirstProps;
   second: SecondProps;
 }
 
 export default () => {
-  const [data, setData] = useState<WriteLostData>({
-    first: {
-      foundDate: [new Date(), new Date()],
-      foundLocation: undefined,
-    },
+  const [data, setData] = useState<WriteFoundData>({
+    first: {},
     second: {
       title: '',
       content: '',
@@ -72,8 +69,8 @@ export default () => {
     setValid([...valid.slice(0, index), value, ...valid.slice(index + 1)]);
   };
 
-  const updateData = <T extends keyof WriteLostData>(key: T) => (
-    (newdata: WriteLostData[T] | ((prev: WriteLostData[T]) => WriteLostData[T])) => (
+  const updateData = <T extends keyof WriteFoundData>(key: T) => (
+    (newdata: WriteFoundData[T] | ((prev: WriteFoundData[T]) => WriteFoundData[T])) => (
       setData((prev) => ({ ...prev, [key]: typeof newdata === 'function' ? newdata(prev[key]) : newdata }))
     ));
 
@@ -89,11 +86,9 @@ export default () => {
       dataHandler={updateData('second')}
     />,
     <>
-      <SubTitle>분실 설정</SubTitle>
+      <SubTitle>가격</SubTitle>
       <Description>
-        {getRangeText(data.first.foundDate)}
-        <br />
-        {data.first.foundLocation && getName(data.first.foundLocation)}
+        test
       </Description>
       <SubTitle>작성글 미리보기</SubTitle>
       <TitleInput defaultValue={data.second.title} disabled />
@@ -104,12 +99,8 @@ export default () => {
   return (
     <Wrapper>
       <Upper>
-        <Title>
-          분실물
-          <br />
-          찾아주세요
-        </Title>
-        <WriteIndicator index={stage} stage={['분실 설정', '내용 작성', '완료']} />
+        <Title>판매합니다</Title>
+        <WriteIndicator index={stage} stage={['판매 설정', '내용 작성', '완료']} />
       </Upper>
       <Content shadow>
         <ContentArrow>

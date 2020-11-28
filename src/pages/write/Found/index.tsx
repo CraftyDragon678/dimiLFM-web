@@ -71,7 +71,7 @@ export default () => {
       foundLocation: undefined,
     },
   });
-  const [valid, setValid] = useState([false]);
+  const [valid, setValid] = useState([false, false, false, true]);
   const [stage, setStage] = useState(0);
 
   const setIndexedValid = (index: number) => (value: boolean) => {
@@ -136,6 +136,7 @@ export default () => {
             onClick={() => setStage(stage - 1)}
           />
           <Arrow
+            check={stage === 3}
             disable={!valid[stage]}
             onClick={() => setStage(stage + 1)}
           />
