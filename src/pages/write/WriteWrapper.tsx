@@ -6,6 +6,7 @@ import Box from 'src/components/Box';
 import variables from 'src/styles/variables';
 import WriteIndicator from 'src/components/WriteIndicator';
 import Arrow from 'src/components/Arrow';
+import api from 'src/api';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -86,6 +87,12 @@ const WriteWrapper = <T, >({
 
   const Final = final;
 
+  const postArticle = async () => {
+    const { status, statusText } = await api.post('/board/found/',
+      (Object.values(data) as T[keyof T][]).reduce((prev, curr) => ({ ...prev, ...curr })));
+    if (status !== 204) console.error(statusText);
+  };
+
   return (
     <Wrapper>
       <Prompt
@@ -106,7 +113,7 @@ const WriteWrapper = <T, >({
           <Arrow
             check={stage === stageKeys.length}
             disable={!valid[stage]}
-            onClick={() => setStage(stage + 1)}
+            onClick={() => (stage === stageKeys.length ? postArticle() : setStage(stage + 1))}
           />
         </ContentArrow>
         <ContentWrapper>
