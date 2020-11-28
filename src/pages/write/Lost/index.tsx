@@ -49,13 +49,13 @@ const ContentWrapper = styled.div`
   margin: 64px;
 `;
 
-interface WriteFoundData {
+interface WriteLostData {
   first: FirstProps;
   second: SecondProps;
 }
 
 export default () => {
-  const [data, setData] = useState<WriteFoundData>({
+  const [data, setData] = useState<WriteLostData>({
     first: {
       foundDate: [new Date(), new Date()],
       foundLocation: undefined,
@@ -72,8 +72,8 @@ export default () => {
     setValid([...valid.slice(0, index), value, ...valid.slice(index + 1)]);
   };
 
-  const updateData = <T extends keyof WriteFoundData>(key: T) => (
-    (newdata: WriteFoundData[T] | ((prev: WriteFoundData[T]) => WriteFoundData[T])) => (
+  const updateData = <T extends keyof WriteLostData>(key: T) => (
+    (newdata: WriteLostData[T] | ((prev: WriteLostData[T]) => WriteLostData[T])) => (
       setData((prev) => ({ ...prev, [key]: typeof newdata === 'function' ? newdata(prev[key]) : newdata }))
     ));
 
