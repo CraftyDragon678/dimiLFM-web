@@ -22,9 +22,9 @@ export default () => (
       <>
         <SubTitle>분실 설정</SubTitle>
         <Description>
-          {getRangeText(data.first.foundDate)}
+          {getRangeText(data.first.lostDate)}
           <br />
-          {data.first.foundLocation && getName(data.first.foundLocation)}
+          {data.first.lostLocation && getName(data.first.lostLocation)}
         </Description>
         <SubTitle>작성글 미리보기</SubTitle>
         <TitleInput defaultValue={data.second.title} disabled />
@@ -40,8 +40,8 @@ export default () => (
     )}
     initialData={{
       first: {
-        foundDate: [new Date(), new Date()],
-        foundLocation: undefined,
+        lostDate: [new Date(), new Date()],
+        lostLocation: undefined,
       },
       second: {
         title: '',

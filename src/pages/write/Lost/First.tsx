@@ -7,8 +7,8 @@ import { WriteProps } from '../../../types/write';
 import Map from '../../../components/Map';
 
 export interface FirstProps {
-  foundDate: Date[];
-  foundLocation: string | undefined;
+  lostDate: Date[];
+  lostLocation: string | undefined;
 }
 
 const Divider = styled.div`
@@ -25,24 +25,24 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
   <>
     <SubTitle>분실 일시</SubTitle>
     <DatetimeRangePicker
-      value={data.foundDate}
-      onChange={(newrange) => dataHandler({ ...data, foundDate: newrange })}
+      value={data.lostDate}
+      onChange={(newrange) => dataHandler({ ...data, lostDate: newrange })}
     />
     <Divider />
     <SubTitle>
       분실 장소
-      {data.foundLocation && (
+      {data.lostLocation && (
         <RoomName>
-          {getName(data.foundLocation)}
+          {getName(data.lostLocation)}
         </RoomName>
       )}
     </SubTitle>
     <Map
       onClick={(ids) => {
-        dataHandler({ ...data, foundLocation: ids[0] });
+        dataHandler({ ...data, lostLocation: ids[0] });
         verify(true);
       }}
-      selected={data.foundLocation || ''}
+      selected={data.lostLocation || ''}
     />
   </>
 );
