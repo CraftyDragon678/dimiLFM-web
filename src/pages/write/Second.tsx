@@ -43,6 +43,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
         />
       </TitleWrapper>
       <Editor
+        initialValue={data.content}
         placeholder="내용을 입력하세요"
         events={{
           change: () => dataHandler((prev) => {
