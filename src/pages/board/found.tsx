@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import Gallery from 'src/components/Gallery';
 import variables from 'src/styles/variables';
@@ -8,6 +8,7 @@ import Map from 'src/components/Map';
 import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
 import tags, { Tag } from 'src/data/tags';
+import api from 'src/api';
 
 const Container = styled.div`
   background-color: white;
@@ -116,8 +117,15 @@ interface Option {
   location: string[];
 }
 
+interface FoundArticle {
+  title: string;
+  image: string;
+  author: string;
+  done: boolean;
+}
+
 export default () => {
-  const [modalIndex, setModalIndex] = useState(0);
+  const [modalIndex, setModalIndex] = useState(-1);
   const [option, setOption] = useState<Option>({
     option: {
       done: false,
@@ -125,11 +133,23 @@ export default () => {
       old: false,
       my: false,
     },
-    tags,
+    tags: [...tags],
     dates: [new Date(), new Date()],
     location: [],
   });
   const [tempOption, setTempOption] = useState<Option>(option);
+  const [articles, setArticles] = useState<FoundArticle[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data, status } = await api.post('/board/found/search', option);
+      if (status !== 200) {
+        console.error(data.message);
+        return;
+      }
+      setArticles(data);
+    })();
+  }, [option]);
 
   return (
     <Container>
