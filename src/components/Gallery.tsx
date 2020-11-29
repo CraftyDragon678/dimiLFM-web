@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import history from 'src/router/history';
 import GalleryItem from './GalleryItem';
 
 const Grid = styled.div`
@@ -10,14 +11,27 @@ const Grid = styled.div`
   padding: 16px 0;
 `;
 
-export default () => (
+interface GalleryProps {
+  data: {
+    href: string;
+    image: string;
+    title: string;
+    subtitle: string;
+  }[];
+}
+
+const Gallery: React.FC<GalleryProps> = ({ data }) => (
   <Grid>
-    {[...Array(20)].map(() => (
+    {data.map((e) => (
       <GalleryItem
-        image="https://via.placeholder.com/200"
-        title="집가고싶다"
-        author="리보솜"
+        key={e.href}
+        image={e.image}
+        title={e.title}
+        subtitle={e.subtitle}
+        onClick={() => history.push(e.href)}
       />
     ))}
   </Grid>
 );
+
+export default Gallery;

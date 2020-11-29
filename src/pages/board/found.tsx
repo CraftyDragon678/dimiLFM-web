@@ -7,7 +7,7 @@ import Button from 'src/components/Button';
 import Map from 'src/components/Map';
 import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
-import tags, { Tag } from 'src/data/tags';
+import { normalTags, Tag } from 'src/data/tags';
 import api from 'src/api';
 
 const Container = styled.div`
@@ -118,9 +118,13 @@ interface Option {
 }
 
 interface FoundArticle {
+  _id: string;
   title: string;
   image: string;
-  author: string;
+  user: {
+    serial: number;
+    name: string;
+  };
   done: boolean;
 }
 
@@ -133,8 +137,8 @@ export default () => {
       old: false,
       my: false,
     },
-    tags: [...tags],
-    dates: [new Date(), new Date()],
+    tags: [...normalTags],
+    dates: [new Date(2020, 0, 1), new Date()],
     location: [],
   });
   const [tempOption, setTempOption] = useState<Option>(option);
@@ -147,7 +151,7 @@ export default () => {
         console.error(data.message);
         return;
       }
-      setArticles(data);
+      setArticles(data.data);
     })();
   }, [option]);
 
@@ -176,7 +180,7 @@ export default () => {
           <div>
             <OptionTitle>태그</OptionTitle>
             <TagButtonWrapper>
-              {tags.map((e) => (
+              {normalTags.map((e) => (
                 <TagButton
                   gray={!tempOption.tags.includes(e)}
                   key={e}
@@ -236,7 +240,14 @@ export default () => {
           <OptionButton key={e} onClick={() => setModalIndex(idx)}>{e}</OptionButton>
         ))}
       </Buttons>
-      <Gallery />
+      <Gallery
+        data={articles.map((e) => ({
+          href: `/board/found/${e._id}`,
+          image: e.image,
+          title: e.title,
+          subtitle: `${e.user.serial} ${e.user.name}`,
+        }))}
+      />
     </Container>
   );
 };
