@@ -21,7 +21,7 @@ const buttonStyle = css`
   border-radius: 4px;
   padding: 0;
   font-size: 18px;
-  background-color: ${variables.blue};
+  background-color: ${variables.logoColor};
   color: white;
 `;
 
