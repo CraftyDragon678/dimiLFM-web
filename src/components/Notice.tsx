@@ -24,6 +24,7 @@ const Title = styled.div`
   font-size: 60px;
   color: white;
   margin-bottom: 20px;
+  font-weight: bold;
 
   ::after {
     content: "";
