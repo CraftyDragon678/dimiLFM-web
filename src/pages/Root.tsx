@@ -41,6 +41,12 @@ const WriteBoardWrapper = styled.div`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
 
@@ -53,7 +59,7 @@ export default () => {
   );
 
   return (
-    <>
+    <Container>
       <FloatWrapper>
         {showWriteBoard && <WriteBoard />}
         <Fab onClick={() => setShowWriteBoard(!showWriteBoard)}>
@@ -66,6 +72,6 @@ export default () => {
         </Fab>
       </FloatWrapper>
       <Gallery />
-    </>
+    </Container>
   );
 };
