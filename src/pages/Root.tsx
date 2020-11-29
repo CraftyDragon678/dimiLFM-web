@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, useLocation } from 'react-router-dom';
 import Notice from 'src/components/Notice';
+import history from 'src/router/history';
+import Button from 'src/components/Button';
 import Board from '../router/board';
 import variables from '../styles/variables';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
-import Button from 'src/components/Button';
 
 const FloatWrapper = styled.div`
   position: fixed;
@@ -67,6 +68,7 @@ const PageButton = styled(Button)<{enable: boolean}>`
 
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
+  const location = useLocation();
 
   const WriteBoard = () => (
     <WriteBoardWrapper>
@@ -74,6 +76,15 @@ export default () => {
       <Link to="/write/lost">분실물 찾아주세요</Link>
       <Link to="/write/market">판매합니다</Link>
     </WriteBoardWrapper>
+  );
+
+  const BoardPageButton: React.FC<{href: string}> = ({ href, children }) => (
+    <PageButton
+      enable={location.pathname === `/board/${href}`}
+      onClick={() => history.push(`/board/${href}`)}
+    >
+      {children}
+    </PageButton>
   );
 
   return (
@@ -91,10 +102,10 @@ export default () => {
       </FloatWrapper>
       <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
       <PageButtonWrapper>
-        <PageButton enable>찾아주세요</PageButton>
-        <PageButton enable={false}>찾아가세요</PageButton>
-        <PageButton enable={false}>판매합니다</PageButton>
-        <PageButton enable={false}>디미 서점</PageButton>
+        <BoardPageButton href="found">찾아가세요</BoardPageButton>
+        <BoardPageButton href="lost">찾아주세요</BoardPageButton>
+        <BoardPageButton href="market">판매합니다</BoardPageButton>
+        <BoardPageButton href="book">디미 서점</BoardPageButton>
       </PageButtonWrapper>
       <Route path="/board" component={Board} />
     </Container>
