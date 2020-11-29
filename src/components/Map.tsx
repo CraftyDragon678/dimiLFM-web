@@ -15,9 +15,9 @@ interface MapDataProps {
 
 const Svg = styled.svg<{enable: boolean}>`
   transition: .5s transform ease, .5s opacity ease, 1s visibility ease;
-  height: 400px;
+  height: 300px;
   transform: perspective(500px);
-  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(200px, -100px, 0) rotate3d(1, -1, 1, 30deg)'};
+  transform: ${({ enable }) => enable && 'perspective(500px) translate3D(200px, -150px, 0) rotate3d(1, -1, 1, 30deg)'};
   opacity: ${({ enable }) => enable || 0};
   visibility: ${({ enable }) => enable || 'hidden'};
   position: absolute;
@@ -67,12 +67,12 @@ const MapItem = styled.div`
 `;
 
 const Floor = styled(Button)<{selected: boolean}>`
-  background-color: ${({ selected }) => selected && variables.logoColor};
+  background-color: ${({ selected }) => selected && variables.blue};
 `;
 
 const Container = styled.div`
-  width: 720px;
-  height: 500px;
+  width: 600px;
+  height: 350px;
   margin: 16px;
   padding: 16px;
   border: 1px solid ${variables.borderColor};
