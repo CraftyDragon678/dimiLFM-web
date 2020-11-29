@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import {
   Root, Chat, NotFound, WriteFound, WriteLost, WriteMarket,
 } from '../pages';
@@ -17,7 +17,8 @@ const Private = () => (
     <Header />
     <BodyContainer>
       <Switch>
-        <Route exact path="/" component={Root} />
+        <Route exact path="/" component={() => <Redirect to="/board/found/" />} />
+        <Route path="/board/" component={Root} />
         <Route exact path="/chat" component={Chat} />
         <Route path="/write/found" component={WriteFound} />
         <Route path="/write/lost" component={WriteLost} />
