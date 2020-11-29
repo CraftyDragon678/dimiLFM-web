@@ -6,6 +6,7 @@ import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
 import Map from 'src/components/Map';
 import Calendar from 'react-calendar';
+import ToggleButton from 'src/components/ToggleButton';
 
 const Container = styled.div`
   background-color: white;
@@ -44,6 +45,9 @@ const Inner = styled.div`
 
   > div:first-of-type {
     flex: 1;
+    width: 100%;
+    display: grid;
+    place-items: center;
   }
   > div:last-of-type {
     display: grid;
@@ -59,6 +63,32 @@ const RoundButton = styled(Button)<{gray?: boolean}>`
   background-color: ${({ gray }) => gray && variables.lightGray};
 `;
 
+const OptionContainer = styled.div`
+  width: calc(100% - 120px);
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-column-gap: 20px;
+`;
+
+const OptionTitle = styled.div`
+  font-size: 32px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  border-bottom: 1px solid ${variables.borderColor};
+  margin-bottom: 20px;
+`;
+
+const ToggleButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  > span {
+    font-size: 24px;
+    margin-left: 15px;
+  }
+`;
+
 interface Option {
   option: {
     done: boolean;
@@ -71,7 +101,7 @@ interface Option {
 }
 
 export default () => {
-  const [modalIndex, setModalIndex] = useState(-1);
+  const [modalIndex, setModalIndex] = useState(0);
   const [option, setOption] = useState<Option>({
     option: {
       done: false,
@@ -79,7 +109,7 @@ export default () => {
       old: false,
       my: false,
     },
-    dates: [],
+    dates: [new Date(), new Date()],
     location: [],
   });
   const [tempOption, setTempOption] = useState<Option>(option);
@@ -87,14 +117,37 @@ export default () => {
   return (
     <Container>
       {[
-        <Map
-          selected={tempOption.location}
-          onClick={(data) => setTempOption({ ...tempOption, location: data })}
-        />,
+        <OptionContainer>
+          <div>
+            <OptionTitle>옵션</OptionTitle>
+            {Object.entries({
+              done: '완료 항목', notdone: '비완료 항목', old: '오래된 순', my: '내 작성글',
+            })
+              .map((e) => (
+                <ToggleButtonWrapper key={e[0]}>
+                  <ToggleButton
+                    value={tempOption.option[e[0] as keyof Option['option']]}
+                    onToggle={(val) => setTempOption({
+                      ...tempOption,
+                      option: { ...tempOption.option, [e[0]]: val },
+                    })}
+                  />
+                  <span>{e[1]}</span>
+                </ToggleButtonWrapper>
+              ))}
+          </div>
+          <div>
+            <OptionTitle>태그</OptionTitle>
+          </div>
+        </OptionContainer>,
         <Calendar
           selectRange
           value={tempOption.dates}
           onChange={(data) => setTempOption({ ...tempOption, dates: data as Date[] })}
+        />,
+        <Map
+          selected={tempOption.location}
+          onClick={(data) => setTempOption({ ...tempOption, location: data })}
         />,
       ].map((e, idx) => (
         <Modal key={idx.toString()} show={idx === modalIndex}>
