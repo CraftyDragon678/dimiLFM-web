@@ -32,23 +32,29 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
           value={data.title}
           onChange={(e) => {
             dataHandler({ ...data, title: e.target.value });
-            verify(!!e.target.value && !!data.content);
+            verify(!!e.target.value && data.tag !== '태그' && !!data.content);
           }}
           placeholder="제목"
         />
         <Select
-          index={((tags.indexOf(data.tag as any) + 1) || 1) - 1}
+          index={(tags.indexOf(data.tag as any) + 1) || 0}
           options={['태그', ...tags]}
-          onChange={(index) => index && dataHandler({ ...data, tag: tags[index] })}
+          onChange={(index) => {
+            if (index) {
+              dataHandler({ ...data, tag: tags[index - 1] });
+              verify(!!data.title && !!data.content);
+            }
+          }}
         />
       </TitleWrapper>
       <Editor
+        height="800px"
         initialValue={data.content}
         placeholder="내용을 입력하세요"
         events={{
           change: () => dataHandler((prev) => {
             const content = editorEl.current?.getInstance().getHtml() || '';
-            verify(!!prev.title && !!content);
+            verify(!!prev.title && data.tag !== '태그' && !!content);
 
             return {
               ...prev,
