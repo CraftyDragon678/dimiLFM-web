@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Gallery from 'src/components/Gallery';
 import Options from 'src/components/Options';
 import variables from 'src/styles/variables';
+import Modal from 'src/components/Modal';
+import Button from 'src/components/Button';
 
 const Container = styled.div`
   background-color: white;
@@ -28,13 +30,39 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
+const Inner = styled.div`
+  width: 720px;
+  height: 520px;
+  background-color: white;
+  border-radius: 24px;
+`;
+
+const RoundButton = styled(Button)<{gray?: boolean}>`
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 9999px;
+  background-color: ${({ gray }) => gray && variables.lightGray};
+`;
+
 export default () => {
+  const [modalIndex, setModalIndex] = useState(-1);
   return (
     <Container>
+      {['옵션', '날짜', '장소'].map((e, idx) => (
+        <Modal key={e} show={idx === modalIndex}>
+          <Inner>
+            {e}
+            <div>
+              <RoundButton gray onClick={() => setModalIndex(-1)}>취소</RoundButton>
+              <RoundButton>적용</RoundButton>
+            </div>
+          </Inner>
+        </Modal>
+      ))}
       <Buttons>
-        <OptionButton>옵션</OptionButton>
-        <OptionButton>날짜</OptionButton>
-        <OptionButton>장소</OptionButton>
+        {['옵션', '날짜', '장소'].map((e, idx) => (
+          <OptionButton key={e} onClick={() => setModalIndex(idx)}>{e}</OptionButton>
+        ))}
       </Buttons>
       <Gallery />
     </Container>
