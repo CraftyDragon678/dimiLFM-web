@@ -12,6 +12,8 @@ interface IGalleryItem {
 const Container = styled.div`
   cursor: pointer;
   height: 200px;
+  padding: 10px;
+  transition: 300ms box-shadow ease;
   :hover {
     box-shadow: 0 0 6px rgba(0, 0, 0, .16);
   }
