@@ -10,4 +10,4 @@ export type MarketTagTuple = typeof marketTags;
 export type MarketTag = MarketTagTuple[number];
 
 export type TagTuple = NormalTagTuple | SellTagTuple | MarketTagTuple;
-export type Tag = NormalTag | SellTag | MarketTag;
+export type Tag = '태그' | NormalTag | SellTag | MarketTag;
