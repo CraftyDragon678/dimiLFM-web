@@ -54,8 +54,6 @@ const PageButtonWrapper = styled.div`
   grid-template-columns: repeat(4, 135px);
   place-content: center;
   margin-top: -40px;
-  /* position: relative;
-  top: -2px; */
 `;
 
 const PageButton = styled(Button)<{enable: boolean}>`
