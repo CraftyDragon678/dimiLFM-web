@@ -1,3 +1,9 @@
-export type Tag = '옷' | '학용품' | '전자기기' | '책' | '택배' | '교과서' | '문제집' | '액세서리' | '기타';
+export const libraryTags = ['책', '교과서', '문제집'] as const;
 
-export default ['옷', '학용품', '전자기기', '책', '택배', '교과서', '문제집', '액세서리', '기타'] as Tag[];
+export const normalTags = ['옷', '학용품', '전자기기', '택배', '액세서리', '기타'] as const;
+
+export type LibraryTag = typeof libraryTags[number];
+export type NormalTag = typeof normalTags[number];
+export type Tag = LibraryTag | NormalTag;
+
+export default [...libraryTags, ...normalTags] as const;
