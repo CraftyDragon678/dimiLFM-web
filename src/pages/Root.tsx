@@ -28,20 +28,15 @@ const WriteBoardWrapper = styled.div`
   right: 100px;
   bottom: 130px;
   width: 180px;
-  padding: 16px;
+  padding: 8px;
   background-color: white;
   font-size: 20px;
 
   border: 1px solid ${variables.lightGray};
   border-radius: 8px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
-  display: grid;
-  grid-row-gap: 12px;
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
+  display: flex;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
@@ -66,15 +61,24 @@ const PageButton = styled(Button)<{enable: boolean}>`
   color: ${variables.logoColor};
 `;
 
+const WriteBoardLink = styled(Link)`
+  padding: 8px;
+  text-decoration: none;
+  color: black;
+  :hover {
+    background-color: ${variables.lightGray};
+  }
+`;
+
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
   const location = useLocation();
 
   const WriteBoard = () => (
     <WriteBoardWrapper>
-      <Link to="/write/found">분실물 찾아가세요</Link>
-      <Link to="/write/lost">분실물 찾아주세요</Link>
-      <Link to="/write/market">판매합니다</Link>
+      <WriteBoardLink to="/write/found">분실물 찾아가세요</WriteBoardLink>
+      <WriteBoardLink to="/write/lost">분실물 찾아주세요</WriteBoardLink>
+      <WriteBoardLink to="/write/market">판매합니다</WriteBoardLink>
     </WriteBoardWrapper>
   );
 
