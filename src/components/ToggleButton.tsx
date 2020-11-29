@@ -13,7 +13,7 @@ const Wrapper = styled.div<{enable: boolean}>`
 
   display: flex;
   align-items: center;
-  padding: 0 5px;
+  padding: 0 4px;
   box-sizing: border-box;
 `;
 
@@ -24,7 +24,7 @@ const Circle = styled.div<{enable: boolean}>`
   background-color: white;
 
   transition: 300ms transform ease;
-  transform: ${({ enable }) => enable && 'translateX(35px)'};
+  transform: ${({ enable }) => enable && 'translateX(38px)'};
 `;
 
 interface ToggleButtonProps {
