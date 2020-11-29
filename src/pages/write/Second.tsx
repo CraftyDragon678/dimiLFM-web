@@ -1,6 +1,7 @@
 import { Editor } from '@toast-ui/react-editor';
 import React, { useRef } from 'react';
 import { TitleInput } from 'src/components/Input';
+import { SubTitle } from 'src/components/Text';
 import { WriteProps } from '../../types/write';
 
 export interface SecondProps {
@@ -13,6 +14,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
 
   return (
     <>
+      <SubTitle>내용 작성</SubTitle>
       <TitleInput
         value={data.title}
         onChange={(e) => {
