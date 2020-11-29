@@ -35,6 +35,20 @@ const Inner = styled.div`
   height: 520px;
   background-color: white;
   border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  box-sizing: border-box;
+
+  div:first-of-type {
+    flex: 1;
+  }
+  div:last-of-type {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 20px;
+  }
 `;
 
 const RoundButton = styled(Button)<{gray?: boolean}>`
@@ -45,13 +59,15 @@ const RoundButton = styled(Button)<{gray?: boolean}>`
 `;
 
 export default () => {
-  const [modalIndex, setModalIndex] = useState(-1);
+  const [modalIndex, setModalIndex] = useState(1);
   return (
     <Container>
       {['옵션', '날짜', '장소'].map((e, idx) => (
         <Modal key={e} show={idx === modalIndex}>
           <Inner>
-            {e}
+            <div>
+              {e}
+            </div>
             <div>
               <RoundButton gray onClick={() => setModalIndex(-1)}>취소</RoundButton>
               <RoundButton>적용</RoundButton>
