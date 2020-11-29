@@ -11,12 +11,16 @@ interface IGalleryItem {
 
 const Container = styled.div`
   cursor: pointer;
-  height: 300px;
+  height: 200px;
+  :hover {
+    box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+  }
 `;
 
 const Image = styled.img`
   height: 150px;
   width: 150px;
+  margin-bottom: 10px;
 `;
 
 const Title = styled.div`
