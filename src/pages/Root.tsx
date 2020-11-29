@@ -7,6 +7,7 @@ import variables from '../styles/variables';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
+import Button from 'src/components/Button';
 
 const FloatWrapper = styled.div`
   position: fixed;
@@ -48,6 +49,21 @@ const Container = styled.div`
   width: 100%;
 `;
 
+const PageButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 135px);
+  place-content: center;
+  margin-top: -40px;
+`;
+
+const PageButton = styled(Button)<{enable: boolean}>`
+  background-color: white;
+  border: ${({ enable }) => enable && `2px solid ${variables.logoColor}`};
+  z-index: ${({ enable }) => enable && 1};
+  border-radius: 10px 10px 0 0;
+  color: ${variables.logoColor};
+`;
+
 export default () => {
   const [showWriteBoard, setShowWriteBoard] = useState(false);
 
@@ -73,6 +89,12 @@ export default () => {
         </Fab>
       </FloatWrapper>
       <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
+      <PageButtonWrapper>
+        <PageButton enable>찾아주세요</PageButton>
+        <PageButton enable={false}>찾아가세요</PageButton>
+        <PageButton enable={false}>판매합니다</PageButton>
+        <PageButton enable={false}>디미 서점</PageButton>
+      </PageButtonWrapper>
       <Route path="/board" component={Board} />
     </Container>
   );
