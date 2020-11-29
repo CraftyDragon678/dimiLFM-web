@@ -7,7 +7,7 @@ import {
 import Header from '../components/Header';
 
 const BodyContainer = styled.div`
-  margin: 16px 450px;
+  margin: 0 450px;
   flex: 1;
   display: flex;
 `;
