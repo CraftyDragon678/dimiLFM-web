@@ -7,6 +7,7 @@ import Button from 'src/components/Button';
 import Map from 'src/components/Map';
 import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
+import tags, { Tag } from 'src/data/tags';
 
 const Container = styled.div`
   background-color: white;
@@ -89,6 +90,20 @@ const ToggleButtonWrapper = styled.div`
   }
 `;
 
+const TagButton = styled(Button)<{gray?: boolean}>`
+  font-size: 20px;
+  border-radius: 9999px;
+  width: 100px;
+  background-color: ${({ gray }) => gray && variables.lightGray};
+`;
+
+const TagButtonWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+`;
+
 interface Option {
   option: {
     done: boolean;
@@ -96,6 +111,7 @@ interface Option {
     old: boolean;
     my: boolean;
   };
+  tags: Tag[];
   dates: Date[];
   location: string[];
 }
@@ -109,6 +125,7 @@ export default () => {
       old: false,
       my: false,
     },
+    tags,
     dates: [new Date(), new Date()],
     location: [],
   });
@@ -138,6 +155,23 @@ export default () => {
           </div>
           <div>
             <OptionTitle>태그</OptionTitle>
+            <TagButtonWrapper>
+              {tags.map((e) => (
+                <TagButton
+                  gray={!tempOption.tags.includes(e)}
+                  key={e}
+                  onClick={() => (
+                    setTempOption({
+                      ...tempOption,
+                      tags: tempOption.tags.includes(e)
+                        ? tempOption.tags.filter((tag) => tag !== e)
+                        : [...tempOption.tags, e],
+                    }))}
+                >
+                  {`#${e}`}
+                </TagButton>
+              ))}
+            </TagButtonWrapper>
           </div>
         </OptionContainer>,
         <Calendar
