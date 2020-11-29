@@ -22,6 +22,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
         placeholder="제목"
       />
       <Editor
+        placeholder="내용을 입력하세요"
         events={{
           change: () => dataHandler((prev) => {
             const content = editorEl.current?.getInstance().getHtml() || '';
