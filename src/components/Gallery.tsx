@@ -13,6 +13,7 @@ const Grid = styled.div`
 
 interface GalleryProps {
   data: {
+    done: boolean;
     href: string;
     image: string;
     title: string;
@@ -24,6 +25,7 @@ const Gallery: React.FC<GalleryProps> = ({ data }) => (
   <Grid>
     {data.map((e) => (
       <GalleryItem
+        done={e.done}
         key={e.href}
         image={e.image}
         title={e.title}

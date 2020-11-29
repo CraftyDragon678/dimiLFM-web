@@ -251,6 +251,7 @@ export default ({ type }: { type: 'found' | 'lost' }) => {
       <Gallery
         data={articles.map((e) => ({
           href: `/board/${type}/${e._id}`,
+          done: e.done,
           image: e.image,
           title: e.title,
           subtitle: `${e.user.serial} ${e.user.name}`,
