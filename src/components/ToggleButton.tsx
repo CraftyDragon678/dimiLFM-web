@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React from 'react';
 import variables from '../styles/variables';
 
 const Wrapper = styled.div<{enable: boolean}>`
@@ -8,7 +8,7 @@ const Wrapper = styled.div<{enable: boolean}>`
   border-radius: 15px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
 
-  background-color: ${({ enable }) => (enable ? variables.pink : variables.lightGray)};
+  background-color: ${({ enable }) => (enable ? variables.logoColor : variables.lightGray)};
   transition: 300ms background-color ease;
 
   display: flex;
@@ -27,26 +27,22 @@ const Circle = styled.div<{enable: boolean}>`
   transform: ${({ enable }) => enable && 'translateX(35px)'};
 `;
 
-interface IToggleButton {
+interface ToggleButtonProps {
+  value: boolean;
   onToggle?: (val: boolean) => void;
 }
 
-const ToggleButton: React.FC<IToggleButton> = ({ onToggle }) => {
-  const [enabled, setEnabled] = useState(false);
-
-  return (
-    <Wrapper
-      enable={enabled}
-      onClick={() => {
-        setEnabled(!enabled);
-        if (onToggle) {
-          onToggle(!enabled);
-        }
-      }}
-    >
-      <Circle enable={enabled} />
-    </Wrapper>
-  );
-};
+const ToggleButton: React.FC<ToggleButtonProps> = ({ value, onToggle }) => (
+  <Wrapper
+    enable={value}
+    onClick={() => {
+      if (onToggle) {
+        onToggle(!value);
+      }
+    }}
+  >
+    <Circle enable={value} />
+  </Wrapper>
+);
 
 export default ToggleButton;
