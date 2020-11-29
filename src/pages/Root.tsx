@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import Notice from 'src/components/Notice';
 import variables from '../styles/variables';
 import Gallery from '../components/Gallery';
 import Fab from '../components/Fab';
@@ -71,6 +72,7 @@ export default () => {
           </Link>
         </Fab>
       </FloatWrapper>
+      <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
       <Gallery />
     </Container>
   );
