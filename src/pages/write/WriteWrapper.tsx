@@ -8,6 +8,7 @@ import WriteIndicator from 'src/components/WriteIndicator';
 import Arrow from 'src/components/Arrow';
 import api from 'src/api';
 import history from 'src/router/history';
+import { TagTuple } from 'src/data/tags';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -18,6 +19,7 @@ interface WriteWrapperProps<T> {
   stageLabels: string[];
   title: React.ReactElement;
   boardName: string;
+  tags: TagTuple;
 }
 
 const Wrapper = styled.div`
@@ -59,7 +61,7 @@ const ContentWrapper = styled.div`
 `;
 
 const WriteWrapper = <T, >({
-  stages, final, initialData, stageLabels, title, boardName,
+  stages, final, initialData, stageLabels, title, boardName, tags,
 }: WriteWrapperProps<T>): React.ReactElement<WriteWrapperProps<T>> => {
   const stageKeys = Object.keys(stages) as Array<keyof T>;
   const [data, setData] = useState<T>(initialData);
@@ -84,6 +86,7 @@ const WriteWrapper = <T, >({
         verify={setIndexedValid(idx)}
         data={data[key]}
         dataHandler={updateData(key)}
+        tags={tags}
       />
     );
   });

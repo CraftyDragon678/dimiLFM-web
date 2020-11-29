@@ -2,6 +2,7 @@ import React from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import { Description, SubTitle } from 'src/components/Text';
 import { TitleInput } from 'src/components/Input';
+import { marketTags } from 'src/data/tags';
 import First, { FirstProps } from './First';
 import Second, { SecondProps } from '../Second';
 import WriteWrapper from '../WriteWrapper';
@@ -44,5 +45,6 @@ export default () => (
     } as WriteFoundData}
     stageLabels={['판매 설정', '내용 작성', '완료']}
     boardName="market"
+    tags={marketTags}
   />
 );

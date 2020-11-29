@@ -4,6 +4,7 @@ import { Description, SubTitle } from 'src/components/Text';
 import { TitleInput } from 'src/components/Input';
 import { getRangeText } from 'src/utils/date';
 import { getName } from 'src/data/map';
+import { normalTags } from 'src/data/tags';
 import First, { FirstProps } from './First';
 import Second, { SecondProps } from '../Second';
 import Third, { ThirdProps } from './Third';
@@ -60,5 +61,6 @@ export default () => (
     } as WriteFoundData}
     stageLabels={['발견 설정', '내용 작성', '희망 장소', '완료']}
     boardName="found"
+    tags={normalTags}
   />
 );
