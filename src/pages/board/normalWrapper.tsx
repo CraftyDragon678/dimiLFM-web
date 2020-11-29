@@ -143,16 +143,24 @@ export default ({ type }: { type: 'found' | 'lost' }) => {
   });
   const [tempOption, setTempOption] = useState<Option>(option);
   const [articles, setArticles] = useState<Article[]>([]);
+  const [canceled, setCanceled] = useState(false);
 
   useEffect(() => {
+    setCanceled(true);
     (async () => {
       const { data, status } = await api.post(`/board/${type}/search`, option);
       if (status !== 200) {
         console.error(data.message);
         return;
       }
-      setArticles(data.data);
+      if (!canceled) {
+        setArticles(data.data);
+      }
     })();
+
+    return () => {
+      setCanceled(true);
+    };
   }, [option]);
 
   return (
