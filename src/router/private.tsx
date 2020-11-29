@@ -17,7 +17,7 @@ const Private = () => (
     <Header />
     <BodyContainer>
       <Switch>
-        <Route exact path="/" component={() => <Redirect to="/board/found/" />} />
+        <Route exact path="/" component={() => <Redirect to="/board/found" />} />
         <Route path="/board/" component={Root} />
         <Route exact path="/chat" component={Chat} />
         <Route path="/write/found" component={WriteFound} />
