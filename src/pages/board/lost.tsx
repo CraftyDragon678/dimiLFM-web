@@ -1,4 +1,4 @@
 import React from 'react';
 import NormalWrapper from './normalWrapper';
 
-export default () => <NormalWrapper type="found" />;
+export default () => <NormalWrapper type="lost" />;
