@@ -34,6 +34,7 @@ const Upper = styled(Box)`
   align-items: center;
   padding: 60px;
   box-sizing: border-box;
+  margin-top: 10px;
 `;
 
 const Title = styled.div`
