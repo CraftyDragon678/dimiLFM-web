@@ -14,10 +14,12 @@ interface IGalleryItem {
 const Container = styled.div`
   cursor: pointer;
   height: 200px;
-  padding: 10px;
-  transition: 300ms box-shadow ease;
+  padding: 20px;
+  transition: 300ms box-shadow ease, 300ms transform ease;
+  box-shadow: 0 0 3px rgba(0, 0, 0, .16);
   :hover {
-    box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+    box-shadow: 0 0 6px rgba(0, 0, 0, .3);
+    transform: translateY(-10px);
   }
 `;
 
