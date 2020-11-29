@@ -37,9 +37,9 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
           placeholder="제목"
         />
         <Select
-          index={tags.indexOf(data.tag as any)}
-          options={tags as any}
-          onChange={(index) => dataHandler({ ...data, tag: tags[index] })}
+          index={((tags.indexOf(data.tag as any) + 1) || 1) - 1}
+          options={['태그', ...tags]}
+          onChange={(index) => index && dataHandler({ ...data, tag: tags[index] })}
         />
       </TitleWrapper>
       <Editor
