@@ -16,6 +16,8 @@ const Wrapper = styled.div`
   justify-content: center;
   padding-bottom: 50px;
   z-index: -2;
+
+  border-bottom: 2px solid ${variables.logoColor};
 `;
 
 const Title = styled.div`

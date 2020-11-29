@@ -54,11 +54,14 @@ const PageButtonWrapper = styled.div`
   grid-template-columns: repeat(4, 135px);
   place-content: center;
   margin-top: -40px;
+  /* position: relative;
+  top: -2px; */
 `;
 
 const PageButton = styled(Button)<{enable: boolean}>`
   background-color: white;
   border: ${({ enable }) => enable && `2px solid ${variables.logoColor}`};
+  border-bottom: 2px solid ${({ enable }) => (enable ? 'white' : variables.logoColor)};
   z-index: ${({ enable }) => enable && 1};
   border-radius: 10px 10px 0 0;
   color: ${variables.logoColor};
