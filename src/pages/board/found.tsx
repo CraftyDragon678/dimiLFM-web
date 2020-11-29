@@ -103,7 +103,15 @@ export default () => {
               {e}
             </div>
             <div>
-              <RoundButton gray onClick={() => setModalIndex(-1)}>취소</RoundButton>
+              <RoundButton
+                gray
+                onClick={() => {
+                  setModalIndex(-1);
+                  setTempOption(option);
+                }}
+              >
+                취소
+              </RoundButton>
               <RoundButton
                 onClick={() => {
                   setModalIndex(-1);
