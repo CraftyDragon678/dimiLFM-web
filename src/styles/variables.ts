@@ -2,6 +2,7 @@ const breakpoints = [576, 768, 992, 1200];
 
 export default {
   lightPurple: '#eaebff',
+  purple: '#b0b4fe',
   blue: '#7491e9',
   gray: '#989898',
   lightGray: '#ced0d4',

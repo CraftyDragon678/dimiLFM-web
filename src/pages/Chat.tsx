@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { SubTitle } from 'src/components/Text';
 import variables from 'src/styles/variables';
 import api from '../api';
 
@@ -11,6 +12,10 @@ const Container = styled.div`
 
 const ListContainer = styled.div`
   width: 300px;
+`;
+
+const ListText = styled(SubTitle)`
+  padding: 30px 50px 0 50px;
 `;
 
 const UserWrapper = styled.div<{enable: boolean}>`
@@ -48,6 +53,7 @@ const UserName = styled.div`
 const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  border: 2px solid ${variables.purple};
 
   > div:first-of-type {
     flex: 1;
@@ -89,7 +95,7 @@ export default () => {
   return (
     <Container>
       <ListContainer>
-        목록
+        <ListText>목록</ListText>
         {['정품 키즈패딩', '맥북 프로', '장차드', '고급', '리보솜'].map((e, idx) => (
           <UserWrapper key={e} enable={idx === 2}>
             <UserImage src="https://via.placeholder.com/25" />
