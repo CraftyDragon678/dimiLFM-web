@@ -254,7 +254,7 @@ export default ({ type }: { type: 'found' | 'lost' }) => {
           done: e.done,
           image: e.image,
           title: e.title,
-          subtitle: `${e.user.serial} ${e.user.name}`,
+          subtitle: `${e.user.serial || ''} ${e.user.name}`,
         }))}
       />
     </Container>
