@@ -6,6 +6,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 
+import './socket';
 import './styles/reset.css';
 import './styles/index.css';
 import './styles/Calendar.css';
