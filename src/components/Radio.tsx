@@ -10,7 +10,7 @@ interface RadioProps {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-row-gap: 10px;
+  row-gap: 10px;
 `;
 
 const Circle = styled.div<{selected: boolean}>`

@@ -7,8 +7,8 @@ const Grid = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-column-gap: 10px;
-  grid-row-gap: 20px;
+  column-gap: 10px;
+  row-gap: 20px;
   place-items: center;
   padding: 16px 0;
 `;

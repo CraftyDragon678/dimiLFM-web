@@ -16,7 +16,7 @@ export interface SecondProps {
 const TitleWrapper = styled.div`
   display: grid;
   grid-template-columns: 3fr 1fr;
-  grid-column-gap: 10px;
+  column-gap: 10px;
 `;
 
 const Second: React.FC<WriteProps<SecondProps>> = ({

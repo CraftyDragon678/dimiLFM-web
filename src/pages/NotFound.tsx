@@ -40,7 +40,7 @@ const Row = styled.div`
   margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
+  column-gap: 20px;
 
   ${Button} {
     font-size: 50px;

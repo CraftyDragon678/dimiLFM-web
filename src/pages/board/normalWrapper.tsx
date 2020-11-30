@@ -54,7 +54,7 @@ const Inner = styled.div`
   > div:last-of-type {
     display: grid;
     grid-auto-flow: column;
-    grid-column-gap: 20px;
+    column-gap: 20px;
   }
 `;
 
@@ -69,7 +69,7 @@ const OptionContainer = styled.div`
   width: calc(100% - 120px);
   display: grid;
   grid-template-columns: 2fr 3fr;
-  grid-column-gap: 20px;
+  column-gap: 20px;
 `;
 
 const OptionTitle = styled.div`
@@ -101,8 +101,8 @@ const TagButton = styled(Button)<{gray?: boolean}>`
 const TagButtonWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  column-gap: 10px;
+  row-gap: 10px;
 `;
 
 interface Option {

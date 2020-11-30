@@ -15,7 +15,7 @@ const FloatWrapper = styled.div`
   right: 24px;
   bottom: 24px;
   display: grid;
-  grid-row-gap: 24px;
+  row-gap: 24px;
 `;
 
 const Icon = styled.img`

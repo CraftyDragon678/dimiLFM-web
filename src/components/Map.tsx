@@ -63,7 +63,7 @@ const genMaps = (maps: MapData[]) => maps.map((map) => genMap(map));
 const MapItem = styled.div`
   margin-top: 30px;
   display: grid;
-  grid-row-gap: 10px;
+  row-gap: 10px;
 `;
 
 const Floor = styled(Button)<{selected: boolean}>`
