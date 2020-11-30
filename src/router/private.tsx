@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Redirect, Route, Switch } from 'react-router';
+import variables from 'src/styles/variables';
 import {
   Root, Chat, NotFound, WriteFound, WriteLost, WriteMarket,
 } from '../pages';
@@ -10,6 +11,10 @@ const BodyContainer = styled.div`
   margin: 0 min(50vw - 300px, 450px);
   flex: 1;
   display: flex;
+
+  ${variables.mq[0]} {
+    margin: 0 10px;
+  }
 `;
 
 const Private = () => (
