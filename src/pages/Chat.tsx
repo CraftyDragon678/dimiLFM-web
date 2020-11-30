@@ -23,13 +23,15 @@ export default () => {
     })();
 
     return () => {
-      ws.current?.close();
+      if (ws.current) {
+        ws.current.close();
+      }
     };
   }, []);
 
   const sendMessage = () => {
-    if (message) {
-      ws.current?.send(message);
+    if (message && ws.current) {
+      ws.current.send(message);
       setMessage('');
     }
   };
