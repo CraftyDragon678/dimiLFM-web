@@ -5,6 +5,7 @@ export default {
   blue: '#7491e9',
   gray: '#989898',
   lightGray: '#ced0d4',
+  lighterGray: '#f2f2f2',
   borderColor: '#707070',
   background: '#f0f2f5',
   error: '#ff3939',

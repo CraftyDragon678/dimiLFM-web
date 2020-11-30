@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import variables from 'src/styles/variables';
 import api from '../api';
 
@@ -46,6 +46,36 @@ const UserName = styled.div`
 `;
 
 const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > div:first-of-type {
+    flex: 1;
+  }
+`;
+
+const InputContainer = styled.div`
+  background-color: ${variables.lightGray};
+  display: flex;
+  padding: 10px;
+  height: 50px;
+`;
+
+const Input = styled.input`
+  background-color: ${variables.lighterGray};
+  flex: 1;
+  padding: 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 100px;
+`;
+
+const SendButton = styled.button`
+  background-color: ${variables.logoColor};
+  border: none;
+  margin-left: 10px;
+  width: 80px;
+  border-radius: 100px;
 `;
 
 export default () => {
@@ -74,14 +104,20 @@ export default () => {
         ))}
       </ListContainer>
       <MessageContainer>
-        <input onKeyUp={(e) => e.key === 'Enter' && sendMessage()} value={message} onChange={(e) => setMessage(e.target.value)} />
-
         <div>
-          <div>messages:</div>
           {messages.map((e) => (
             <div>{e}</div>
           ))}
         </div>
+        <InputContainer>
+          <Input
+            placeholder="메시지를 입력하세요..."
+            onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <SendButton />
+        </InputContainer>
       </MessageContainer>
     </Container>
   );
