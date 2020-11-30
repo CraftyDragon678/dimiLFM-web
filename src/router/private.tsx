@@ -8,7 +8,7 @@ import {
 import Header from '../components/Header';
 
 const BodyContainer = styled.div`
-  margin: 0 min(50vw - 300px, 450px);
+  margin: 0 min(50vw - 300px, 250px);
   flex: 1;
   display: flex;
 
