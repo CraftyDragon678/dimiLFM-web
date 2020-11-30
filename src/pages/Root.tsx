@@ -12,6 +12,7 @@ import chatSvg from '../assets/images/chat.svg';
 
 const FloatWrapper = styled.div`
   position: fixed;
+  z-index: 2;
   right: 24px;
   bottom: 24px;
   display: grid;
