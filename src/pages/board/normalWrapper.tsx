@@ -161,7 +161,7 @@ export default ({ type }: { type: 'found' | 'lost' }) => {
     return () => {
       setCanceled(true);
     };
-  }, [option]);
+  }, [canceled, option, type]);
 
   return (
     <Container>
