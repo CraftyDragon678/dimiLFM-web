@@ -2,9 +2,11 @@ import styled from '@emotion/styled';
 import React, {
   useEffect, useReducer, useRef, useState,
 } from 'react';
+import api from 'src/api';
 import { SubTitle } from 'src/components/Text';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
+import { User } from 'src/utils/user';
 
 const Container = styled.div`
   width: 100%;
@@ -130,7 +132,14 @@ interface ChatData {
 }
 
 type Action = { type: 'ADD_MINE', messageType: string, message: string }
-            | { type: 'ADD_OTHER', messageType: string, message: string };
+  | { type: 'ADD_OTHER', messageType: string, message: string };
+
+interface ChatRoom {
+  from: User;
+  to: User;
+  lastMessage: string;
+  _id: string;
+}
 
 export default () => {
   const [message, setMessage] = useState('');
@@ -153,11 +162,28 @@ export default () => {
     }
   }, []);
   const messageContainerEl = useRef<HTMLDivElement>(null);
+  const [list, setList] = useState<ChatRoom[]>([]);
 
   useEffect(() => {
     socket.on('message', receiveMessage);
     return () => {
       socket.off('message', receiveMessage);
+    };
+  }, []);
+
+  useEffect(() => {
+    let canceled = false;
+    (async () => {
+      const { status, data } = await api.get('/chat/list');
+      if (status !== 200) return;
+
+      if (!canceled) {
+        setList(data);
+      }
+    })();
+
+    return () => {
+      canceled = true;
     };
   }, []);
 

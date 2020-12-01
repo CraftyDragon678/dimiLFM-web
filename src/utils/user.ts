@@ -1,6 +1,6 @@
 import { UserType } from 'src/types/user';
 
-interface User {
+export interface User {
   serial?: number;
   name: string;
   type: UserType;
