@@ -13,8 +13,7 @@ socket.on('disconnect', (reason: string) => {
         const { status, data } = await api.get('/auth/socket');
 
         if (status !== 401) {
-          // @ts-ignore
-          socket.io.opts.query = {
+          (socket.io as any).opts.query = {
             oid: data.oid,
             token: data.token,
           };
