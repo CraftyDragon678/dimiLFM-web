@@ -1,9 +1,12 @@
 import React from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router';
-import { BoardFound, BoardLost, BoardMarket, NotFound } from '../pages';
+import {
+  ArticleFound, BoardFound, BoardLost, BoardMarket, NotFound,
+} from '../pages';
 
 const Board: React.FC<RouteComponentProps> = ({ match: { path } }) => (
   <Switch>
+    <Route extact path={`${path}/found/:id`} component={ArticleFound} />
     <Route extact path={`${path}/found`} component={BoardFound} />
     <Route extact path={`${path}/lost`} component={BoardLost} />
     <Route extact path={`${path}/market`} component={BoardMarket} />
