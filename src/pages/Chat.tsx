@@ -5,6 +5,7 @@ import React, {
 import api from 'src/api';
 import { SubTitle } from 'src/components/Text';
 import UserImage from 'src/components/UserImage';
+import history from 'src/router/history';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
 import { User } from 'src/types/user';
@@ -217,8 +218,12 @@ export default () => {
     <Container>
       <ListContainer>
         <ListText>목록</ListText>
-        {list.map((e, idx) => (
-          <UserWrapper key={e._id} enable={idx === 2}>
+        {list.map((e) => (
+          <UserWrapper
+            key={e._id}
+            enable={history.location.pathname.includes(e._id)}
+            onClick={() => history.push(`/chat/${e._id}`)}
+          >
             <UserImage image={e.user.profileimage} />
             <UserName>
               <span>{e.title}</span>
