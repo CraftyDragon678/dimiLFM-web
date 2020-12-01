@@ -13,3 +13,4 @@ export const WriteMarket = loadable(() => import('./write/Market'));
 /* board */
 export const BoardFound = loadable(() => import('./board/found'));
 export const BoardLost = loadable(() => import('./board/lost'));
+export const BoardMarket = loadable(() => import('./board/market'));

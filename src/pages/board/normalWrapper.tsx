@@ -128,7 +128,7 @@ interface Article {
   done: boolean;
 }
 
-export default ({ type }: { type: 'found' | 'lost' }) => {
+export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
   const [modalIndex, setModalIndex] = useState(-1);
   const [option, setOption] = useState<Option>({
     option: {
