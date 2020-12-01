@@ -4,11 +4,11 @@ import React, {
 } from 'react';
 import api from 'src/api';
 import { SubTitle } from 'src/components/Text';
+import UserImage from 'src/components/UserImage';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
 import { User } from 'src/types/user';
 import { getUserDisplayText } from 'src/utils/user';
-import userIcon from '../assets/images/user.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -31,16 +31,6 @@ const UserWrapper = styled.div<{enable: boolean}>`
   padding: 10px 50px;
   border-radius: 10px 0 0 10px;
   background-color: ${({ enable }) => enable && variables.lightPurple};
-`;
-
-const UserImage = styled.img`
-  width: 50px;
-  height: 50px;
-  border: 1px solid ${variables.borderColor};
-  border-radius: 25px;
-  margin-right: 10px;
-  object-fit: contain;
-  object-position: center;
 `;
 
 const UserName = styled.div`
@@ -229,10 +219,7 @@ export default () => {
         <ListText>목록</ListText>
         {list.map((e, idx) => (
           <UserWrapper key={e._id} enable={idx === 2}>
-            <UserImage
-              src={`https://api.dimigo.hs.kr/user_photo/${e.user.profileimage}`}
-              onError={(event) => { const el = event.currentTarget; el.src = userIcon; }}
-            />
+            <UserImage image={e.user.profileimage} />
             <UserName>
               <span>{e.title}</span>
               <span>{`(${getUserDisplayText(e.user)})`}</span>
