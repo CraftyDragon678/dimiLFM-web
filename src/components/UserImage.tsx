@@ -19,7 +19,7 @@ const UserImageComponent = styled.img`
 
 const UserImage: React.FC<UserImageProps> = ({ image }) => (
   <UserImageComponent
-    src={`https://api.dimigo.hs.kr/user_photo/${image}`}
+    src={image ? `https://api.dimigo.hs.kr/user_photo/${image}` : userIcon}
     onError={(e) => { const el = e.currentTarget; el.src = userIcon; }}
   />
 );
