@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubTitle } from 'src/components/Text';
+import socket from 'src/socket';
 import variables from 'src/styles/variables';
 import api from '../api';
 
@@ -54,10 +55,6 @@ const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 2px solid ${variables.purple};
-
-  > div:first-of-type {
-    flex: 1;
-  }
 `;
 
 const InputContainer = styled.div`
@@ -84,12 +81,81 @@ const SendButton = styled.button`
   border-radius: 100px;
 `;
 
+const Messages = styled.div`
+  flex: 1 0px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const Chat = styled.div`
+  padding: 10px 15px;
+  margin-bottom: 2px;
+  max-width: 80%;
+`;
+
+const MyChat = styled(Chat)`
+  align-self: flex-end;
+  background-color: ${variables.logoColor};
+  color: white;
+  border-radius: 20px 20px 0 20px;
+
+  & + & {
+    border-top-right-radius: 0;
+  }
+`;
+
+const OtherChat = styled(Chat)`
+  align-self: flex-start;
+  padding: 10px 15px;
+  margin-bottom: 2px;
+  background-color: ${variables.lightGray};
+  border-radius: 20px 20px 20px 0;
+
+  & + & {
+    border-top-left-radius: 0;
+  }
+`;
+
+interface ChatData {
+  type: string;
+  message: string;
+  mine: boolean;
+}
+
 export default () => {
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<ChatData[]>([]);
+
+  useEffect(() => {
+    socket.on('message', receiveMessage);
+    return () => {
+      socket.off('message', receiveMessage);
+    };
+  }, []);
+
+  const receiveMessage = (msg: string) => {
+    setMessages((prev) => [...prev, {
+      type: 'text',
+      message: msg,
+      mine: false,
+    }]);
+  };
 
   const sendMessage = () => {
-    setMessage('');
+    if (message) {
+      setMessages((prev) => [...prev, {
+        type: 'text',
+        message,
+        mine: true,
+      }]);
+      socket.emit('send', {
+        type: 'text',
+        message,
+      });
+      setMessage('');
+    }
   };
 
   return (
@@ -110,11 +176,17 @@ export default () => {
         ))}
       </ListContainer>
       <MessageContainer>
-        <div>
-          {messages.map((e) => (
-            <div>{e}</div>
+        <Messages>
+          {messages.map((e, idx) => (
+            <React.Fragment key={idx.toString()}>
+              {e.mine ? (
+                <MyChat>{e.message}</MyChat>
+              ) : (
+                <OtherChat>{e.message}</OtherChat>
+              )}
+            </React.Fragment>
           ))}
-        </div>
+        </Messages>
         <InputContainer>
           <Input
             placeholder="메시지를 입력하세요..."
