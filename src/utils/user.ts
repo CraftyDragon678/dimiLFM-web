@@ -1,10 +1,4 @@
-import { UserType } from 'src/types/user';
-
-export interface User {
-  serial?: number;
-  name: string;
-  type: UserType;
-}
+import { User } from 'src/types/user';
 
 export const getUserDisplayText = (user: User) => {
   if (user.type === 'S') return `${user.serial || ''} ${user.name}`.trim();
