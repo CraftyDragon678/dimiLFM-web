@@ -124,10 +124,11 @@ interface ChatData {
   type: string;
   message: string;
   mine: boolean;
+  sendAt: Date;
 }
 
 type Action = { type: 'ADD_MINE', messageType: string, message: string }
-  | { type: 'ADD_OTHER', messageType: string, message: string };
+  | { type: 'ADD_OTHER', messageType: string, message: string, date: Date };
 
 interface ChatRoom {
   user: User;
@@ -145,13 +146,15 @@ export default () => {
           type: action.messageType,
           message: action.message,
           mine: true,
-        }];
+          sendAt: new Date(),
+        }].sort((a, b) => a.sendAt.getTime() - b.sendAt.getTime());
       case 'ADD_OTHER':
         return [...state, {
           type: action.messageType,
           message: action.message,
           mine: false,
-        }];
+          sendAt: action.date,
+        }].sort((a, b) => a.sendAt.getTime() - b.sendAt.getTime());
       default:
         return state;
     }
@@ -191,11 +194,12 @@ export default () => {
     }
   }, [messages]);
 
-  const receiveMessage = (msg: string) => {
+  const receiveMessage = (msg: string, date: string) => {
     dispatchMessages({
       type: 'ADD_OTHER',
       messageType: 'text',
       message: msg,
+      date: new Date(date),
     });
   };
 
