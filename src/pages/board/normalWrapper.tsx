@@ -9,6 +9,8 @@ import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
 import { normalTags, Tag } from 'src/data/tags';
 import api from 'src/api';
+import { getUserDisplayText } from 'src/utils/user';
+import { UserType } from 'src/types/user';
 
 const Container = styled.div`
   background-color: white;
@@ -122,8 +124,9 @@ interface Article {
   title: string;
   image: string;
   user: {
-    serial: number;
+    serial?: number;
     name: string;
+    type: UserType;
   };
   done: boolean;
 }
@@ -254,7 +257,7 @@ export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
           done: e.done,
           image: e.image,
           title: e.title,
-          subtitle: `${e.user.serial || ''} ${e.user.name}`,
+          subtitle: getUserDisplayText(e.user),
         }))}
       />
     </Container>
