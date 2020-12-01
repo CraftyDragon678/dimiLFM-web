@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { SubTitle } from 'src/components/Text';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
+import { formatDiagnosticsWithColorAndContext } from 'typescript';
 import api from '../api';
 
 const Container = styled.div`
@@ -124,9 +125,30 @@ interface ChatData {
   mine: boolean;
 }
 
+type Action = { type: 'ADD_MINE', messageType: string, message: string }
+            | { type: 'ADD_OTHER', messageType: string, message: string };
+
 export default () => {
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<ChatData[]>([]);
+  const [messages, dispatchMessages] = useReducer((state: ChatData[], action: Action) => {
+    switch (action.type) {
+      case 'ADD_MINE':
+        return [...state, {
+          type: action.messageType,
+          message: action.message,
+          mine: true,
+        }];
+      case 'ADD_OTHER':
+        return [...state, {
+          type: action.messageType,
+          message: action.message,
+          mine: false,
+        }];
+      default:
+        return state;
+    }
+  }, []);
+  const messageContainerEl = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     socket.on('message', receiveMessage);
@@ -135,21 +157,30 @@ export default () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (messageContainerEl.current) {
+      const el = messageContainerEl.current;
+      if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
+        el.scrollTop = el.scrollHeight;
+      }
+    }
+  }, [messages]);
+
   const receiveMessage = (msg: string) => {
-    setMessages((prev) => [...prev, {
-      type: 'text',
+    dispatchMessages({
+      type: 'ADD_OTHER',
+      messageType: 'text',
       message: msg,
-      mine: false,
-    }]);
+    });
   };
 
   const sendMessage = () => {
     if (message) {
-      setMessages((prev) => [...prev, {
-        type: 'text',
+      dispatchMessages({
+        type: 'ADD_MINE',
+        messageType: 'text',
         message,
-        mine: true,
-      }]);
+      });
       socket.emit('send', {
         type: 'text',
         message,
@@ -176,7 +207,7 @@ export default () => {
         ))}
       </ListContainer>
       <MessageContainer>
-        <Messages>
+        <Messages ref={messageContainerEl}>
           {messages.map((e, idx) => (
             <React.Fragment key={idx.toString()}>
               {e.mine ? (
