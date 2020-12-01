@@ -173,15 +173,15 @@ export default () => {
   };
 
   const sendMessage = () => {
-    if (message) {
+    if (message.trim()) {
       dispatchMessages({
         type: 'ADD_MINE',
         messageType: 'text',
-        message,
+        message: message.trim(),
       });
       socket.emit('send', {
         type: 'text',
-        message,
+        message: message.trim(),
       });
       setMessage('');
     }
