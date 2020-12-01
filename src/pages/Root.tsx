@@ -105,13 +105,17 @@ export default () => {
           </Link>
         </Fab>
       </FloatWrapper>
-      <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
-      <PageButtonWrapper>
-        <BoardPageButton href="found">찾아가세요</BoardPageButton>
-        <BoardPageButton href="lost">찾아주세요</BoardPageButton>
-        <BoardPageButton href="market">판매합니다</BoardPageButton>
-        <BoardPageButton href="book">디미 서점</BoardPageButton>
-      </PageButtonWrapper>
+      {/board\/[^/]+\/?$/.test(history.location.pathname) && (
+        <>
+          <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
+          <PageButtonWrapper>
+            <BoardPageButton href="found">찾아가세요</BoardPageButton>
+            <BoardPageButton href="lost">찾아주세요</BoardPageButton>
+            <BoardPageButton href="market">판매합니다</BoardPageButton>
+            <BoardPageButton href="book">디미 서점</BoardPageButton>
+          </PageButtonWrapper>
+        </>
+      )}
       <Route path="/board" component={Board} />
     </Container>
   );
