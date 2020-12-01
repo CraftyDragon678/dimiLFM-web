@@ -6,7 +6,9 @@ import api from 'src/api';
 import { SubTitle } from 'src/components/Text';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
-import { User } from 'src/utils/user';
+import { User } from 'src/types/user';
+import { getUserDisplayText } from 'src/utils/user';
+import userIcon from '../assets/images/user.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -37,6 +39,8 @@ const UserImage = styled.img`
   border: 1px solid ${variables.borderColor};
   border-radius: 25px;
   margin-right: 10px;
+  object-fit: contain;
+  object-position: center;
 `;
 
 const UserName = styled.div`
@@ -135,10 +139,10 @@ type Action = { type: 'ADD_MINE', messageType: string, message: string }
   | { type: 'ADD_OTHER', messageType: string, message: string };
 
 interface ChatRoom {
-  from: User;
-  to: User;
+  user: User;
   lastMessage: string;
   _id: string;
+  title: string;
 }
 
 export default () => {
@@ -223,15 +227,16 @@ export default () => {
     <Container>
       <ListContainer>
         <ListText>목록</ListText>
-        {['정품 키즈패딩', '맥북 프로', '장차드', '고급', '리보솜'].map((e, idx) => (
-          <UserWrapper key={e} enable={idx === 2}>
-            <UserImage src="https://via.placeholder.com/25" />
+        {list.map((e, idx) => (
+          <UserWrapper key={e._id} enable={idx === 2}>
+            <UserImage
+              src={`https://api.dimigo.hs.kr/user_photo/${e.user.profileimage}`}
+              onError={(event) => { const el = event.currentTarget; el.src = userIcon; }}
+            />
             <UserName>
-              <span>{e}</span>
-              <span>(홍다우)</span>
-              <div>
-                저 이거 갖고싶어요
-              </div>
+              <span>{e.title}</span>
+              <span>{`(${getUserDisplayText(e.user)})`}</span>
+              <div>{e.lastMessage}</div>
             </UserName>
           </UserWrapper>
         ))}
