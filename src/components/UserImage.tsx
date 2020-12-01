@@ -15,6 +15,7 @@ const UserImageComponent = styled.img`
   margin-right: 10px;
   object-fit: contain;
   object-position: center;
+  background-color: white;
 `;
 
 const UserImage: React.FC<UserImageProps> = ({ image }) => (
