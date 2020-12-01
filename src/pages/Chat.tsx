@@ -1,17 +1,20 @@
 import styled from '@emotion/styled';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, {
+  useEffect, useReducer, useRef, useState,
+} from 'react';
 import { SubTitle } from 'src/components/Text';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr;
+  width: 100%;
+  display: flex;
   background-color: white;
 `;
 
 const ListContainer = styled.div`
-  width: 300px;
+  flex: 0 300px;
+  width: 0;
 `;
 
 const ListText = styled(SubTitle)`
@@ -51,6 +54,8 @@ const UserName = styled.div`
 `;
 
 const MessageContainer = styled.div`
+  flex: 1;
+  width: 0;
   display: flex;
   flex-direction: column;
   border: 2px solid ${variables.purple};
@@ -92,6 +97,7 @@ const Chat = styled.div`
   padding: 10px 15px;
   margin-bottom: 2px;
   max-width: 80%;
+  line-break: anywhere;
 `;
 
 const MyChat = styled(Chat)`
