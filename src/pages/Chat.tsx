@@ -3,8 +3,6 @@ import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { SubTitle } from 'src/components/Text';
 import socket from 'src/socket';
 import variables from 'src/styles/variables';
-import { formatDiagnosticsWithColorAndContext } from 'typescript';
-import api from '../api';
 
 const Container = styled.div`
   display: grid;
