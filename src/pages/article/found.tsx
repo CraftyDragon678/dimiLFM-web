@@ -5,7 +5,6 @@ import { RouteComponentProps } from 'react-router';
 import api from 'src/api';
 import Button from 'src/components/Button';
 import history from 'src/router/history';
-import socket from 'src/socket';
 
 interface FoundData {
   _id: string;
@@ -38,23 +37,19 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
       setArticle(data);
     })();
 
-    const moveToChat = () => {
-      history.push('/chat');
-    };
-    socket.on('open', moveToChat);
-
     return () => {
       setArticle(undefined);
-      socket.off('open', moveToChat);
     };
   }, [match]);
 
-  const contact = () => {
+  const contact = async () => {
     if (article) {
-      socket.emit('open', {
+      const { status, data } = await api.post('/chat/open', {
         id: article._id,
         board: 'found',
       });
+      if (status !== 201) return;
+      history.push(`/chat/${data._id}`);
     }
   };
 
