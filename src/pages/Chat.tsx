@@ -129,7 +129,8 @@ interface ChatData {
 }
 
 type Action = { type: 'ADD_MINE', messageType: string, message: string }
-  | { type: 'ADD_OTHER', messageType: string, message: string, date: Date };
+  | { type: 'ADD_OTHER', messageType: string, message: string, date: Date }
+  | { type: 'CLEAR' };
 
 interface ChatRoom {
   user: User;
@@ -156,6 +157,8 @@ export default () => {
           mine: false,
           sendAt: action.date,
         }].sort((a, b) => a.sendAt.getTime() - b.sendAt.getTime());
+      case 'CLEAR':
+        return [];
       default:
         return state;
     }
@@ -179,6 +182,10 @@ export default () => {
       canceled = true;
     };
   }, []);
+
+  useEffect(() => {
+    dispatchMessages({ type: 'CLEAR' });
+  }, [channel]);
 
   useEffect(() => {
     if (messageContainerEl.current) {
