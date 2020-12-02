@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import api from 'src/api';
 import Arrow from 'src/components/Arrow';
-import Button, { TextButton } from 'src/components/Button';
+import { TextButton } from 'src/components/Button';
 import UserImage from 'src/components/UserImage';
 import { getName } from 'src/data/map';
 import history from 'src/router/history';
@@ -29,6 +29,7 @@ interface FoundData {
   tag: string;
   radioIndex: number;
   user: User;
+  mine: boolean;
 }
 
 const Container = styled.div`
@@ -100,6 +101,14 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
     }
   };
 
+  const makeDone = async () => {
+    if (article && article.mine) {
+      const { status } = await api.put('/board/found/done');
+      if (status !== 200) return;
+      history.go(0);
+    }
+  };
+
   return (
     article ? (
       <Container>
@@ -152,11 +161,17 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
               {' '}
               메인 화면으로 돌아가기
             </TextButton>
-            <TextButton onClick={contact}>
-              메시지 보내기
-              {' '}
-              <BodySendImage src={sendSvg} />
-            </TextButton>
+            {article.mine ? (
+              <TextButton onClick={makeDone}>
+                완료로 표시
+              </TextButton>
+            ) : (
+              <TextButton onClick={contact}>
+                메시지 보내기
+                {' '}
+                <BodySendImage src={sendSvg} />
+              </TextButton>
+            )}
           </BodyButtons>
           <Viewer initialValue={article.content} />
         </BodyContainer>
