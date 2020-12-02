@@ -21,7 +21,8 @@ api.interceptors.response.use(
       }
       return error.response;
     }
-    return error;
+    if (error.response.status === 500) return error;
+    return error.response;
   },
 );
 
