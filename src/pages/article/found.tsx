@@ -156,7 +156,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
         </HeaderContainer>
         <BodyContainer>
           <BodyButtons>
-            <TextButton>
+            <TextButton onClick={() => history.push(history.location.pathname.split('/').slice(0, 3).join('/'))}>
               <Arrow left />
               {' '}
               메인 화면으로 돌아가기
