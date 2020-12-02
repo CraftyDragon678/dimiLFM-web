@@ -32,7 +32,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
           value={data.title}
           onChange={(e) => {
             dataHandler({ ...data, title: e.target.value });
-            verify(!!e.target.value && data.tag !== '태그' && !!data.content);
+            verify(!!e.target.value && data.tag && !!data.content);
           }}
           placeholder="제목"
         />
@@ -54,7 +54,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
         events={{
           change: () => dataHandler((prev) => {
             const content = editorEl.current?.getInstance().getHtml() || '';
-            verify(!!prev.title && data.tag !== '태그' && !!content);
+            verify(!!prev.title && data.tag && !!content);
 
             return {
               ...prev,
