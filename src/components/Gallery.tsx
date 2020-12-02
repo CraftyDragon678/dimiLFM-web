@@ -6,7 +6,7 @@ import GalleryItem from './GalleryItem';
 const Grid = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   column-gap: 10px;
   row-gap: 20px;
   place-items: center;
