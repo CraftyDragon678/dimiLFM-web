@@ -161,6 +161,7 @@ export default () => {
   }, []);
   const messageContainerEl = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<ChatRoom[]>([]);
+  const channel = history.location.pathname.split('/')[2];
 
   useEffect(() => {
     socket.on('message', receiveMessage);
@@ -197,6 +198,7 @@ export default () => {
   const receiveMessage = (msg: {
     channel: string, type: string, message: string, date: string, mine?: boolean,
   }) => {
+    if (msg.channel !== channel) return;
     dispatchMessages({
       type: msg.mine ? 'ADD_MINE' : 'ADD_OTHER',
       messageType: msg.type,
@@ -215,7 +217,7 @@ export default () => {
       socket.emit('send', {
         type: 'text',
         message: message.trim(),
-        channel: history.location.pathname.split('/')[2],
+        channel,
       });
       setMessage('');
     }
