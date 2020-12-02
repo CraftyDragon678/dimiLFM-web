@@ -111,6 +111,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
               <HeaderTitleUser>{`(${getUserDisplayText(article.user)})`}</HeaderTitleUser>
             </HeaderTitle>
             <HeaderDescription>
+              <p>{dayjs(article.createdAt).format('YYYY/MM/DD HH:mm')}</p>
               <p>
                 [발견 일시]
                 {' '}
@@ -141,7 +142,6 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
                       </p>
                     )
               }
-              <p>{dayjs(article.createdAt).format('YYYY/MM/DD HH:mm')}</p>
             </HeaderDescription>
           </div>
         </HeaderContainer>
