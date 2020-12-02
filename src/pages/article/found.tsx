@@ -1,15 +1,25 @@
 import styled from '@emotion/styled';
 import { Viewer } from '@toast-ui/react-editor';
+import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
 import api from 'src/api';
-import Button from 'src/components/Button';
+import Arrow from 'src/components/Arrow';
+import Button, { TextButton } from 'src/components/Button';
+import UserImage from 'src/components/UserImage';
+import { getName } from 'src/data/map';
 import history from 'src/router/history';
+import variables from 'src/styles/variables';
+import { User } from 'src/types/user';
+import { getRangeText } from 'src/utils/date';
+import { getUserDisplayText } from 'src/utils/user';
+import sendSvg from '../../assets/images/send.svg';
 
 interface FoundData {
   _id: string;
   done: boolean;
   foundLocation: string;
+  wantLocation?: string;
   from: Date;
   to: Date;
   createdAt: Date;
@@ -18,14 +28,51 @@ interface FoundData {
   content: string;
   tag: string;
   radioIndex: number;
-  user: {
-    serial: number;
-    name: string;
-  };
+  user: User;
 }
 
 const Container = styled.div`
   background-color: white;
+`;
+
+const HeaderContainer = styled.div`
+  background-color: ${variables.purple};
+  display: flex;
+  color: white;
+  padding: 30px 40px;
+`;
+
+const HeaderTitle = styled.div`
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const HeaderTitleUser = styled.span`
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: normal;
+`;
+
+const HeaderDescription = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  > p {
+    margin-bottom: 4px;
+  }
+`;
+
+const BodyContainer = styled.div`
+  padding: 20px;
+`;
+
+const BodyButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const BodySendImage = styled.img`
+  height: 20px;
 `;
 
 export default ({ match }: RouteComponentProps<{id: string}>) => {
@@ -56,8 +103,63 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
   return (
     article ? (
       <Container>
-        <Viewer initialValue={article.content} />
-        <Button onClick={contact}>연락하기</Button>
+        <HeaderContainer>
+          <UserImage />
+          <div>
+            <HeaderTitle>
+              {article.title}
+              <HeaderTitleUser>{`(${getUserDisplayText(article.user)})`}</HeaderTitleUser>
+            </HeaderTitle>
+            <HeaderDescription>
+              <p>
+                [발견 일시]
+                {' '}
+                {getRangeText([new Date(article.from), new Date(article.to)])}
+              </p>
+              <p>
+                [발견 장소]
+                {' '}
+                {getName(article.foundLocation)}
+              </p>
+              {
+                article.radioIndex === 0
+                  ? <p>발견 장소에 물건이 그대로 있습니다</p>
+                  : article.radioIndex === 1
+                    ? (
+                      <p>
+                        [희망 장소]
+                        {' '}
+                        {article.wantLocation && getName(article.wantLocation)}
+                        에 맡겼습니다
+                      </p>
+                    ) : (
+                      <p>
+                        [희망 장소]
+                        {' '}
+                        {article.wantLocation && getName(article.wantLocation)}
+                        에서 가지고 있습니다
+                      </p>
+                    )
+              }
+              <p>{dayjs(article.createdAt).format('YYYY/MM/DD HH:mm')}</p>
+            </HeaderDescription>
+          </div>
+        </HeaderContainer>
+        <BodyContainer>
+          <BodyButtons>
+            <TextButton>
+              <Arrow left />
+              {' '}
+              메인 화면으로 돌아가기
+            </TextButton>
+            <TextButton onClick={contact}>
+              메시지 보내기
+              {' '}
+              <BodySendImage src={sendSvg} />
+            </TextButton>
+          </BodyButtons>
+          <Viewer initialValue={article.content} />
+        </BodyContainer>
       </Container>
     ) : (
       <></>
