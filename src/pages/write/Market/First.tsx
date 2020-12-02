@@ -85,7 +85,6 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
     </Description>
     <Stars
       value={data.stars}
-      size={5}
       onChange={(value) => {
         dataHandler({ ...data, stars: value });
         verify(!!data.beforePrice && !!data.afterPrice);
