@@ -119,9 +119,12 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
 
   const makeDone = async () => {
     if (article && article.mine) {
-      const { status } = await api.put('/board/found/done');
+      const { status, data } = await api.put(`/board/found/${match.params.id}/done`);
       if (status !== 200) return;
-      history.go(0);
+      setArticle({
+        ...article,
+        done: data.done,
+      });
     }
   };
 
@@ -180,7 +183,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
             </TextButton>
             {article.mine ? (
               <TextButton onClick={makeDone}>
-                완료로 표시
+                {article.done ? '완료로 표시' : '미완료로 표시'}
               </TextButton>
             ) : (
               <TextButton onClick={contact}>
