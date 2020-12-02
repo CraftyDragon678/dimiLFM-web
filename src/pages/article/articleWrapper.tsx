@@ -82,7 +82,11 @@ const BodySendImage = styled.img`
 
 export default ({
   id, describe, board,
-}: { id: string, describe: (data: any) => string[], board: Board }) => {
+}: {
+  id: string,
+  describe: ((data: any) => string[] | React.ReactElement),
+  board: Board,
+}) => {
   const [article, setArticle] = useState<Data>();
   useEffect(() => {
     let canceled = false;
@@ -132,9 +136,9 @@ export default ({
             </HeaderTitle>
             <HeaderDescription>
               <p>{dayjs(article.createdAt).format('YYYY/MM/DD HH:mm')}</p>
-              {article.description.map((e, idx) => (
+              {Array.isArray(article.description) ? article.description.map((e, idx) => (
                 <p key={idx.toString()}>{e}</p>
-              ))}
+              )) : article.description}
             </HeaderDescription>
           </div>
           {article.done && <HeaderDoneIndicator>완료</HeaderDoneIndicator>}
