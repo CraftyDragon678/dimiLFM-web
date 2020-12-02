@@ -93,11 +93,8 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
     let canceled = false;
     (async () => {
       const { status, data } = await api.get(`/board/found/${match.params.id}`);
-      if (status !== 200) return;
-
-      if (!canceled) {
-        setArticle(data);
-      }
+      if (status !== 200 || canceled) return;
+      setArticle(data);
     })();
 
     return () => {

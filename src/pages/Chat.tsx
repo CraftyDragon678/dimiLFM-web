@@ -224,11 +224,8 @@ export default () => {
     let canceled = false;
     (async () => {
       const { status, data } = await api.get('/chat/list');
-      if (status !== 200) return;
-
-      if (!canceled) {
-        setList(data);
-      }
+      if (status !== 200 || canceled) return;
+      setList(data);
     })();
 
     return () => {
@@ -241,15 +238,14 @@ export default () => {
     (async () => {
       dispatchMessages({ type: 'CLEAR' });
       const { status, data } = await api.get(`/chat/fetch?id=${channel}`);
-      if (!canceled && status === 200) {
-        dispatchMessages({
-          type: 'SET',
-          data: data.messages.map((e: ChatData) => ({
-            ...e, sendAt: new Date(e.sendAt),
-          })),
-        });
-        setRef(data.ref);
-      }
+      if (status !== 200 || canceled) return;
+      dispatchMessages({
+        type: 'SET',
+        data: data.messages.map((e: ChatData) => ({
+          ...e, sendAt: new Date(e.sendAt),
+        })),
+      });
+      setRef(data.ref);
     })();
     return () => {
       canceled = false;

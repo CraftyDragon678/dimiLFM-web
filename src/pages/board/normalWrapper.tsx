@@ -156,9 +156,8 @@ export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
         console.error(data.message);
         return;
       }
-      if (!canceled) {
-        setArticles(data.data);
-      }
+      if (canceled) return;
+      setArticles(data.data);
     })();
 
     return () => {
