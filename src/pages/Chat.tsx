@@ -385,11 +385,13 @@ export default () => {
         <InputContainer>
           <Input
             placeholder="메시지를 입력하세요..."
-            onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
-          <SendButton />
+          <SendButton
+            onClick={sendMessage}
+          />
         </InputContainer>
       </MessageContainer>
     </Container>
