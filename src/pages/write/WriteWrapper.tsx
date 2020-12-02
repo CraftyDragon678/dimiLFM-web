@@ -8,7 +8,8 @@ import WriteIndicator from 'src/components/WriteIndicator';
 import Arrow from 'src/components/Arrow';
 import api from 'src/api';
 import history from 'src/router/history';
-import { TagTuple } from 'src/data/tags';
+import { Tag, TagTuple } from 'src/data/tags';
+import Writeup from './Writeup';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -61,12 +62,20 @@ const ContentWrapper = styled.div`
   margin: 64px;
 `;
 
-const WriteWrapper = <T, >({
-  stages, final, initialData, stageLabels, title, boardName, tags,
-}: WriteWrapperProps<T>): React.ReactElement<WriteWrapperProps<T>> => {
+const WriteWrapper = <
+  T extends {[key: string]: any},
+>({
+    stages, final, initialData, stageLabels, title, boardName, tags,
+  }: WriteWrapperProps<T>): React.ReactElement<WriteWrapperProps<T>> => {
   const stageKeys = Object.keys(stages) as Array<keyof T>;
-  const [data, setData] = useState<T>(initialData);
-  const [valid, setValid] = useState([...Array(stageKeys.length).fill(false), true]);
+  const [data, setData] = useState<T & {writeup: {title: string, content: string, tag?: Tag}}>({
+    ...initialData,
+    writeup: {
+      title: '',
+      content: '',
+    },
+  });
+  const [valid, setValid] = useState<boolean[]>([...Array(stageKeys.length).fill(false), false, true]);
   const [stage, setStage] = useState(0);
 
   const setIndexedValid = (index: number) => (value: boolean) => {
@@ -80,17 +89,28 @@ const WriteWrapper = <T, >({
       ))
     ));
 
-  const _stages = stageKeys.map((key, idx) => {
-    const E = stages[key] as React.FC<WriteProps<T[typeof key]>>;
-    return (
-      <E
-        verify={setIndexedValid(idx)}
-        data={data[key]}
-        dataHandler={updateData(key)}
-        tags={tags}
-      />
-    );
-  });
+  const _stages = [
+    ...stageKeys.map((key, idx) => {
+      const E = stages[key] as React.FC<WriteProps<T[typeof key]>>;
+      return (
+        <E
+          verify={setIndexedValid(idx)}
+          data={data[key]}
+          dataHandler={updateData(key)}
+          tags={tags}
+        />
+      );
+    }),
+    <Writeup
+      verify={setIndexedValid(stageKeys.length)}
+      data={data.writeup}
+      dataHandler={(newdata) => (
+        setData((prev) => (
+          { ...prev, writeup: newdata instanceof Function ? newdata(prev.writeup) : newdata }
+        )))}
+      tags={tags}
+    />,
+  ];
 
   const Final = final;
 
@@ -108,12 +128,12 @@ const WriteWrapper = <T, >({
   return (
     <Wrapper>
       <Prompt
-        when={valid[stageKeys.length]}
+        when={valid.slice(0, -1).some((v) => v) && stage !== stageKeys.length + 1}
         message="정말로 나가시겠습니까? 현재 입력한 사항은 저장되지 않습니다."
       />
       <Upper>
         <Title>{title}</Title>
-        <WriteIndicator index={stage} stage={stageLabels} />
+        <WriteIndicator index={stage} stage={[...stageLabels, '내용 작성', '완료']} />
       </Upper>
       <Content shadow>
         <ContentArrow>
@@ -123,13 +143,13 @@ const WriteWrapper = <T, >({
             onClick={() => setStage(stage - 1)}
           />
           <Arrow
-            check={stage === stageKeys.length}
+            check={stage === stageKeys.length + 1}
             disable={!valid[stage]}
-            onClick={() => (stage === stageKeys.length ? postArticle() : setStage(stage + 1))}
+            onClick={() => (stage === stageKeys.length + 1 ? postArticle() : setStage(stage + 1))}
           />
         </ContentArrow>
         <ContentWrapper>
-          {stage < stageKeys.length ? _stages[stage] : <Final data={data} /> }
+          {stage <= stageKeys.length ? _stages[stage] : <Final data={data} /> }
         </ContentWrapper>
       </Content>
     </Wrapper>

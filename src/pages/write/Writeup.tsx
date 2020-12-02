@@ -7,10 +7,10 @@ import { SubTitle } from 'src/components/Text';
 import { Tag } from 'src/data/tags';
 import { WriteProps } from '../../types/write';
 
-export interface SecondProps {
+export interface WriteupProps {
   title: string;
   content: string;
-  tag: Tag;
+  tag?: Tag;
 }
 
 const TitleWrapper = styled.div`
@@ -19,7 +19,7 @@ const TitleWrapper = styled.div`
   column-gap: 10px;
 `;
 
-const Second: React.FC<WriteProps<SecondProps>> = ({
+const Writeup: React.FC<WriteProps<WriteupProps>> = ({
   verify, data, dataHandler, tags,
 }) => {
   const editorEl = useRef<Editor>(null);
@@ -32,7 +32,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
           value={data.title}
           onChange={(e) => {
             dataHandler({ ...data, title: e.target.value });
-            verify(!!e.target.value && data.tag && !!data.content);
+            verify(!!e.target.value && !!data.tag && !!data.content);
           }}
           placeholder="제목"
         />
@@ -54,7 +54,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
         events={{
           change: () => dataHandler((prev) => {
             const content = editorEl.current?.getInstance().getHtml() || '';
-            verify(!!prev.title && data.tag && !!content);
+            verify(!!prev.title && !!data.tag && !!content);
 
             return {
               ...prev,
@@ -69,4 +69,4 @@ const Second: React.FC<WriteProps<SecondProps>> = ({
   );
 };
 
-export default Second;
+export default Writeup;

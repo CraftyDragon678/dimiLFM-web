@@ -6,7 +6,7 @@ import { Description, SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
 import Map from '../../../components/Map';
 
-export interface ThirdProps {
+export interface SecondProps {
   radioIndex: number;
   wantLocation?: string;
 }
@@ -17,7 +17,7 @@ const RoomName = styled.span`
   font-size: 20px;
 `;
 
-const Third: React.FC<WriteProps<ThirdProps>> = ({ verify, data, dataHandler }) => (
+const Third: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }) => (
   <>
     <SubTitle>
       희망 장소
