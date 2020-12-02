@@ -29,21 +29,26 @@ const Description = styled.span`
   font-size: 9px;
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 export default ({ match }: RouteComponentProps<{id: string}>) => (
   <ArticleWrapper
     board="market"
     id={match.params.id}
     describe={(data: LostData) => (
-      <>
-        <p>
+      <Container>
+        <div>
           <AfterPrice>{`${data.afterPrice}원`}</AfterPrice>
           <BeforePrice>{`${data.beforePrice}원`}</BeforePrice>
-        </p>
-        <p>
+        </div>
+        <div>
           <Stars value={data.stars} />
           <Description>판매자가 직접 선택한 별점입니다</Description>
-        </p>
-      </>
+        </div>
+      </Container>
     )}
   />
 );
