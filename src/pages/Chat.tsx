@@ -91,7 +91,7 @@ const Messages = styled.div`
   padding: 20px;
 `;
 
-const Chat = styled.div`
+const Chat = styled.div<{firstOfGroup?: boolean, lastOfGroup?: boolean}>`
   padding: 10px 15px;
   margin-bottom: 2px;
   max-width: 80%;
@@ -102,11 +102,10 @@ const MyChat = styled(Chat)`
   align-self: flex-end;
   background-color: ${variables.logoColor};
   color: white;
-  border-radius: 20px 20px 0 20px;
+  border-radius: 20px 0 0 20px;
 
-  & + & {
-    border-top-right-radius: 0;
-  }
+  border-top-right-radius: ${({ firstOfGroup }) => firstOfGroup && '20px'};
+  border-bottom-right-radius: ${({ lastOfGroup }) => lastOfGroup && '20px'};
 `;
 
 const OtherChat = styled(Chat)`
@@ -114,11 +113,10 @@ const OtherChat = styled(Chat)`
   padding: 10px 15px;
   margin-bottom: 2px;
   background-color: ${variables.lightGray};
-  border-radius: 20px 20px 20px 0;
+  border-radius: 0 20px 20px 0;
 
-  & + & {
-    border-top-left-radius: 0;
-  }
+  border-top-left-radius: ${({ firstOfGroup }) => firstOfGroup && '20px'};
+  border-bottom-left-radius: ${({ lastOfGroup }) => lastOfGroup && '20px'};
 `;
 
 interface ChatData {
@@ -294,9 +292,19 @@ export default () => {
           {messages.map((e, idx) => (
             <React.Fragment key={idx.toString()}>
               {e.mine ? (
-                <MyChat>{e.message}</MyChat>
+                <MyChat
+                  firstOfGroup={messages[idx - 1] ? !messages[idx - 1].mine : true}
+                  lastOfGroup={messages[idx + 1] ? !messages[idx + 1].mine : true}
+                >
+                  {e.message}
+                </MyChat>
               ) : (
-                <OtherChat>{e.message}</OtherChat>
+                <OtherChat
+                  firstOfGroup={messages[idx - 1] ? messages[idx - 1].mine : true}
+                  lastOfGroup={messages[idx + 1] ? messages[idx + 1].mine : true}
+                >
+                  {e.message}
+                </OtherChat>
               )}
             </React.Fragment>
           ))}
