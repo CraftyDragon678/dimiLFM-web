@@ -180,7 +180,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
             </TextButton>
             {article.mine ? (
               <TextButton onClick={makeDone}>
-                {article.done ? '완료로 표시' : '미완료로 표시'}
+                {article.done ? '미완료로 표시' : '완료로 표시'}
               </TextButton>
             ) : (
               <TextButton onClick={contact}>
