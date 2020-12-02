@@ -29,7 +29,7 @@ const ImageWrapper = styled.div<{done: boolean}>`
   display: grid;
   place-items: center;
   ::after {
-    content: ${({ done }) => done && '완료'};
+    content: ${({ done }) => done && '"완료"'};
     color: white;
     font-size: 30px;
     display: inline-block;
