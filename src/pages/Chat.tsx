@@ -194,12 +194,14 @@ export default () => {
     }
   }, [messages]);
 
-  const receiveMessage = (msg: string, date: string) => {
+  const receiveMessage = (msg: {
+    channel: string, type: string, message: string, date: string, mine?: boolean,
+  }) => {
     dispatchMessages({
-      type: 'ADD_OTHER',
-      messageType: 'text',
-      message: msg,
-      date: new Date(date),
+      type: msg.mine ? 'ADD_MINE' : 'ADD_OTHER',
+      messageType: msg.type,
+      message: msg.message,
+      date: new Date(msg.date),
     });
   };
 
@@ -213,6 +215,7 @@ export default () => {
       socket.emit('send', {
         type: 'text',
         message: message.trim(),
+        channel: history.location.pathname.split('/')[2],
       });
       setMessage('');
     }
