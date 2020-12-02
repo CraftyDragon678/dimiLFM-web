@@ -34,6 +34,10 @@ const HeaderContainer = styled.div`
   display: flex;
   color: white;
   padding: 30px 40px;
+
+  > div {
+    flex: 1;
+  }
 `;
 
 const HeaderTitle = styled.div`
