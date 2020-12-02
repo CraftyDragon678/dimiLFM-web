@@ -66,14 +66,26 @@ const MessageHeaderContainer = styled.div`
 
 const MessageHeaderTitle = styled.div`
   height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${variables.purple};
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+
+  > span > span {
+    font-size: 12px;
+  }
 `;
 
 const MessageHeaderRef = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 40px;
+  padding: 0 40px;
   height: 150px;
+  border: 2px solid ${variables.purple};
+  line-breaK: anywhere;
 `;
 
 const MessageHeaderRefImage = styled.img`
@@ -334,7 +346,11 @@ export default () => {
         {ref && (
           <MessageHeaderContainer>
             <MessageHeaderTitle>
-              {ref.title}
+              <UserImage image={list.find((v) => v._id === channel)?.user.profileimage} />
+              <span>
+                {ref.title}
+                <span>{`(${list.find((v) => v._id === channel)?.user.name})`}</span>
+              </span>
             </MessageHeaderTitle>
             <MessageHeaderRef>
               {ref.image && <MessageHeaderRefImage src={ref.image} />}
