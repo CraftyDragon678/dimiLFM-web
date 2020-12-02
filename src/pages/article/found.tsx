@@ -63,6 +63,17 @@ const HeaderDescription = styled.div`
   }
 `;
 
+const HeaderDoneIndicator = styled.div`
+  width: 60px;
+  height: 60px;
+  background-color: #00FF33;
+  border-radius: 30px;
+  margin-left: auto;
+  font-size: 24px;
+  display: grid;
+  place-items: center;
+`;
+
 const BodyContainer = styled.div`
   padding: 20px;
 `;
@@ -153,6 +164,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
               }
             </HeaderDescription>
           </div>
+          {article.done && <HeaderDoneIndicator>완료</HeaderDoneIndicator>}
         </HeaderContainer>
         <BodyContainer>
           <BodyButtons>
