@@ -48,7 +48,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
         id: article._id,
         board: 'found',
       });
-      if (status !== 201) return;
+      if (status !== 201 && status !== 409) return;
       history.push(`/chat/${data._id}`);
     }
   };
