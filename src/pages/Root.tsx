@@ -9,6 +9,7 @@ import variables from '../styles/variables';
 import Fab from '../components/Fab';
 import newSvg from '../assets/images/new.svg';
 import chatSvg from '../assets/images/chat.svg';
+import { Search } from '.';
 
 const FloatWrapper = styled.div`
   position: fixed;
@@ -117,6 +118,7 @@ export default () => {
         </>
       )}
       <Route path="/board" component={Board} />
+      <Route path="/search/:query" component={Search} />
     </Container>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import history from 'src/router/history';
 import variables from '../styles/variables';
 import loupe from '../assets/images/loupe.svg';
 
@@ -45,14 +46,24 @@ const SearchButton = styled.img`
 export default () => {
   const [query, setQuery] = useState('');
 
+  const search = () => {
+    if (query) {
+      history.push(`/search/${query}`);
+    }
+  };
+
   return (
     <Container>
       <Input
         placeholder="분실물, 판매글 등을 검색해보세요"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === 'Enter' && search()}
       />
-      <SearchButton src={loupe} />
+      <SearchButton
+        src={loupe}
+        onClick={search}
+      />
     </Container>
   );
 };
