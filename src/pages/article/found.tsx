@@ -104,7 +104,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => {
     article ? (
       <Container>
         <HeaderContainer>
-          <UserImage />
+          <UserImage image={article.user.profileimage} />
           <div>
             <HeaderTitle>
               {article.title}
