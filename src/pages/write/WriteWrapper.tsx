@@ -48,7 +48,8 @@ const Title = styled.div`
 `;
 
 const Content = styled(Box)`
-  margin-top: 16px;
+  margin: 16px 0;
+  flex: 1;
 `;
 
 const ContentArrow = styled.div`
