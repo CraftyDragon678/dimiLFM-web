@@ -25,6 +25,7 @@ module.exports = {
       'error',
       'always',
       {
+        js: 'never',
         ts: 'never',
         tsx: 'never',
       },
@@ -44,7 +45,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.js', '.ts', '.tsx'],
         paths: ['.'],
       },
     },
