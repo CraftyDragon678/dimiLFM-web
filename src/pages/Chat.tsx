@@ -102,7 +102,7 @@ const MyChat = styled(Chat)`
   align-self: flex-end;
   background-color: ${variables.logoColor};
   color: white;
-  border-radius: 20px 0 0 20px;
+  border-radius: 20px 4px 4px 20px;
 
   border-top-right-radius: ${({ firstOfGroup }) => firstOfGroup && '20px'};
   border-bottom-right-radius: ${({ lastOfGroup }) => lastOfGroup && '20px'};
@@ -110,10 +110,9 @@ const MyChat = styled(Chat)`
 
 const OtherChat = styled(Chat)`
   align-self: flex-start;
-  padding: 10px 15px;
   margin-bottom: 2px;
   background-color: ${variables.lightGray};
-  border-radius: 0 20px 20px 0;
+  border-radius: 4px 20px 20px 4px;
 
   border-top-left-radius: ${({ firstOfGroup }) => firstOfGroup && '20px'};
   border-bottom-left-radius: ${({ lastOfGroup }) => lastOfGroup && '20px'};
