@@ -39,6 +39,7 @@ const SearchButton = styled.img`
   height: 32px;
   width: 32px;
   margin-left: -48px;
+  cursor: pointer;
 `;
 
 export default () => {
