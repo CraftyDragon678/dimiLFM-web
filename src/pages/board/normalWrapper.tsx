@@ -107,6 +107,19 @@ const TagButtonWrapper = styled.div`
   row-gap: 10px;
 `;
 
+interface Article {
+  _id: string;
+  title: string;
+  image: string;
+  user: {
+    serial?: number;
+    name: string;
+    type: UserType;
+  };
+  done: boolean;
+  extra: string;
+}
+
 interface Option {
   option: {
     done: boolean;
@@ -119,19 +132,7 @@ interface Option {
   location: string[];
 }
 
-interface Article {
-  _id: string;
-  title: string;
-  image: string;
-  user: {
-    serial?: number;
-    name: string;
-    type: UserType;
-  };
-  done: boolean;
-}
-
-export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
+export default ({ type, tags }: { type: 'found' | 'lost' | 'market', tags: Tag[] }) => {
   const [modalIndex, setModalIndex] = useState(-1);
   const [option, setOption] = useState<Option>({
     option: {
@@ -140,7 +141,7 @@ export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
       old: false,
       my: false,
     },
-    tags: [...normalTags],
+    tags,
     dates: [new Date(2020, 0, 1), new Date()],
     location: [],
   });
@@ -213,10 +214,12 @@ export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
           value={tempOption.dates}
           onChange={(data) => setTempOption({ ...tempOption, dates: data as Date[] })}
         />,
-        <Map
-          selected={tempOption.location}
-          onClick={(data) => setTempOption({ ...tempOption, location: data })}
-        />,
+        ...(type !== 'market' ? [
+          <Map
+            selected={tempOption.location}
+            onClick={(data) => setTempOption({ ...tempOption, location: data })}
+          />,
+        ] : []),
       ].map((e, idx) => (
         <Modal key={idx.toString()} show={idx === modalIndex}>
           <Inner>
@@ -246,7 +249,7 @@ export default ({ type }: { type: 'found' | 'lost' | 'market' }) => {
         </Modal>
       ))}
       <Buttons>
-        {['옵션', '날짜', '장소'].map((e, idx) => (
+        {['옵션', '날짜', ...type !== 'market' ? ['장소'] : []].map((e, idx) => (
           <OptionButton key={e} onClick={() => setModalIndex(idx)}>{e}</OptionButton>
         ))}
       </Buttons>
