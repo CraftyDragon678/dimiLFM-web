@@ -10,6 +10,9 @@ import api from 'src/api';
 import history from 'src/router/history';
 import { Tag, TagTuple } from 'src/data/tags';
 import Writeup from './Writeup';
+import { SubTitle } from 'src/components/Text';
+import { TitleInput } from 'src/components/Input';
+import { Viewer } from '@toast-ui/react-editor';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -149,7 +152,14 @@ const WriteWrapper = <
           />
         </ContentArrow>
         <ContentWrapper>
-          {stage <= stageKeys.length ? _stages[stage] : <Final data={data} /> }
+          {stage <= stageKeys.length ? _stages[stage] : (
+            <>
+              <Final data={data} />
+              <SubTitle>작성글 미리보기</SubTitle>
+              <TitleInput defaultValue={`${data.writeup.title} - ${data.writeup.tag}`} disabled />
+              <Viewer initialValue={data.writeup.content} />
+            </>
+          )}
         </ContentWrapper>
       </Content>
     </Wrapper>
