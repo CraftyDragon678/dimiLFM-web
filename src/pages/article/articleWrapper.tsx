@@ -32,6 +32,7 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
   background-color: ${variables.purple};
   display: flex;
+  justify-content: flex-end;
   color: white;
   padding: 30px 40px;
 
@@ -69,6 +70,8 @@ const HeaderDoneIndicator = styled.div`
   font-size: 24px;
   display: grid;
   place-items: center;
+  position: absolute;
+  transform: translateY(-10px);
 `;
 
 const BodyContainer = styled.div`
