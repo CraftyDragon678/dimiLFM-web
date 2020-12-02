@@ -130,7 +130,9 @@ interface ChatData {
 
 type Action = { type: 'ADD_MINE', messageType: string, message: string }
   | { type: 'ADD_OTHER', messageType: string, message: string, date: Date }
-  | { type: 'CLEAR' };
+  | { type: 'CLEAR' }
+  | { type: 'SET', data: ChatData[] }
+  | { type: 'ADD', data: ChatData[] };
 
 interface ChatRoom {
   user: User;
@@ -159,6 +161,13 @@ export default () => {
         }].sort((a, b) => a.sendAt.getTime() - b.sendAt.getTime());
       case 'CLEAR':
         return [];
+      case 'SET':
+        return action.data;
+      case 'ADD':
+        return [
+          ...state,
+          ...action.data,
+        ].sort((a, b) => a.sendAt.getTime() - b.sendAt.getTime());
       default:
         return state;
     }
@@ -184,7 +193,22 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    dispatchMessages({ type: 'CLEAR' });
+    let canceled = false;
+    (async () => {
+      dispatchMessages({ type: 'CLEAR' });
+      const { status, data } = await api.get(`/chat/fetch?id=${channel}`);
+      if (!canceled && status === 200) {
+        dispatchMessages({
+          type: 'SET',
+          data: data.messages.map((e: ChatData) => ({
+            ...e, sendAt: new Date(e.sendAt),
+          })),
+        });
+      }
+    })();
+    return () => {
+      canceled = false;
+    };
   }, [channel]);
 
   useEffect(() => {
