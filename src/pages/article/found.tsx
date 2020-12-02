@@ -90,14 +90,19 @@ const BodySendImage = styled.img`
 export default ({ match }: RouteComponentProps<{id: string}>) => {
   const [article, setArticle] = useState<FoundData>();
   useEffect(() => {
+    let canceled = false;
     (async () => {
       const { status, data } = await api.get(`/board/found/${match.params.id}`);
       if (status !== 200) return;
-      setArticle(data);
+
+      if (!canceled) {
+        setArticle(data);
+      }
     })();
 
     return () => {
       setArticle(undefined);
+      canceled = true;
     };
   }, [match]);
 
