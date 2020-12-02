@@ -7,6 +7,7 @@ const Grid = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
   column-gap: 10px;
   row-gap: 20px;
   place-items: center;
