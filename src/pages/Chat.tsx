@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, {
+  useCallback,
   useEffect, useReducer, useRef, useState,
 } from 'react';
 import api from 'src/api';
@@ -164,13 +165,6 @@ export default () => {
   const channel = history.location.pathname.split('/')[2];
 
   useEffect(() => {
-    socket.on('message', receiveMessage);
-    return () => {
-      socket.off('message', receiveMessage);
-    };
-  }, []);
-
-  useEffect(() => {
     let canceled = false;
     (async () => {
       const { status, data } = await api.get('/chat/list');
@@ -195,9 +189,16 @@ export default () => {
     }
   }, [messages]);
 
-  const receiveMessage = (msg: {
+  const receiveMessage = useCallback((msg: {
     channel: string, type: string, message: string, date: string, mine?: boolean,
   }) => {
+    setList((prev) => [
+      {
+        ...prev.find((e) => e._id === msg.channel)!,
+        lastMessage: msg.message,
+      },
+      ...prev.filter((e) => e._id !== msg.channel),
+    ]);
     if (msg.channel !== channel) return;
     dispatchMessages({
       type: msg.mine ? 'ADD_MINE' : 'ADD_OTHER',
@@ -205,18 +206,33 @@ export default () => {
       message: msg.message,
       date: new Date(msg.date),
     });
-  };
+  }, [channel]);
+
+  useEffect(() => {
+    socket.on('message', receiveMessage);
+    return () => {
+      socket.off('message', receiveMessage);
+    };
+  }, [receiveMessage]);
 
   const sendMessage = () => {
-    if (message.trim()) {
+    const trimed = message.trim();
+    if (trimed) {
+      setList((prev) => [
+        {
+          ...prev.find((e) => e._id === channel)!,
+          lastMessage: trimed,
+        },
+        ...prev.filter((e) => e._id !== channel),
+      ]);
       dispatchMessages({
         type: 'ADD_MINE',
         messageType: 'text',
-        message: message.trim(),
+        message: trimed,
       });
       socket.emit('send', {
         type: 'text',
-        message: message.trim(),
+        message: trimed,
         channel,
       });
       setMessage('');
