@@ -59,6 +59,38 @@ const MessageContainer = styled.div`
   border: 2px solid ${variables.purple};
 `;
 
+const MessageHeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const MessageHeaderTitle = styled.div`
+  height: 60px;
+  background-color: ${variables.purple};
+`;
+
+const MessageHeaderRef = styled.div`
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+  height: 150px;
+`;
+
+const MessageHeaderRefImage = styled.img`
+  height: 128px;
+  width: 128px;
+  border-radius: 16px;
+`;
+
+const MessageHeaderRefTitle = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const MessageHeaderRefContent = styled.div`
+  font-size: 18px;
+`;
+
 const InputContainer = styled.div`
   background-color: ${variables.lightGray};
   display: flex;
@@ -138,6 +170,20 @@ interface ChatRoom {
   title: string;
 }
 
+interface Ref {
+  _id: string;
+  title: string;
+  board: string;
+  image?: string;
+  content: string;
+  foundLocation?: string;
+  wantLocation?: string;
+  radioIndex?: number;
+  afterPrice?: number;
+  from?: Date;
+  to?: Date;
+}
+
 export default () => {
   const [message, setMessage] = useState('');
   const [messages, dispatchMessages] = useReducer((state: ChatData[], action: Action) => {
@@ -172,6 +218,7 @@ export default () => {
   const messageContainerEl = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<ChatRoom[]>([]);
   const channel = history.location.pathname.split('/')[2];
+  const [ref, setRef] = useState<Ref>();
 
   useEffect(() => {
     let canceled = false;
@@ -201,6 +248,7 @@ export default () => {
             ...e, sendAt: new Date(e.sendAt),
           })),
         });
+        setRef(data.ref);
       }
     })();
     return () => {
@@ -287,6 +335,20 @@ export default () => {
         ))}
       </ListContainer>
       <MessageContainer>
+        {ref && (
+          <MessageHeaderContainer>
+            <MessageHeaderTitle>
+              {ref.title}
+            </MessageHeaderTitle>
+            <MessageHeaderRef>
+              {ref.image && <MessageHeaderRefImage src={ref.image} />}
+              <div>
+                <MessageHeaderRefTitle>{ref.title}</MessageHeaderRefTitle>
+                <MessageHeaderRefContent>{ref.content}</MessageHeaderRefContent>
+              </div>
+            </MessageHeaderRef>
+          </MessageHeaderContainer>
+        )}
         <Messages ref={messageContainerEl}>
           {messages.map((e, idx) => (
             <React.Fragment key={idx.toString()}>
