@@ -25,6 +25,13 @@ const buttonStyle = css`
   color: white;
 `;
 
+export const TextButton = styled.button<IButton>`
+  ${buttonStyle}
+
+  background-color: transparent;
+  color: ${variables.logoColor};
+`;
+
 export default styled.button<IButton>`
   ${buttonStyle}
 
