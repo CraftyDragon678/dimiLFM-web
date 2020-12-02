@@ -119,7 +119,7 @@ export default ({
 
   const makeDone = async () => {
     if (article && article.mine) {
-      const { status, data } = await api.put(`/board/found/${id}/done`);
+      const { status, data } = await api.put(`/board/${board}/${id}/done`);
       if (status !== 200) return;
       setArticle({
         ...article,
