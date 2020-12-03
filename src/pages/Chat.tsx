@@ -144,6 +144,10 @@ const Chat = styled.div<{firstOfGroup?: boolean, lastOfGroup?: boolean}>`
   margin-bottom: 2px;
   max-width: 80%;
   line-break: anywhere;
+
+  > img {
+    max-width: 100%;
+  }
 `;
 
 const MyChat = styled(Chat)`
@@ -316,7 +320,7 @@ export default () => {
     setList((prev) => [
       {
         ...prev.find((e) => e._id === msg.channel)!,
-        lastMessage: msg.message,
+        lastMessage: msg.type === 'text' ? msg.message : '(파일)',
       },
       ...prev.filter((e) => e._id !== msg.channel),
     ]);
@@ -335,6 +339,25 @@ export default () => {
       socket.off('message', receiveMessage);
     };
   }, [receiveMessage]);
+
+  const uploadImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+    input.addEventListener('change', (ev) => {
+      if (input.files) {
+        const formData = new FormData();
+        formData.append('image', input.files[0]);
+        formData.append('id', channel);
+        api.post('/chat/upload', formData, {
+          headers: {
+            'content-type': 'multipart/form-data',
+          },
+        });
+      }
+    });
+  };
 
   const sendMessage = () => {
     if (message) {
@@ -419,14 +442,18 @@ export default () => {
                   firstOfGroup={messages[idx - 1] ? !messages[idx - 1].mine : true}
                   lastOfGroup={messages[idx + 1] ? !messages[idx + 1].mine : true}
                 >
-                  {e.message}
+                  {e.type === 'text' ? e.message : (
+                    <img alt="img" src={e.message} />
+                  )}
                 </MyChat>
               ) : (
                 <OtherChat
                   firstOfGroup={messages[idx - 1] ? messages[idx - 1].mine : true}
                   lastOfGroup={messages[idx + 1] ? messages[idx + 1].mine : true}
                 >
-                  {e.message}
+                  {e.type === 'text' ? e.message : (
+                    <img alt="img" src={e.message} />
+                  )}
                 </OtherChat>
               )}
             </React.Fragment>
@@ -450,7 +477,7 @@ export default () => {
           />
         </InputContainer>
         <AdditionalContainer show={open}>
-          <AdditionalItem>
+          <AdditionalItem onClick={uploadImage}>
             <AdditionalItemImage />
             파일
           </AdditionalItem>
