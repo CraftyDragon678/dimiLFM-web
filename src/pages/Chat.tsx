@@ -85,7 +85,8 @@ const MessageHeaderRef = styled.div`
   padding: 0 40px;
   height: 150px;
   border: 2px solid ${variables.purple};
-  line-breaK: anywhere;
+  line-break: anywhere;
+  cursor: pointer;
 `;
 
 const MessageHeaderRefImage = styled.img`
@@ -352,7 +353,9 @@ export default () => {
                 <span>{`(${list.find((v) => v._id === channel)?.user.name})`}</span>
               </span>
             </MessageHeaderTitle>
-            <MessageHeaderRef>
+            <MessageHeaderRef
+              onClick={() => history.push(`/board/${ref.board}/${ref._id}`)}
+            >
               {ref.image && <MessageHeaderRefImage src={ref.image} />}
               <div>
                 <MessageHeaderRefTitle>{ref.title}</MessageHeaderRefTitle>
