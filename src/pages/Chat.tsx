@@ -11,6 +11,7 @@ import socket from 'src/socket';
 import variables from 'src/styles/variables';
 import { User } from 'src/types/user';
 import { getUserDisplayText } from 'src/utils/user';
+import sendSvg from '../assets/images/send.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -121,11 +122,12 @@ const Input = styled.input`
 `;
 
 const SendButton = styled.button`
-  background-color: ${variables.logoColor};
   border: none;
   margin-left: 10px;
   width: 80px;
   border-radius: 100px;
+  background: center / 50% no-repeat url(${sendSvg});
+  background-color: ${variables.logoColor};
 `;
 
 const Messages = styled.div`
