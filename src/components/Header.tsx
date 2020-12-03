@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import variables from '../styles/variables';
 import SearchBox from './SearchBox';
 import logo from '../assets/logo.svg';
+import Profile from './Profile';
 
 const Header = styled.div`
   height: 100px;
@@ -28,5 +29,6 @@ export default () => (
   <Header>
     <Link to="/"><Logo src={logo} /></Link>
     <SearchBox />
+    <Profile />
   </Header>
 );
