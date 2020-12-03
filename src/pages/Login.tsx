@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import history from 'src/router/history';
 import api from '../api';
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -52,7 +52,15 @@ export default () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [wrong, setWrong] = useState(false);
-  const history = useHistory();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await api.get('/auth/me');
+      if (status === 200) {
+        history.push('/');
+      }
+    })();
+  }, []);
 
   const login = async () => {
     setWrong(false);
