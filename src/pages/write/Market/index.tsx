@@ -1,7 +1,5 @@
 import React from 'react';
-import { Viewer } from '@toast-ui/react-editor';
 import { Description, SubTitle } from 'src/components/Text';
-import { TitleInput } from 'src/components/Input';
 import { marketTags } from 'src/data/tags';
 import First, { FirstProps } from './First';
 import WriteWrapper from '../WriteWrapper';
