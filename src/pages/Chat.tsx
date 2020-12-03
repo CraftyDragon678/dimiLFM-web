@@ -236,6 +236,7 @@ export default () => {
   const channel = history.location.pathname.split('/')[2];
   const [ref, setRef] = useState<Ref>();
   const firstUpdate = useRef(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let canceled = false;
@@ -311,26 +312,30 @@ export default () => {
   }, [receiveMessage]);
 
   const sendMessage = () => {
-    const trimed = message.trim();
-    if (trimed) {
-      setList((prev) => [
-        {
-          ...prev.find((e) => e._id === channel)!,
-          lastMessage: trimed,
-        },
-        ...prev.filter((e) => e._id !== channel),
-      ]);
-      dispatchMessages({
-        type: 'ADD_MINE',
-        messageType: 'text',
-        message: trimed,
-      });
-      socket.emit('send', {
-        type: 'text',
-        message: trimed,
-        channel,
-      });
-      setMessage('');
+    if (message) {
+      const trimed = message.trim();
+      if (trimed) {
+        setList((prev) => [
+          {
+            ...prev.find((e) => e._id === channel)!,
+            lastMessage: trimed,
+          },
+          ...prev.filter((e) => e._id !== channel),
+        ]);
+        dispatchMessages({
+          type: 'ADD_MINE',
+          messageType: 'text',
+          message: trimed,
+        });
+        socket.emit('send', {
+          type: 'text',
+          message: trimed,
+          channel,
+        });
+        setMessage('');
+      }
+    } else if (ref) {
+      setOpen(!open);
     }
   };
 
@@ -405,12 +410,17 @@ export default () => {
         <InputContainer>
           <Input
             placeholder="메시지를 입력하세요..."
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+            onKeyDown={(e) => e.key === 'Enter' && channel && sendMessage()}
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={(e) => {
+              if (ref) {
+                setMessage(e.target.value);
+                setOpen(false);
+              }
+            }}
           />
           <SendButton
-            onClick={sendMessage}
+            onClick={() => channel && sendMessage()}
             empty={!message}
           />
         </InputContainer>
