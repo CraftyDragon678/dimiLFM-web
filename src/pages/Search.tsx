@@ -61,6 +61,10 @@ const ItemDescription = styled.div`
   line-break: anywhere;
 `;
 
+const Highlight = styled.span`
+  color: ${variables.purple};
+`;
+
 interface Article {
   board: Board;
   _id: string;
@@ -87,12 +91,33 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
   const [list, setList] = useState<Article[]>([]);
 
   useEffect(() => {
+    let canceled = false;
     (async () => {
       const { status, data } = await api.get(`/board/search?query=${query}`);
-      if (status !== 200) return;
+      if (status !== 200 || canceled) return;
       setList(data);
     })();
+    return () => {
+      canceled = true;
+      setList([]);
+    };
   }, [query]);
+
+  const H: React.FC<{arr: string[]}> = ({ arr }) => (
+    <>
+      {arr.reduce((prev, curr, idx) => (
+        <>
+          {idx === 0 ? curr : (
+            <>
+              {prev}
+              <Highlight>{query}</Highlight>
+              {curr}
+            </>
+          )}
+        </>
+      ), <></>)}
+    </>
+  );
 
   const Item: React.FC<ItemProps> = ({
     image, title, subtitle, description, board, id, done,
@@ -104,9 +129,9 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
         <ItemImage src={image} done={done} />
       </ItemImageWrapper>
       <div>
-        <ItemTitle>{title}</ItemTitle>
-        <ItemSubTitle>{subtitle}</ItemSubTitle>
-        <ItemDescription>{description}</ItemDescription>
+        <ItemTitle><H arr={title.split(query)} /></ItemTitle>
+        <ItemSubTitle><H arr={subtitle.split(query)} /></ItemSubTitle>
+        <ItemDescription><H arr={description.split(query)} /></ItemDescription>
       </div>
     </ItemWrapper>
   );
