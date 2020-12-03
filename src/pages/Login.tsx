@@ -57,7 +57,7 @@ export default () => {
     (async () => {
       const { status } = await api.get('/auth/me');
       if (status === 200) {
-        history.push('/');
+        history.replace('/');
       }
     })();
   }, []);
@@ -70,7 +70,7 @@ export default () => {
       setWrong(true);
       return;
     }
-    history.push('/');
+    history.replace('/');
   };
 
   return (
