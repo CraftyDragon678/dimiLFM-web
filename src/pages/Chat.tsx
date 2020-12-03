@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, {
   useCallback,
-  useEffect, useReducer, useRef, useState,
+  useEffect, useLayoutEffect, useReducer, useRef, useState,
 } from 'react';
 import api from 'src/api';
 import { SubTitle } from 'src/components/Text';
@@ -234,6 +234,7 @@ export default () => {
   const [list, setList] = useState<ChatRoom[]>([]);
   const channel = history.location.pathname.split('/')[2];
   const [ref, setRef] = useState<Ref>();
+  const firstUpdate = useRef(true);
 
   useEffect(() => {
     let canceled = false;
@@ -253,6 +254,7 @@ export default () => {
     (async () => {
       dispatchMessages({ type: 'CLEAR' });
       const { status, data } = await api.get(`/chat/fetch?id=${channel}`);
+      firstUpdate.current = true;
       if (status !== 200 || canceled) return;
       dispatchMessages({
         type: 'SET',
@@ -267,11 +269,15 @@ export default () => {
     };
   }, [channel]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (messageContainerEl.current) {
       const el = messageContainerEl.current;
       if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
         el.scrollTop = el.scrollHeight;
+      }
+      if (firstUpdate.current) {
+        el.scrollTop = el.scrollHeight;
+        firstUpdate.current = false;
       }
     }
   }, [messages]);
