@@ -18,11 +18,23 @@ const Header = styled.div`
   top: 0;
 
   z-index: 10;
+
+  ${variables.mq[0]} {
+    position: static;
+    height: 150px;
+    padding-top: 20px;
+    align-items: flex-start;
+  }
 `;
 
 const Logo = styled.img`
   margin-right: 20px;
   width: 150px;
+
+  ${variables.mq[0]} {
+    position: absolute;
+    left: 20px;
+  }
 `;
 
 export default () => (

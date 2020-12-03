@@ -13,7 +13,7 @@ const BodyContainer = styled.div`
   display: flex;
 
   ${variables.mq[0]} {
-    margin: 0 10px;
+    margin: 0;
   }
 `;
 

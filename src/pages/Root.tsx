@@ -53,6 +53,10 @@ const PageButtonWrapper = styled.div`
   grid-template-columns: repeat(4, 135px);
   place-content: center;
   margin-top: -40px;
+
+  ${variables.mq[0]} {
+    grid-template-columns: repeat(4, 95px);
+  }
 `;
 
 const PageButton = styled(Button)<{enable: boolean}>`
@@ -62,6 +66,11 @@ const PageButton = styled(Button)<{enable: boolean}>`
   z-index: ${({ enable }) => enable && 1};
   border-radius: 10px 10px 0 0;
   color: ${variables.logoColor};
+
+  ${variables.mq[0]} {
+    font-size: 10px;
+    width: 100px;
+  }
 `;
 
 const WriteBoardLink = styled(Link)`

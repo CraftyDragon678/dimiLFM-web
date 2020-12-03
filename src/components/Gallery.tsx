@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import history from 'src/router/history';
+import variables from 'src/styles/variables';
 import GalleryItem from './GalleryItem';
 
 const Grid = styled.div`
@@ -12,6 +13,10 @@ const Grid = styled.div`
   row-gap: 20px;
   place-items: center;
   padding: 16px 0;
+
+  ${variables.mq[0]} {
+    grid-template-columns: repeat(auto-fill, 150px);
+  }
 `;
 
 interface GalleryProps {

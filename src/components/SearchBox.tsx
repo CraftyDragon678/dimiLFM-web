@@ -8,6 +8,12 @@ const Container = styled.div`
   width: 560px;
   display: flex;
   align-items: center;
+
+  ${variables.mq[0]} {
+    width: 400px;
+    margin-top: 70px;
+    position: absolute;
+  }
 `;
 
 const Input = styled.input`
@@ -33,6 +39,10 @@ const Input = styled.input`
   ::placeholder {
     text-align: center;
     color: ${variables.gray};
+  }
+
+  ${variables.mq[0]} {
+    width: 400px;
   }
 `;
 

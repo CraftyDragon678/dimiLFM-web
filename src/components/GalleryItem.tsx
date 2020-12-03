@@ -21,6 +21,10 @@ const Container = styled.div`
     box-shadow: 0 0 6px rgba(0, 0, 0, .3);
     transform: translateY(-5px);
   }
+
+  ${variables.mq[0]} {
+    height: 150px;
+  }
 `;
 
 const ImageWrapper = styled.div<{done: boolean}>`
@@ -43,6 +47,11 @@ const Image = styled.img<{done: boolean}>`
   border-radius: 16px;
   background-color: ${variables.gray};
   filter: ${({ done }) => done && 'brightness(50%)'};
+
+  ${variables.mq[0]} {
+    height: 100px;
+    width: 100px;
+  }
 `;
 
 const Title = styled.div`
