@@ -353,7 +353,7 @@ export default () => {
         ))}
       </ListContainer>
       <MessageContainer>
-        {ref && (
+        {ref ? (
           <MessageHeaderContainer>
             <MessageHeaderTitle>
               <UserImage image={list.find((v) => v._id === channel)?.user.profileimage} />
@@ -371,6 +371,13 @@ export default () => {
                 <MessageHeaderRefContent>{ref.content}</MessageHeaderRefContent>
               </div>
             </MessageHeaderRef>
+          </MessageHeaderContainer>
+        ) : (
+          <MessageHeaderContainer>
+            <MessageHeaderTitle>
+              대화를 나눌 상대를 선택해주세요
+            </MessageHeaderTitle>
+            <MessageHeaderRef />
           </MessageHeaderContainer>
         )}
         <Messages ref={messageContainerEl}>
