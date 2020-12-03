@@ -4,6 +4,7 @@ import { Link, Route, useLocation } from 'react-router-dom';
 import Notice from 'src/components/Notice';
 import history from 'src/router/history';
 import Button from 'src/components/Button';
+import { boardKeys, boardTexts, boardShortTexts } from 'src/types/board';
 import Board from '../router/board';
 import variables from '../styles/variables';
 import Fab from '../components/Fab';
@@ -78,9 +79,11 @@ export default () => {
 
   const WriteBoard = () => (
     <WriteBoardWrapper>
-      <WriteBoardLink to="/write/found">분실물 찾아가세요</WriteBoardLink>
-      <WriteBoardLink to="/write/lost">분실물 찾아주세요</WriteBoardLink>
-      <WriteBoardLink to="/write/market">판매합니다</WriteBoardLink>
+      {boardKeys.map((e) => (
+        <WriteBoardLink to={`/write/${e}`} key={e}>
+          {boardTexts[e]}
+        </WriteBoardLink>
+      ))}
     </WriteBoardWrapper>
   );
 
@@ -110,10 +113,11 @@ export default () => {
         <>
           <Notice title="공지사항" description="서버 점검이 있을 예정입니다" />
           <PageButtonWrapper>
-            <BoardPageButton href="found">찾아가세요</BoardPageButton>
-            <BoardPageButton href="lost">찾아주세요</BoardPageButton>
-            <BoardPageButton href="market">판매합니다</BoardPageButton>
-            <BoardPageButton href="book">디미 서점</BoardPageButton>
+            {boardKeys.map((e) => (
+              <BoardPageButton href={e} key={e}>
+                {boardShortTexts[e]}
+              </BoardPageButton>
+            ))}
           </PageButtonWrapper>
         </>
       )}

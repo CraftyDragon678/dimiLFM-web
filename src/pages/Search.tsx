@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import api from 'src/api';
 import history from 'src/router/history';
 import variables from 'src/styles/variables';
-import { board, Board } from 'src/types/board';
+import { Board, boardShortTexts } from 'src/types/board';
 import { User } from 'src/types/user';
 import { getUserDisplayText } from 'src/utils/user';
 
@@ -118,7 +118,7 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
           done={e.done}
           title={e.title}
           image={e.image}
-          subtitle={`[${board[e.board]}] ${getUserDisplayText(e.user)}`}
+          subtitle={`[${boardShortTexts[e.board]}] ${getUserDisplayText(e.user)}`}
           description={e.content}
           board={e.board}
           id={e._id}
