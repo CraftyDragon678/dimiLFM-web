@@ -253,6 +253,7 @@ export default () => {
     let canceled = false;
     (async () => {
       dispatchMessages({ type: 'CLEAR' });
+      if (!channel) return;
       const { status, data } = await api.get(`/chat/fetch?id=${channel}`);
       firstUpdate.current = true;
       if (status !== 200 || canceled) return;
