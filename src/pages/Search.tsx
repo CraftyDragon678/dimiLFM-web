@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router';
+import api from 'src/api';
 import history from 'src/router/history';
 import variables from 'src/styles/variables';
-import { Board } from 'src/types/board';
+import { board, Board } from 'src/types/board';
+import { User } from 'src/types/user';
+import { getUserDisplayText } from 'src/utils/user';
 
 const Container = styled.div`
   background-color: white;
@@ -11,6 +14,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 80px;
+  row-gap: 80px;
 `;
 
 const ItemWrapper = styled.div`
@@ -20,6 +24,9 @@ const ItemWrapper = styled.div`
 `;
 
 const ItemImageWrapper = styled.div<{done: boolean}>`
+  position: relative;
+  display: grid;
+  place-items: center;
   margin-right: 10px;
   ::after {
     content: ${({ done }) => done && '"완료"'};
@@ -54,8 +61,20 @@ const ItemDescription = styled.div`
   line-break: anywhere;
 `;
 
+interface Article {
+  board: Board;
+  _id: string;
+  tag: string;
+  done: boolean;
+  title: string;
+  content: string;
+  image?: string;
+  user: User;
+}
+
 interface ItemProps {
   image?: string;
+  done: boolean;
   title: string;
   subtitle: string;
   description: string;
@@ -65,15 +84,24 @@ interface ItemProps {
 
 export default ({ match }: RouteComponentProps<{query: string}>) => {
   const { query } = match.params;
+  const [list, setList] = useState<Article[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { status, data } = await api.get(`/board/search?query=${query}`);
+      if (status !== 200) return;
+      setList(data);
+    })();
+  }, [query]);
 
   const Item: React.FC<ItemProps> = ({
-    image, title, subtitle, description, board, id,
+    image, title, subtitle, description, board, id, done,
   }) => (
     <ItemWrapper
       onClick={() => history.push(`/board/${board}/${id}`)}
     >
-      <ItemImageWrapper done={false}>
-        <ItemImage src={image} done={false} />
+      <ItemImageWrapper done={done}>
+        <ItemImage src={image} done={done} />
       </ItemImageWrapper>
       <div>
         <ItemTitle>{title}</ItemTitle>
@@ -85,20 +113,18 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
 
   return (
     <Container>
-      <Item
-        title="파세코 캠핑난로"
-        subtitle="[찾아주세요] 1628 리보솜"
-        description="tteststestetstetetsetteststestetstetetsetteststestetstetetsetteststestetstetetseteststestetstetetset"
-        board="lost"
-        id="1243"
-      />
-      <Item
-        title="파세코 캠핑난로"
-        subtitle="[찾아주세요] 1628 리보솜"
-        description="tteststestetstetetsetteststestetstetetsetteststestetstetetsetteststestetstetetseteststestetstetetset"
-        board="lost"
-        id="1243"
-      />
+      {list.map((e) => (
+        <Item
+          done={e.done}
+          title={e.title}
+          image={e.image}
+          subtitle={`[${board[e.board]}] ${getUserDisplayText(e.user)}`}
+          description={e.content}
+          board={e.board}
+          id={e._id}
+          key={e._id}
+        />
+      ))}
     </Container>
   );
 };
