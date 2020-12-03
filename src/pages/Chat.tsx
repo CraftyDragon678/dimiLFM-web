@@ -166,6 +166,31 @@ const OtherChat = styled(Chat)`
   border-bottom-left-radius: ${({ lastOfGroup }) => lastOfGroup && '20px'};
 `;
 
+const AdditionalContainer = styled.div<{show: boolean}>`
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  transition: 300ms max-height ease;
+  height: 80px;
+  max-height: ${({ show }) => (show ? '80px' : 0)};
+  background-color: ${variables.lightGray};
+  overflow: hidden;
+`;
+
+const AdditionalItemImage = styled.img`
+  width: 32px;
+  height: 32px;
+  background-color: ${variables.logoColor};
+  border-radius: 30px;
+  margin-bottom: 4px;
+`;
+
+const AdditionalItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 interface ChatData {
   type: string;
   message: string;
@@ -424,6 +449,24 @@ export default () => {
             empty={!message}
           />
         </InputContainer>
+        <AdditionalContainer show={open}>
+          <AdditionalItem>
+            <AdditionalItemImage />
+            파일
+          </AdditionalItem>
+          <AdditionalItem>
+            <AdditionalItemImage />
+            지도
+          </AdditionalItem>
+          <AdditionalItem>
+            <AdditionalItemImage />
+            날짜
+          </AdditionalItem>
+          <AdditionalItem>
+            <AdditionalItemImage />
+            신고
+          </AdditionalItem>
+        </AdditionalContainer>
       </MessageContainer>
     </Container>
   );
