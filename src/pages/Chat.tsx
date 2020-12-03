@@ -12,6 +12,7 @@ import variables from 'src/styles/variables';
 import { User } from 'src/types/user';
 import { getUserDisplayText } from 'src/utils/user';
 import sendSvg from '../assets/images/send.svg';
+import addSvg from '../assets/images/add.svg';
 
 const Container = styled.div`
   width: 100%;
@@ -121,12 +122,12 @@ const Input = styled.input`
   border-radius: 100px;
 `;
 
-const SendButton = styled.button`
+const SendButton = styled.button<{empty: boolean}>`
   border: none;
   margin-left: 10px;
   width: 80px;
   border-radius: 100px;
-  background: center / 50% no-repeat url(${sendSvg});
+  background: center / 50% no-repeat url(${({ empty }) => (empty ? addSvg : sendSvg)});
   background-color: ${variables.logoColor};
 `;
 
@@ -410,6 +411,7 @@ export default () => {
           />
           <SendButton
             onClick={sendMessage}
+            empty={!message}
           />
         </InputContainer>
       </MessageContainer>
