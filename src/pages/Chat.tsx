@@ -230,8 +230,16 @@ interface Ref {
 }
 
 export default () => {
+  const firstUpdate = useRef(true);
+  const messageContainerEl = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState('');
   const [messages, dispatchMessages] = useReducer((state: ChatData[], action: Action) => {
+    if (messageContainerEl.current) {
+      const el = messageContainerEl.current;
+      if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
+        firstUpdate.current = true;
+      }
+    }
     switch (action.type) {
       case 'ADD_MINE':
         return [...state, {
@@ -260,11 +268,9 @@ export default () => {
         return state;
     }
   }, []);
-  const messageContainerEl = useRef<HTMLDivElement>(null);
   const [list, setList] = useState<ChatRoom[]>([]);
   const channel = history.location.pathname.split('/')[2];
   const [ref, setRef] = useState<Ref>();
-  const firstUpdate = useRef(true);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -302,15 +308,9 @@ export default () => {
   }, [channel]);
 
   useLayoutEffect(() => {
-    if (messageContainerEl.current) {
-      const el = messageContainerEl.current;
-      if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
-        el.scrollTop = el.scrollHeight;
-      }
-      if (firstUpdate.current) {
-        el.scrollTop = el.scrollHeight;
-        firstUpdate.current = false;
-      }
+    if (messageContainerEl.current && firstUpdate.current) {
+      messageContainerEl.current.scrollTop = messageContainerEl.current.scrollHeight;
+      firstUpdate.current = false;
     }
   }, [messages]);
 
