@@ -20,6 +20,12 @@ const Card = styled.div`
   background-color: white;
   display: flex;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, .2);
+
+  ${variables.mq[0]} {
+    width: 100vw;
+    height: auto;
+    flex-direction: column;
+  }
 `;
 
 const LeftCard = styled.div`
@@ -31,6 +37,13 @@ const LeftCard = styled.div`
   color: white;
   font-size: 80px;
   font-style: italic;
+
+  ${variables.mq[0]} {
+    flex: 0 0 250px;
+    height: 250px;
+    border-radius: 0;
+    flex-direction: column;
+  }
 `;
 
 const RightCard = styled.div`
