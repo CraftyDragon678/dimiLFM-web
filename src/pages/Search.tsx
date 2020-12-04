@@ -138,7 +138,7 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
 
   return (
     <Container>
-      {list.map((e) => (
+      {list.length ? list.map((e) => (
         <Item
           done={e.done}
           title={e.title}
@@ -149,7 +149,9 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
           id={e._id}
           key={e._id}
         />
-      ))}
+      )): (
+        '결과가 없습니다.'
+      )}
     </Container>
   );
 };
