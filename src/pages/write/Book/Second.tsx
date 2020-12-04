@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import variables from 'src/styles/variables';
-import { SubTitle } from '../../../components/Text';
+import { Description, SubTitle } from '../../../components/Text';
 import { WriteProps } from '../../../types/write';
 
 export interface SecondProps {
   beforePrice?: number;
   afterPrice?: number;
-  stars: number;
 }
 
 const PriceWrapper = styled.div`
@@ -50,7 +49,7 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
             const n = +e.target.value.slice(1);
             if (!Number.isSafeInteger(n) || n < 0) return;
             dataHandler({ ...data, beforePrice: n });
-            verify(!!data.afterPrice && !!data.stars);
+            verify(!!data.afterPrice);
           }}
         />
         <PriceLabel>원래 가격</PriceLabel>
@@ -63,12 +62,17 @@ const Second: React.FC<WriteProps<SecondProps>> = ({ verify, data, dataHandler }
             const n = +e.target.value.slice(1);
             if (!Number.isSafeInteger(n || n < 0)) return;
             dataHandler({ ...data, afterPrice: n });
-            verify(!!data.beforePrice && !!data.stars);
+            verify(!!data.beforePrice);
           }}
         />
         <PriceLabel>판매 가격</PriceLabel>
       </PriceWrapper>
     </PriceContainer>
+    <Description>
+      무료나눔을 원하시는 경우, 판매 가격에 0원을 입력하면 됩니다
+      <br />
+      원래 가격은 문제집을 발행한 출판사 공식 홈페이지를 기준으로 입력해주시기 바랍니다
+    </Description>
   </>
 );
 

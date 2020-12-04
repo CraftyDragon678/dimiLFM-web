@@ -37,7 +37,7 @@ const Writeup: React.FC<WriteProps<WriteupProps>> = ({
           placeholder="제목"
         />
         <Select
-          index={(tags.indexOf(data.tag as any) + 1) || 0}
+          index={(tags.indexOf(data.tag as never) + 1) || 0}
           options={['태그', ...tags]}
           onChange={(index) => {
             if (index) {

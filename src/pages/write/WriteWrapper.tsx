@@ -9,10 +9,10 @@ import Arrow from 'src/components/Arrow';
 import api from 'src/api';
 import history from 'src/router/history';
 import { Tag, TagTuple } from 'src/data/tags';
-import Writeup from './Writeup';
 import { SubTitle } from 'src/components/Text';
 import { TitleInput } from 'src/components/Input';
 import { Viewer } from '@toast-ui/react-editor';
+import Writeup from './Writeup';
 
 interface WriteWrapperProps<T> {
   stages: {
@@ -23,7 +23,7 @@ interface WriteWrapperProps<T> {
   stageLabels: string[];
   title: React.ReactElement;
   boardName: string;
-  tags: TagTuple;
+  tags: ((data: T) => TagTuple) | TagTuple;
 }
 
 const Wrapper = styled.div`
@@ -100,7 +100,7 @@ const WriteWrapper = <
           verify={setIndexedValid(idx)}
           data={data[key]}
           dataHandler={updateData(key)}
-          tags={tags}
+          tags={tags instanceof Function ? tags(data) : tags}
         />
       );
     }),
@@ -111,7 +111,7 @@ const WriteWrapper = <
         setData((prev) => (
           { ...prev, writeup: newdata instanceof Function ? newdata(prev.writeup) : newdata }
         )))}
-      tags={tags}
+      tags={tags instanceof Function ? tags(data) : tags}
     />,
   ];
 

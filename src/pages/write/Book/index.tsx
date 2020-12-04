@@ -1,6 +1,6 @@
 import React from 'react';
 import { Description, SubTitle } from 'src/components/Text';
-import { marketTags } from 'src/data/tags';
+import { bookTags, bookWithSubjectTags, marketTags } from 'src/data/tags';
 import First, { FirstProps } from './First';
 import WriteWrapper from '../WriteWrapper';
 import Second, { SecondProps } from './Second';
@@ -29,9 +29,12 @@ export default () => (
       </>
     )}
     title={<>디미 서점</>}
-    initialData={{} as WriteFoundData}
+    initialData={{
+      first: {},
+      second: {},
+    } as WriteFoundData}
     stageLabels={['기본 설정', '판매 설정']}
     boardName="book"
-    tags={marketTags}
+    tags={(data) => (data.first.subject ? bookWithSubjectTags : bookTags)}
   />
 );
