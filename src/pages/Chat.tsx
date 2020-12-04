@@ -275,14 +275,18 @@ export default () => {
 
   useEffect(() => {
     let canceled = false;
-    (async () => {
+    const refresh = async () => {
       const { status, data } = await api.get('/chat/list');
       if (status !== 200 || canceled) return;
       setList(data);
-    })();
+    };
+    refresh();
+
+    socket.on('refresh', refresh);
 
     return () => {
       canceled = true;
+      socket.off('refresh', refresh);
     };
   }, []);
 
