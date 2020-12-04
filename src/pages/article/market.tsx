@@ -5,8 +5,6 @@ import Stars from 'src/components/Stars';
 import ArticleWrapper from './articleWrapper';
 
 interface MarketData {
-  from: Date;
-  to: Date;
   beforePrice: number;
   afterPrice: number;
   stars: number;
