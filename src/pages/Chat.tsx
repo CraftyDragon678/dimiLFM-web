@@ -272,6 +272,7 @@ export default () => {
   const channel = history.location.pathname.split('/')[2];
   const [ref, setRef] = useState<Ref>();
   const [open, setOpen] = useState(false);
+  const messageInputEl = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let canceled = false;
@@ -279,6 +280,10 @@ export default () => {
       const { status, data } = await api.get('/chat/list');
       if (status !== 200 || canceled) return;
       setList(data);
+
+      if (messageInputEl.current) {
+        messageInputEl.current.focus();
+      }
     };
     refresh();
 
@@ -399,7 +404,12 @@ export default () => {
           <UserWrapper
             key={e._id}
             enable={history.location.pathname.includes(e._id)}
-            onClick={() => history.push(`/chat/${e._id}`)}
+            onClick={() => {
+              history.push(`/chat/${e._id}`);
+              if (messageInputEl.current) {
+                messageInputEl.current.focus();
+              }
+            }}
           >
             <UserImage image={e.user.profileimage} />
             <UserName>
@@ -465,6 +475,7 @@ export default () => {
         </Messages>
         <InputContainer>
           <Input
+            ref={messageInputEl}
             placeholder="메시지를 입력하세요..."
             onKeyDown={(e) => e.key === 'Enter' && channel && sendMessage()}
             value={message}
