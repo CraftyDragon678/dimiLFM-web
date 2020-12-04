@@ -62,12 +62,14 @@ const HeaderDescription = styled.div`
 `;
 
 const HeaderDoneIndicator = styled.div`
-  width: 60px;
-  height: 60px;
-  background-color: #00FF33;
-  border-radius: 30px;
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  color: ${variables.purple};
+  border-radius: 35px;
   margin-left: auto;
   font-size: 24px;
+  font-weight: bold;
   display: grid;
   place-items: center;
   position: absolute;
