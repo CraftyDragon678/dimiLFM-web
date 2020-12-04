@@ -21,3 +21,4 @@ export const BoardMarket = loadable(() => import('./board/market'));
 export const ArticleFound = loadable(() => import('./article/found'));
 export const ArticleLost = loadable(() => import('./article/lost'));
 export const ArticleMarket = loadable(() => import('./article/market'));
+export const ArticleBook = loadable(() => import('./article/book'));
