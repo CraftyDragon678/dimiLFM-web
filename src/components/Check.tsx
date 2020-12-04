@@ -25,7 +25,7 @@ const Circle = styled.div<{selected: boolean}>`
     content: "";
     width: 100%;
     height: 100%;
-    background: center / 80% no-repeat url(${checkSvg});
+    background: ${({ selected }) => (selected ? `center / 80% no-repeat url(${checkSvg})` : 'none')};
     display: block;
   }
 `;
