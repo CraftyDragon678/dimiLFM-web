@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import Stars from 'src/components/Stars';
 import ArticleWrapper from './articleWrapper';
 
-interface LostData {
+interface MarketData {
   from: Date;
   to: Date;
   beforePrice: number;
@@ -38,7 +38,7 @@ export default ({ match }: RouteComponentProps<{id: string}>) => (
   <ArticleWrapper
     board="market"
     id={match.params.id}
-    describe={(data: LostData) => (
+    describe={(data: MarketData) => (
       <Container>
         <div>
           <AfterPrice>{`${data.afterPrice}원`}</AfterPrice>
