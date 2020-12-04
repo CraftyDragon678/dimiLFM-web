@@ -34,6 +34,7 @@ const Circle = styled.div<{selected: boolean}>`
 
 const Content = styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 const Radio: React.FC<RadioProps> = ({ value, names, onChange }) => {
