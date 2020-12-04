@@ -10,6 +10,7 @@ export const NotFound = loadable(() => import('./NotFound'));
 export const WriteFound = loadable(() => import('./write/Found'));
 export const WriteLost = loadable(() => import('./write/Lost'));
 export const WriteMarket = loadable(() => import('./write/Market'));
+export const WriteBook = loadable(() => import('./write/Book'));
 
 /* board */
 export const BoardFound = loadable(() => import('./board/found'));

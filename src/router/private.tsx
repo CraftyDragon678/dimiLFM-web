@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Redirect, Route, Switch } from 'react-router';
 import variables from 'src/styles/variables';
 import {
-  Root, Chat, NotFound, WriteFound, WriteLost, WriteMarket,
+  Root, Chat, NotFound, WriteFound, WriteLost, WriteMarket, WriteBook,
 } from '../pages';
 import Header from '../components/Header';
 
@@ -29,6 +29,7 @@ const Private = () => (
         <Route path="/write/found" component={WriteFound} />
         <Route path="/write/lost" component={WriteLost} />
         <Route path="/write/market" component={WriteMarket} />
+        <Route path="/write/book" component={WriteBook} />
         <Route path="*" component={NotFound} />
       </Switch>
     </BodyContainer>
