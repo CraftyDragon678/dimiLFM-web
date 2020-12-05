@@ -143,6 +143,9 @@ interface Article {
     type: UserType;
   };
   done: boolean;
+  grades: number[];
+  tag: string;
+  afterPrice: number;
   extra: string;
 }
 
@@ -310,7 +313,10 @@ export default () => {
           done: e.done,
           image: e.image,
           title: e.title,
-          subtitle: getUserDisplayText(e.user),
+          subtitle: `${e.grades[0] === 0
+            ? e.tag
+            : `${e.tag} - ${e.grades.sort((a, b) => a - b)}학년`
+          }\n${e.afterPrice}원`,
         }))}
       />
     </Container>
