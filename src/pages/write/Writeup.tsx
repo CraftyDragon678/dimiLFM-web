@@ -54,7 +54,7 @@ const Writeup: React.FC<WriteProps<WriteupProps>> = ({
         events={{
           change: () => dataHandler((prev) => {
             const content = editorEl.current?.getInstance().getHtml() || '';
-            verify(!!prev.title && !!data.tag && !!content);
+            verify(!!prev.title && !!prev.tag && !!content);
 
             return {
               ...prev,
