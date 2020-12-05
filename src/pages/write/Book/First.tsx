@@ -9,7 +9,7 @@ import variables from 'src/styles/variables';
 import addSvg from 'src/assets/images/add.svg';
 
 export interface FirstProps {
-  grade?: number[];
+  grades: number[];
   subject?: string;
 }
 
@@ -73,13 +73,13 @@ const First: React.FC<WriteProps<FirstProps>> = ({ verify, data, dataHandler }) 
         플래너 등 학년 구분이 없는 경우 구분 없음을 선택해주세요
       </Description>
       <Check
-        value={data.grade || []}
+        value={data.grades}
         names={['구분 없음', '1학년', '2학년', '3학년']}
         onChange={(indices) => {
-          if (!data.grade?.includes(0) && indices.includes(0)) {
-            dataHandler({ ...data, grade: [0] });
+          if (!data.grades.includes(0) && indices.includes(0)) {
+            dataHandler({ ...data, grades: [0] });
           } else {
-            dataHandler({ ...data, grade: indices.filter((e) => e !== 0) });
+            dataHandler({ ...data, grades: indices.filter((e) => e !== 0) });
           }
           verify(!!indices.length);
         }}

@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import Stars from 'src/components/Stars';
 import ArticleWrapper from './articleWrapper';
 
 interface BookData {
-  grade: number[];
+  grades: number[];
   subject?: string;
   beforePrice: number;
   afterPrice: number;

@@ -30,7 +30,9 @@ export default () => (
     )}
     title={<>디미 서점</>}
     initialData={{
-      first: {},
+      first: {
+        grades: [],
+      },
       second: {},
     } as WriteFoundData}
     stageLabels={['기본 설정', '판매 설정']}
