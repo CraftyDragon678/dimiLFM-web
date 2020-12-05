@@ -71,7 +71,12 @@ const GalleryItem: React.FC<IGalleryItem> = ({
       <Image src={image} done={done} />
     </ImageWrapper>
     <Title>{title}</Title>
-    <SubTitle>{subtitle}</SubTitle>
+    <SubTitle>
+      {subtitle
+        .split('\n')
+        .map<React.ReactNode>((e) => <>{e}</>)
+        .reduce((prev, curr) => [prev, <br />, curr])}
+    </SubTitle>
   </Container>
 );
 
