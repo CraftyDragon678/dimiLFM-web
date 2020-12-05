@@ -4,13 +4,14 @@ import Gallery from 'src/components/Gallery';
 import variables from 'src/styles/variables';
 import Modal from 'src/components/Modal';
 import Button from 'src/components/Button';
-import Map from 'src/components/Map';
 import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
-import { normalTags, Tag } from 'src/data/tags';
+import { bookTags, bookWithSubjectTags, Tag } from 'src/data/tags';
 import api from 'src/api';
 import { getUserDisplayText } from 'src/utils/user';
 import { UserType } from 'src/types/user';
+import { subjectsForBoard } from 'src/data/subjects';
+import Check from 'src/components/Check';
 
 const Container = styled.div`
   background-color: white;
@@ -107,6 +108,31 @@ const TagButtonWrapper = styled.div`
   row-gap: 10px;
 `;
 
+const Subjects = styled.div`
+  display: grid;
+  justify-content: center;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  font-size: 20px;
+  margin-bottom: 70px;
+`;
+
+const Subject = styled.div<{selected: boolean}>`
+  ::after {
+    content: "";
+    transition: 300ms width ease;
+    width: ${({ selected }) => (selected ? '100%' : 0)};
+    height: 5px;
+    border-bottom: 4px solid ${variables.logoColor};
+    display: block;
+  }
+`;
+
+const Grades = styled.div`
+  position: absolute;
+  transform: translateY(-120px);
+`;
+
 interface Article {
   _id: string;
   title: string;
@@ -128,6 +154,8 @@ interface Option {
     my: boolean;
   };
   tags: Tag[];
+  grades: number[];
+  subject: string;
   dates: Date[];
 }
 
@@ -140,7 +168,9 @@ export default () => {
       old: false,
       my: false,
     },
-    tags: [],
+    tags: [...bookWithSubjectTags, ...bookTags],
+    grades: [0],
+    subject: '전체',
     dates: [new Date(2020, 0, 1), new Date()],
   });
   const [tempOption, setTempOption] = useState<Option>(option);
@@ -189,7 +219,7 @@ export default () => {
           <div>
             <OptionTitle>태그</OptionTitle>
             <TagButtonWrapper>
-              {normalTags.map((e) => (
+              {[...bookWithSubjectTags, ...bookTags].map((e) => (
                 <TagButton
                   gray={!tempOption.tags.includes(e)}
                   key={e}
@@ -245,6 +275,35 @@ export default () => {
           <OptionButton key={e} onClick={() => setModalIndex(idx)}>{e}</OptionButton>
         ))}
       </Buttons>
+      <Subjects>
+        {subjectsForBoard
+          .map<React.ReactNode>((e) => (
+            <Subject
+              selected={option.subject === e}
+              onClick={() => {
+                setOption({ ...option, subject: e });
+                setTempOption({ ...option, subject: e });
+              }}
+            >
+              {e}
+            </Subject>
+          )).reduce((prev, curr) => [prev, <>|</>, curr])}
+      </Subjects>
+      <Grades>
+        <Check
+          names={['구분 없음', '1학년', '2학년', '3학년']}
+          value={option.grades}
+          onChange={(indices) => {
+            if ((indices.includes(0) && !option.grades.includes(0)) || indices.length === 0) {
+              setOption({ ...option, grades: [0] });
+              setOption({ ...option, grades: [0] });
+            } else {
+              setOption({ ...option, grades: indices.filter((e) => e !== 0) });
+              setOption({ ...option, grades: indices.filter((e) => e !== 0) });
+            }
+          }}
+        />
+      </Grades>
       <Gallery
         data={articles.map((e) => ({
           href: `/board/book/${e._id}`,
