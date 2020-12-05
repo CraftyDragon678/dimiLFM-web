@@ -8,7 +8,6 @@ import Calendar from 'react-calendar';
 import ToggleButton from 'src/components/ToggleButton';
 import { bookTags, bookWithSubjectTags, Tag } from 'src/data/tags';
 import api from 'src/api';
-import { getUserDisplayText } from 'src/utils/user';
 import { UserType } from 'src/types/user';
 import { subjectsForBoard } from 'src/data/subjects';
 import Check from 'src/components/Check';
