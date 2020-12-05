@@ -1,6 +1,6 @@
 import React from 'react';
 import { Description, SubTitle } from 'src/components/Text';
-import { bookTags, bookWithSubjectTags, marketTags } from 'src/data/tags';
+import { bookTags, bookWithSubjectTags } from 'src/data/tags';
 import First, { FirstProps } from './First';
 import WriteWrapper from '../WriteWrapper';
 import Second, { SecondProps } from './Second';
