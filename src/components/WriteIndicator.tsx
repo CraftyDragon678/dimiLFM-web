@@ -45,14 +45,10 @@ const Bar = styled.div`
 const WriteIndicator: React.FC<WriteIndicatorProps> = ({ index, stage }) => {
   return (
     <Wrapper>
-      {stage.map((e, idx) => (
+      {stage.map<React.ReactNode>((e, idx) => (
         <Circle key={e} selected={index === idx} data-tag={e}>{idx + 1}</Circle>
       )).reduce((prev, curr) => (
-        <>
-          {prev}
-          <Bar />
-          {curr}
-        </>
+        [prev, <Bar />, curr]
       ))}
       {/* <Circle selected={false}>1</Circle>
       <Bar />

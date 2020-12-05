@@ -105,17 +105,12 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
 
   const H: React.FC<{arr: string[]}> = ({ arr }) => (
     <>
-      {arr.reduce((prev, curr, idx) => (
-        <>
-          {idx === 0 ? curr : (
-            <>
-              {prev}
-              <Highlight>{query}</Highlight>
-              {curr}
-            </>
-          )}
-        </>
-      ), <></>)}
+      {arr
+        .map<React.ReactNode>((e) => (<>{e}</>))
+        .reduce((prev, curr) => (
+          [prev, <Highlight>{query}</Highlight>, curr]
+        ))
+      }
     </>
   );
 
