@@ -113,7 +113,8 @@ const Subjects = styled.div`
   grid-auto-flow: column;
   column-gap: 20px;
   font-size: 20px;
-  margin-bottom: 70px;
+  margin-top: 10px;
+  margin-bottom: 60px;
 `;
 
 const Subject = styled.div<{selected: boolean}>`
@@ -183,11 +184,7 @@ export default () => {
 
     (async () => {
       const { data, status } = await api.post('/board/book/search', option);
-      if (status !== 200) {
-        console.error(data.message);
-        return;
-      }
-      if (canceled) return;
+      if (status !== 200 || canceled) return;
       setArticles(data.data);
     })();
 
