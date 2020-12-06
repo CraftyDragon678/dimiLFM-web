@@ -152,7 +152,7 @@ export default ({ type, tags }: { type: 'found' | 'lost' | 'market', tags: Tag[]
     let canceled = false;
 
     (async () => {
-      const { data, status } = await api.post(`/board/${type}/search`, option);
+      const { data, status } = await api.post(`board/${type}/search`, option);
       if (status !== 200 || canceled) return;
       setArticles(data.data);
     })();

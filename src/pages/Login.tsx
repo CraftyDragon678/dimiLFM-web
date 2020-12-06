@@ -68,7 +68,7 @@ export default () => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await api.get('/auth/me');
+      const { status } = await api.get('auth/me');
       if (status === 200) {
         history.replace('/');
       }
@@ -77,7 +77,7 @@ export default () => {
 
   const login = async () => {
     setWrong(false);
-    const { status } = await api.post('/auth/login', { id, password: pw });
+    const { status } = await api.post('auth/login', { id, password: pw });
     setPw('');
     if (status !== 204) {
       setWrong(true);

@@ -119,7 +119,7 @@ const WriteWrapper = <
 
   const postArticle = async () => {
     setIndexedValid(stageKeys.length)(false);
-    const { data: res, status } = await api.post(`/board/${boardName}/`,
+    const { data: res, status } = await api.post(`board/${boardName}/`,
       (Object.values(data) as T[keyof T][]).reduce((prev, curr) => ({ ...prev, ...curr })));
     if (status === 200) {
       history.push(`/board/${boardName}/${res._id}`);

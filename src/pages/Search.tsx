@@ -93,7 +93,7 @@ export default ({ match }: RouteComponentProps<{query: string}>) => {
   useEffect(() => {
     let canceled = false;
     (async () => {
-      const { status, data } = await api.get(`/board/search?query=${query}`);
+      const { status, data } = await api.get(`board/search?query=${query}`);
       if (status !== 200 || canceled) return;
       setList(data);
     })();

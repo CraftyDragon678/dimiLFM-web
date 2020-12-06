@@ -10,7 +10,7 @@ socket.on('disconnect', (reason: string) => {
   if (reason === 'io server disconnect') {
     (async () => {
       if (history.location.pathname !== '/login') {
-        const { status, data } = await api.get('/auth/socket');
+        const { status, data } = await api.get('auth/socket');
 
         if (status !== 401) {
           (socket.io as any).opts.query = {

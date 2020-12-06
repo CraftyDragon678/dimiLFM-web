@@ -277,7 +277,7 @@ export default () => {
   useEffect(() => {
     let canceled = false;
     const refresh = async () => {
-      const { status, data } = await api.get('/chat/list');
+      const { status, data } = await api.get('chat/list');
       if (status !== 200 || canceled) return;
       setList(data);
 
@@ -300,7 +300,7 @@ export default () => {
     (async () => {
       dispatchMessages({ type: 'CLEAR' });
       if (!channel) return;
-      const { status, data } = await api.get(`/chat/fetch?id=${channel}`);
+      const { status, data } = await api.get(`chat/fetch?id=${channel}`);
       firstUpdate.current = true;
       if (status !== 200 || canceled) return;
       dispatchMessages({
@@ -359,7 +359,7 @@ export default () => {
         const formData = new FormData();
         formData.append('image', input.files[0]);
         formData.append('id', channel);
-        api.post('/chat/upload', formData, {
+        api.post('chat/upload', formData, {
           headers: {
             'content-type': 'multipart/form-data',
           },

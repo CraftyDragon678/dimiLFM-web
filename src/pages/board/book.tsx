@@ -183,7 +183,7 @@ export default () => {
     let canceled = false;
 
     (async () => {
-      const { data, status } = await api.post('/board/book/search', option);
+      const { data, status } = await api.post('board/book/search', option);
       if (status !== 200 || canceled) return;
       setArticles(data.data);
     })();

@@ -79,7 +79,7 @@ export default () => {
   useEffect(() => {
     let canceled = false;
     (async () => {
-      const { status, data } = await api.get('/auth/me');
+      const { status, data } = await api.get('auth/me');
       if (status !== 200 || canceled) return;
       setMe(data);
     })();
@@ -89,7 +89,7 @@ export default () => {
   }, []);
 
   const logout = async () => {
-    await api.post('/auth/revoke');
+    await api.post('auth/revoke');
     history.push('/login');
   };
 

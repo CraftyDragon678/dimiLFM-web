@@ -100,7 +100,7 @@ export default ({
   useEffect(() => {
     let canceled = false;
     (async () => {
-      const { status, data } = await api.get(`/board/${board}/${id}`);
+      const { status, data } = await api.get(`board/${board}/${id}`);
       if (status !== 200 || canceled) return;
       setArticle({ ...data, description: describe(data) });
     })();
@@ -113,7 +113,7 @@ export default ({
 
   const contact = async () => {
     if (article) {
-      const { status, data } = await api.post('/chat/open', {
+      const { status, data } = await api.post('chat/open', {
         id: article._id,
         board,
       });
@@ -124,7 +124,7 @@ export default ({
 
   const makeDone = async () => {
     if (article && article.mine) {
-      const { status, data } = await api.put(`/board/${board}/${id}/done`);
+      const { status, data } = await api.put(`board/${board}/${id}/done`);
       if (status !== 200) return;
       setArticle({
         ...article,
