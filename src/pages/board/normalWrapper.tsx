@@ -15,6 +15,7 @@ import { UserType } from 'src/types/user';
 const Container = styled.div`
   background-color: white;
   padding: 16px;
+  flex: 1;
 `;
 
 const OptionButton = styled.button`
