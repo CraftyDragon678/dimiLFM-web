@@ -3,7 +3,7 @@ import api from 'src/api';
 import history from 'src/router/history';
 
 const socket = io(
-  `wss://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`,
+  '/',
   {
     path: '/api/socket.io',
   },

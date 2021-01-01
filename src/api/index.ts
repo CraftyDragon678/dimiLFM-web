@@ -2,7 +2,7 @@ import axios from 'axios';
 import history from '../router/history';
 
 const api = axios.create({
-  baseURL: `https://${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}/api`,
+  baseURL: '/api',
   withCredentials: true,
 });
 
